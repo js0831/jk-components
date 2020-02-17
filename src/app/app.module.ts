@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { JkWaitModule } from 'projects/jk-wait/src/public-api';
 import { WaitConfig } from 'projects/jk-wait/src/lib/config/wait.config';
+import { JkAlertModule } from 'projects/jk-alert/src/public-api';
 
 const waitConfig: WaitConfig = {
   type: 'SPINNER',
@@ -18,7 +19,8 @@ const waitConfig: WaitConfig = {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    JkWaitModule.forRoot(waitConfig)
+    JkWaitModule.forRoot(waitConfig),
+    JkAlertModule
   ],
   providers: [],
   bootstrap: [AppComponent]

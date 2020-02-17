@@ -1,0 +1,115 @@
+@mixin theme($color) {
+  .alert{
+    &__title{
+      background: $color;
+      color: #fff;
+    }
+
+    &__buttons button{
+      background: lighten($color: $color, $amount: 20);
+
+      &:hover{
+        background: $color;
+      }
+    }
+  }
+}
+
+.container{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 990;
+  background: rgba(51, 51, 51, 0.85);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-family: monospace;
+}
+
+.alert{
+  width: 25em;
+  box-shadow: 0px 3px 9px -4px #000;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  overflow: hidden;
+  transform: translateY(-80px);
+
+  &--0{
+    @include theme(#427942)
+  }
+
+  &--1{
+    @include theme(#ca4242)
+  }
+
+  &--2{
+    @include theme(#3370f9)
+  }
+
+  &--3{
+    @include theme(#ce942b)
+  }
+
+  &--4{
+    @include theme(#d66a1d)
+  }
+
+  &__title{
+    width: 100%;
+    padding: 1em;
+    display: block;
+    box-sizing: border-box;
+    margin: 0;
+    font-size: 1.5em;
+  }
+
+  &__message{
+    font-size: 1.5em;
+    padding: 1em;
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.25;
+    background: #fff;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  &__buttons{
+    padding: 1em;
+    background: #fff;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+
+    button{
+      border: 0;
+      color: #fff;
+      background: #adb8ca;
+      padding: .5em;
+      border-radius: 0px;
+      min-width: 5em;
+      cursor: pointer;
+      font-size: 1.5em;
+      transition: all .25s ease-in;
+      font-family: monospace;
+
+      &:not(:last-child){
+        margin-right: .5em;
+      }
+
+      &:hover{
+        background: #828ea2;
+      }
+    }
+  }
+}

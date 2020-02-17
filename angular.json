@@ -194,6 +194,41 @@
           }
         }
       }
+    },
+    "jk-alert": {
+      "projectType": "library",
+      "root": "projects/jk-alert",
+      "sourceRoot": "projects/jk-alert/src",
+      "prefix": "ng",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/jk-alert/tsconfig.lib.json",
+            "project": "projects/jk-alert/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/jk-alert/src/test.ts",
+            "tsConfig": "projects/jk-alert/tsconfig.spec.json",
+            "karmaConfig": "projects/jk-alert/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/jk-alert/tsconfig.lib.json",
+              "projects/jk-alert/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "jk-components"
 }

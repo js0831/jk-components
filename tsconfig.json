@@ -30,6 +30,12 @@
       ],
       "jk-wait/*": [
         "dist/jk-wait/*"
+      ],
+      "jk-alert": [
+        "dist/jk-alert"
+      ],
+      "jk-alert/*": [
+        "dist/jk-alert/*"
       ]
     }
   },
