@@ -1,0 +1,24 @@
+.jk-wait{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(51, 51, 51, .8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+
+  color: #fff;
+  z-index: 990;
+
+  &__text{
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  &__spinner{
+    fill:#fff;
+  }
+}

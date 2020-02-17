@@ -124,6 +124,76 @@
           }
         }
       }
+    },
+    "jk-loading": {
+      "projectType": "library",
+      "root": "projects/jk-loading",
+      "sourceRoot": "projects/jk-loading/src",
+      "prefix": "ng",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/jk-loading/tsconfig.lib.json",
+            "project": "projects/jk-loading/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/jk-loading/src/test.ts",
+            "tsConfig": "projects/jk-loading/tsconfig.spec.json",
+            "karmaConfig": "projects/jk-loading/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/jk-loading/tsconfig.lib.json",
+              "projects/jk-loading/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "jk-wait": {
+      "projectType": "library",
+      "root": "projects/jk-wait",
+      "sourceRoot": "projects/jk-wait/src",
+      "prefix": "ng",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/jk-wait/tsconfig.lib.json",
+            "project": "projects/jk-wait/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/jk-wait/src/test.ts",
+            "tsConfig": "projects/jk-wait/tsconfig.spec.json",
+            "karmaConfig": "projects/jk-wait/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/jk-wait/tsconfig.lib.json",
+              "projects/jk-wait/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "jk-components"
 }

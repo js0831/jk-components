@@ -17,7 +17,21 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "jk-loading": [
+        "dist/jk-loading"
+      ],
+      "jk-loading/*": [
+        "dist/jk-loading/*"
+      ],
+      "jk-wait": [
+        "dist/jk-wait"
+      ],
+      "jk-wait/*": [
+        "dist/jk-wait/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
