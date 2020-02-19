@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { JkWaitModule } from 'projects/jk-wait/src/public-api';
 import { WaitConfig } from 'projects/jk-wait/src/lib/config/wait.config';
 import { JkAlertModule } from 'projects/jk-alert/src/public-api';
+import { FormlyBuilderModule } from 'projects/formly-builder/src/public-api';
 
 const waitConfig: WaitConfig = {
   type: 'SPINNER',
@@ -20,7 +21,8 @@ const waitConfig: WaitConfig = {
     BrowserModule,
     AppRoutingModule,
     JkWaitModule.forRoot(waitConfig),
-    JkAlertModule
+    JkAlertModule,
+    FormlyBuilderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -229,6 +229,41 @@
           }
         }
       }
+    },
+    "formly-builder": {
+      "projectType": "library",
+      "root": "projects/formly-builder",
+      "sourceRoot": "projects/formly-builder/src",
+      "prefix": "jk",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/formly-builder/tsconfig.lib.json",
+            "project": "projects/formly-builder/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/formly-builder/src/test.ts",
+            "tsConfig": "projects/formly-builder/tsconfig.spec.json",
+            "karmaConfig": "projects/formly-builder/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/formly-builder/tsconfig.lib.json",
+              "projects/formly-builder/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "jk-components"
 }

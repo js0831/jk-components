@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { JkWaitService } from 'projects/jk-wait/src/public-api';
 import { JkAlertService } from 'projects/jk-alert/src/public-api';
 import { AlertType } from 'projects/jk-alert/src/lib/alert.interface';
+import { FormGroup } from '@angular/forms';
+import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +13,72 @@ import { AlertType } from 'projects/jk-alert/src/lib/alert.interface';
 export class AppComponent {
   title = 'jk-components';
 
+  form = new FormGroup({});
+  model: any = {};
+  options: FormlyFormOptions = {};
+  fields: FormlyFieldConfig[] = [
+    {
+      fieldGroupClassName: 'formx__row',
+      fieldGroup: [
+        {
+            key: 'firstname',
+            type: 'input-text',
+            className: 'formx__column formx__column--w3 formx__column--horizontal',
+            templateOptions: {
+              label: 'First Name',
+              required: true
+            }
+        },
+        {
+          key: 'middlename',
+          type: 'input-text',
+          className: 'formx__column formx__column--w3',
+          templateOptions: {
+            label: 'Middle Name'
+          }
+        },
+        {
+          key: 'lastname',
+          type: 'input-text',
+          className: 'formx__column formx__column--w6',
+          templateOptions: {
+            label: 'Last Name'
+          }
+        },
+      ],
+    },
+
+    {
+      fieldGroupClassName: 'formx__row',
+      fieldGroup: [
+        {
+            key: 'address',
+            type: 'input-text',
+            className: 'formx__column formx__column--horizontal',
+            templateOptions: {
+              label: 'First Name',
+              required: true
+            }
+        },
+        {
+          key: 'province',
+          type: 'input-text',
+          className: 'formx__column ',
+          templateOptions: {
+            label: 'Middle Name'
+          }
+        },
+        {
+          key: 'city',
+          type: 'input-text',
+          className: 'formx__column ',
+          templateOptions: {
+            label: 'Last Name'
+          }
+        },
+      ],
+    },
+  ];
 
   constructor(
     private wait: JkWaitService,

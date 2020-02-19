@@ -1,0 +1,104 @@
+<div class="updator-container" *ngIf="show">
+  <div class="updator">
+    <h1 class="updator__title">Update Input</h1>
+
+    <ul class="updator__tab">
+      <li
+        [ngClass]="{'active' :  t === selectedTab}"
+        *ngFor="let t of tabs" (click)="changeTab(t)">
+        {{t}}
+      </li>
+    </ul>
+
+    <form *ngIf="form" [formGroup]="form" class="updator__form">
+
+      <!-- MAIN TAB -->
+      <ng-container *ngIf="selectedTab === 'Main'">
+        <div class="updator__form-row">
+          <div class="updator__form-column">
+            <label>Input Type:</label>
+          </div>
+          <div class="updator__form-column">
+            <select formControlName="type">
+              <option
+                [value]="op.value"
+                *ngFor="let op of inputTypeOptions">
+                {{op.label}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="updator__form-row">
+          <div class="updator__form-column">
+            <label>Label: </label>
+          </div>
+          <div class="updator__form-column">
+            <input type="text" formControlName="label">
+          </div>
+        </div>
+        <div class="updator__form-row">
+          <div class="updator__form-column">
+            <label>Key: </label>
+          </div>
+          <div class="updator__form-column">
+            <input type="text"  formControlName="key">
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- LAYOUT TAB -->
+      <ng-container *ngIf="selectedTab === 'Layout'">
+        <div class="updator__form-row">
+          <div class="updator__form-column">
+            <label>View: </label>
+          </div>
+          <div class="updator__form-column">
+            <select formControlName="view">
+              <option value="horizontal">Horizontal</option>
+              <option value="vertical">Vertical</option>
+            </select>
+          </div>
+        </div>
+        <div class="updator__form-row">
+          <div class="updator__form-column">
+            <label>Column: </label>
+          </div>
+          <div class="updator__form-column">
+            <select formControlName="column">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>
+          </div>
+        </div>
+      </ng-container>
+
+
+      <!-- VALIDATION TAB -->
+      <ng-container *ngIf="selectedTab === 'Validation'">
+        <div class="updator__form-row">
+          <div class="updator__form-column">
+            <label>Required: </label>
+          </div>
+          <div class="updator__form-column">
+            <input type="checkbox" formControlName="required">
+          </div>
+        </div>
+      </ng-container>
+    </form>
+
+    <div class="updator__buttons">
+      <button (click)="save()">Save</button>
+      <button (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

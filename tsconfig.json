@@ -36,6 +36,12 @@
       ],
       "jk-alert/*": [
         "dist/jk-alert/*"
+      ],
+      "formly-builder": [
+        "dist/formly-builder"
+      ],
+      "formly-builder/*": [
+        "dist/formly-builder/*"
       ]
     }
   },

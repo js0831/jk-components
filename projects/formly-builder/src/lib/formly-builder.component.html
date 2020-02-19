@@ -1,0 +1,10 @@
+<form class="formx" [formGroup]="form" [ngClass]="{ 'formx--editable': editable }">
+  <formly-form
+    *ngIf="show"
+    [model]="model"
+    [fields]="fields"
+    [options]="options"
+    [form]="form">
+  </formly-form>
+</form>
+<jk-updator></jk-updator>
