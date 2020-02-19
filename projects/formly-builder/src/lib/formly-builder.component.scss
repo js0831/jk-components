@@ -29,7 +29,8 @@
   &--editable{
 
     input,
-    textarea{
+    textarea,
+    select{
       pointer-events: none;
     }
 
@@ -57,7 +58,10 @@
           overflow: initial;
           box-shadow: 0 0 2px 1px #12da74;
 
-          label, input{
+          label,
+          input,
+          textarea,
+          select{
             opacity: 0.25;
           }
 

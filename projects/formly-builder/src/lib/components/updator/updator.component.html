@@ -19,7 +19,7 @@
             <label>Input Type:</label>
           </div>
           <div class="updator__form-column">
-            <select formControlName="type">
+            <select (change)="onSelectType()" formControlName="type">
               <option
                 [value]="op.value"
                 *ngFor="let op of inputTypeOptions">
@@ -28,6 +28,7 @@
             </select>
           </div>
         </div>
+
         <div class="updator__form-row">
           <div class="updator__form-column">
             <label>Label: </label>
@@ -94,6 +95,24 @@
           </div>
         </div>
       </ng-container>
+
+      <!-- OPTIONS TAB -->
+      <ng-container *ngIf="selectedTab === 'Options'">
+        <div class="updator__form-row">
+          <div class="updator__form-column input-options">
+
+            <div
+              [formGroup]="option"
+              *ngFor="let option of getOptions(); let i = index">
+              <input type="text" [readonly]="form.value.options.length !== (i+1)" placeholder="value" formControlName="id" >
+              <input type="text" [readonly]="form.value.options.length !== (i+1)" placeholder="label" formControlName="label" >
+              <button (click)="deleteOption(i)" *ngIf="form.value.options.length !== (i+1)">x</button>
+              <button (click)="addOption()" *ngIf="form.value.options.length === (i+1)">+</button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
     </form>
 
     <div class="updator__buttons">

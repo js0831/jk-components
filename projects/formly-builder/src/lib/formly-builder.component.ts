@@ -32,30 +32,7 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
       this.watchEvents(),
     ];
 
-
-    // ADD COLUMN
-    // setTimeout( x => {
-    //   const input = {
-    //     key: 'city',
-    //     type: 'input-text',
-    //     className: 'formx__column',
-    //     templateOptions: {
-    //       label: 'City'
-    //     }
-    //   };
-
-    //   this.addColumn(input, 2);
-    // }, 2000);
   }
-
-  // TEMP
-  // private addColumn(input, onIndex) {
-  //   this.show = false;
-  //   this.fields[1].fieldGroup.splice(onIndex, 0, input);
-  //   setTimeout( y => {
-  //     this.show = true;
-  //   });
-  // }
 
   private watchEvents() {
     return this.srv.events.subscribe( (x: FormlyEvent) => {
@@ -103,11 +80,11 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
       fieldGroupClassName: 'formx__row',
       fieldGroup: [
         {
-          type: 'input-empty',
+          type: 'empty',
           className: 'formx__column',
         },
         {
-          type: 'input-empty',
+          type: 'empty',
           className: 'formx__column',
         }
       ],
@@ -116,7 +93,7 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
 
   private get newCOlumn() {
     return {
-      type: 'input-empty',
+      type: 'empty',
       className: 'formx__column',
     };
   }

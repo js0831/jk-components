@@ -63,6 +63,11 @@
 
     &-column{
       flex:5;
+
+      &--full{
+        display: flex;
+      }
+
       &:first-child{
         flex:3;
 
@@ -73,15 +78,15 @@
         }
       }
 
-      &:last-child{
-        input[type=text],
-        select{
-          padding: .25em;
-          border: 1px solid #a0a0a0;
-          width: 100%;
-          box-sizing: border-box;;
-        }
+      // &:last-child{
+      input[type=text],
+      select{
+        padding: .25em;
+        border: 1px solid #a0a0a0;
+        width: 100%;
+        box-sizing: border-box;;
       }
+      // }
     }
   }
 
@@ -108,5 +113,15 @@
         background: #4b97ce;
       }
     }
+  }
+}
+
+.input-options{
+  > div{
+    display: flex;
+  }
+
+  [readonly]{
+    background: #eee;
   }
 }

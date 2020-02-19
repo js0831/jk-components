@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { FormlyBuilderService } from '../../formly-builder.service';
 import { Subscription } from 'rxjs';
 import { FieldType } from '@ngx-formly/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { FormlyEvent, FormlyAction } from '../../interface/formly-event.interface';
 
 @Component({
@@ -23,11 +23,15 @@ export class UpdatorComponent implements OnInit, OnDestroy {
   inputTypeOptions = [
     {
       label: 'Empty',
-      value: 'input-empty'
+      value: 'empty'
     },
     {
       label: 'Input Text',
       value: 'input-text'
+    },
+    {
+      label: 'Select',
+      value: 'select'
     },
     {
       label: 'Textarea',
@@ -46,6 +50,19 @@ export class UpdatorComponent implements OnInit, OnDestroy {
     ];
   }
 
+  onSelectType() {
+    setTimeout( x => {
+      this.addOptionTab();
+    });
+
+    if (this.form.value.type === 'select') {
+      if (this.form.value.options.length === 0) {
+        this.addOption();
+      }
+    }
+
+  }
+
   private watchEvents() {
     return this.srv.events.subscribe( (x: FormlyEvent) => {
       if (x.action === FormlyAction.EDIT_INPUT) {
@@ -53,8 +70,21 @@ export class UpdatorComponent implements OnInit, OnDestroy {
         this.buildForm();
         this.show = true;
         this.selectedTab = this.tabs[0];
+        this.addOptionTab();
       }
     });
+  }
+
+  private addOptionTab() {
+    if (
+      this.form.value.type === 'select'
+    ) {
+      if (this.tabs.indexOf('Options')  === -1) {
+        this.tabs.push('Options');
+      }
+    } else {
+      this.tabs = this.tabs.filter( x => x !== 'Options');
+    }
   }
 
   private getCurrentViewValue() {
@@ -89,14 +119,50 @@ export class UpdatorComponent implements OnInit, OnDestroy {
   }
 
   private buildForm() {
-    this.form = this.formBuilder.group({
+
+
+    let formGroup = {
       label: this.field.template.label,
       key: this.field.input.key,
       type: this.field.input.type,
       view: this.getCurrentViewValue(),
       column: this.getCurrentColumnValue(),
-      required: !!this.field.template.required
+      required: !!this.field.template.required,
+      options: new FormArray([]),
+    };
+
+    if (this.field.input.type === 'select') {
+      const options = new FormArray([]);
+      this.field.template.options.forEach( x => {
+        const option = new FormGroup({
+          id: new FormControl(x.id),
+          label: new FormControl(x.label)
+        });
+        options.push(option);
+      });
+      formGroup = {
+        ...formGroup,
+        options,
+      };
+    }
+
+    this.form = this.formBuilder.group(formGroup);
+  }
+
+  addOption() {
+    const group = new FormGroup({
+      id: new FormControl(''),
+      label: new FormControl('')
     });
+    (this.form.get('options') as FormArray).push(group);
+  }
+
+  deleteOption(index) {
+    (this.form.get('options') as FormArray).removeAt(index);
+  }
+
+  getOptions() {
+    return (this.form.get('options') as FormGroup).controls;
   }
 
   update() {
@@ -107,6 +173,11 @@ export class UpdatorComponent implements OnInit, OnDestroy {
     this.field.input.className = this.getNewViewValue(value.view);
     this.field.input.className = this.getNewColumnValue(value.column);
     this.field.template.required = value.required;
+
+    if (value.type === 'select') {
+      this.field.template.options = value.options;
+    }
+
     this.srv.saveInput();
     this.show = false;
   }

@@ -6,8 +6,9 @@ import { InputTextComponent } from './inputs/input.text';
 import { CommonModule } from '@angular/common';
 import { InputTextAreaComponent } from './inputs/input.textarea';
 import { UpdatorComponent } from './components/updator/updator.component';
-import { InputEmptyComponent } from './inputs/input.empty';
+import { EmptyComponent } from './inputs/empty';
 import { ActionButtonsComponent } from './components/action-buttons/action-buttons.component';
+import { SelectComponent } from './inputs/select';
 // import { RowWrapperComponent } from './wrappers/row.wrapper';
 
 @NgModule({
@@ -18,7 +19,9 @@ import { ActionButtonsComponent } from './components/action-buttons/action-butto
     // INPUT TYPES
     InputTextComponent,
     InputTextAreaComponent,
-    InputEmptyComponent,
+    EmptyComponent,
+    SelectComponent,
+
     ActionButtonsComponent,
 
     // WRAPPERS
@@ -30,9 +33,10 @@ import { ActionButtonsComponent } from './components/action-buttons/action-butto
     ReactiveFormsModule,
     FormlyModule.forRoot({
       types: [
+        { name: 'empty', component: EmptyComponent },
         { name: 'input-text', component: InputTextComponent },
         { name: 'input-textarea', component: InputTextAreaComponent },
-        { name: 'input-empty', component: InputEmptyComponent },
+        { name: 'select', component: SelectComponent },
       ],
       wrappers: [
         // { name: 'row', component: RowWrapperComponent },

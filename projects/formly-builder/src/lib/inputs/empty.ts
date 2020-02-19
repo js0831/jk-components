@@ -3,7 +3,7 @@ import { FieldType } from '@ngx-formly/core';
 import { FormlyBuilderService } from '../formly-builder.service';
 
 @Component({
- selector: 'jk-input-empty',
+ selector: 'jk-empty',
  template: `
   <jk-action-buttons
       [field]="field"
@@ -19,7 +19,7 @@ import { FormlyBuilderService } from '../formly-builder.service';
    `
  ]
 })
-export class InputEmptyComponent extends FieldType {
+export class EmptyComponent extends FieldType {
 
   constructor(
     private srv: FormlyBuilderService

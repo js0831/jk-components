@@ -22,10 +22,15 @@ export class AppComponent {
       fieldGroup: [
         {
           key: 'middlename',
-          type: 'input-text',
+          type: 'select',
           className: 'formx__column formx__column--w6',
           templateOptions: {
-            label: 'Middle Name'
+            label: 'Middle Name',
+            options: [
+              { id: '1', label: 'Soccer' },
+              { id: '2', label: 'Basketball' },
+              { id: '3', label: 'Taekwondo' },
+            ],
           }
         },
         {
