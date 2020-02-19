@@ -8,13 +8,28 @@ import { Observable } from 'rxjs';
 export class FormlyBuilderService {
 
   static editable = false;
+  static lastSelectedRowIndex = null;
   private pevent: EventEmitter<FormlyEvent> = new EventEmitter<FormlyEvent>();
 
   constructor() { }
 
-  selectInput(data: any) {
+  editInput(data: any) {
     this.pevent.next({
-      action: FormlyAction.SELECT_INPUT,
+      action: FormlyAction.EDIT_INPUT,
+      data,
+    });
+  }
+
+  deleteInput(data: any) {
+    this.pevent.next({
+      action: FormlyAction.DELETE_INPUT,
+      data,
+    });
+  }
+
+  deleteRow(data: any) {
+    this.pevent.next({
+      action: FormlyAction.DELETE_ROW,
       data,
     });
   }
@@ -22,6 +37,13 @@ export class FormlyBuilderService {
   saveInput() {
     this.pevent.next({
       action: FormlyAction.UPDATE_INPUT,
+    });
+  }
+
+  doAction(action: FormlyAction, data?: any) {
+    this.pevent.next({
+      action,
+      data,
     });
   }
 

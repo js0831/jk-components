@@ -1,0 +1,10 @@
+<button (click)="toggle()" (blur)="onBlur()">=</button>
+<ul *ngIf="showActions">
+  <li
+    (click)="do(a)"
+    *ngFor="let a of actions">
+    {{a.label}}
+  </li>
+</ul>
+
+

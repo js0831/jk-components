@@ -12,6 +12,10 @@ import { FormlyBuilderService } from '../formly-builder.service';
       {{to.label}}
     </label>
     <textarea class="formx__field" [formControl]="formControl" [formlyAttributes]="field"></textarea>
+    <jk-action-buttons
+      [field]="field"
+      [template]="to"
+    ></jk-action-buttons>
  `,
  styles: [
    `
@@ -27,14 +31,5 @@ export class InputTextAreaComponent extends FieldType {
     private srv: FormlyBuilderService
   ) {
     super();
-  }
-
-  @HostListener('click') onClick() {
-    if (!FormlyBuilderService.editable) {return; }
-
-    this.srv.selectInput({
-      input: this.field,
-      template: this.to
-    });
   }
 }

@@ -18,7 +18,6 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
   @Input() options: FormlyFormOptions;
   @Input() fields: FormlyFieldConfig[];
   @Input() editable = true;
-
   show = true;
 
   private subs: Subscription[];
@@ -32,14 +31,121 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
     this.subs = [
       this.watchEvents(),
     ];
+
+
+    // ADD COLUMN
+    // setTimeout( x => {
+    //   const input = {
+    //     key: 'city',
+    //     type: 'input-text',
+    //     className: 'formx__column',
+    //     templateOptions: {
+    //       label: 'City'
+    //     }
+    //   };
+
+    //   this.addColumn(input, 2);
+    // }, 2000);
   }
+
+  // TEMP
+  // private addColumn(input, onIndex) {
+  //   this.show = false;
+  //   this.fields[1].fieldGroup.splice(onIndex, 0, input);
+  //   setTimeout( y => {
+  //     this.show = true;
+  //   });
+  // }
 
   private watchEvents() {
     return this.srv.events.subscribe( (x: FormlyEvent) => {
-      if (x.action === FormlyAction.UPDATE_INPUT) {
-        this.reload();
+      switch (x.action) {
+        case FormlyAction.UPDATE_INPUT:
+          this.reload();
+          break;
+        case FormlyAction.DELETE_INPUT:
+          this.deleteInput(x.data);
+          break;
+        case FormlyAction.DELETE_ROW:
+          this.deleteRow(x.data);
+          break;
+        case FormlyAction.ADD_COLUMN_NEXT:
+          this.addColumn('next', x.data);
+          break;
+        case FormlyAction.ADD_COLUMN_PREVIOUS:
+          this.addColumn('prev', x.data);
+          break;
+        case FormlyAction.ADD_ROW_ABOVE:
+          this.addRow('above', x.data);
+          break;
+        case FormlyAction.ADD_ROW_BELOW:
+          this.addRow('below', x.data);
+          break;
+        default:
+          break;
       }
     });
+  }
+
+  private addRow(direction: 'above' | 'below', field) {
+    const id = field.parent.id;
+    let index = parseInt(id.split('_')[id.split('_').length - 1], 0);
+    if (direction === 'below') {
+      index += 1;
+    }
+
+    field.parent.parent.fieldGroup.splice(index, 0, this.newRow);
+    this.reload();
+  }
+
+  private get newRow() {
+    return {
+      fieldGroupClassName: 'formx__row',
+      fieldGroup: [
+        {
+          type: 'input-empty',
+          className: 'formx__column',
+        },
+        {
+          type: 'input-empty',
+          className: 'formx__column',
+        }
+      ],
+    };
+  }
+
+  private get newCOlumn() {
+    return {
+      type: 'input-empty',
+      className: 'formx__column',
+    };
+  }
+
+  private addColumn(direction: 'next' | 'prev', field) {
+    const id = field.id;
+    let index = parseInt(id.split('_')[id.split('_').length - 1], 0);
+
+    if (direction === 'next') {
+      index += 1;
+    }
+
+    field.parent.fieldGroup.splice(index, 0, Object.assign({}, this.newCOlumn));
+    this.reload();
+  }
+
+  private deleteInput(field) {
+    const parent = field.parent;
+    parent.fieldGroup = parent.fieldGroup.filter( x => {
+      return x.key !== field.key;
+    });
+  }
+
+  private deleteRow(field) {
+    field.parent.fieldGroup = [];
+    this.fields = this.fields.filter( x => {
+      return x.id !== field.parent.id;
+    });
+    this.reload();
   }
 
   private reload() {

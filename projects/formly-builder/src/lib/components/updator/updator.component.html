@@ -1,6 +1,6 @@
 <div class="updator-container" *ngIf="show">
   <div class="updator">
-    <h1 class="updator__title">Update Input</h1>
+    <h1 class="updator__title">Edit Input</h1>
 
     <ul class="updator__tab">
       <li
@@ -65,8 +65,8 @@
           </div>
           <div class="updator__form-column">
             <select formControlName="column">
-              <option value="1">1</option>
-              <option value="2">2</option>
+              <!-- <option value="1">1</option>
+              <option value="2">2</option> -->
               <option value="3">3</option>
               <option value="4">4</option>
               <option value="5">5</option>
@@ -97,7 +97,7 @@
     </form>
 
     <div class="updator__buttons">
-      <button (click)="save()">Save</button>
+      <button (click)="update()">Update</button>
       <button (click)="cancel()">Cancel</button>
     </div>
   </div>

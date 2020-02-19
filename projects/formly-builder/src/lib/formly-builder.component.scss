@@ -49,27 +49,24 @@
         position: relative;
         width: 100%;
 
-        &:after {
-          content:"";
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          background: transparent;
-          cursor: pointer;
-          pointer-events: none;
+        jk-action-buttons{
+          display: none;
         }
 
         &:hover{
-          &:after{
-            background-color: rgba(214, 214, 214, 0.5);
+          overflow: initial;
+          box-shadow: 0 0 2px 1px #12da74;
+
+          label, input{
+            opacity: 0.25;
+          }
+
+          jk-action-buttons{
+            display: flex;
           }
         }
 
-        &:not(:last-child){
-          border-right: 1px dotted #b1b1b1;
-        }
+        border-right: 1px dotted #b1b1b1;
 
         &:first-child:not(.formx__column--w12){
           border-right: 1px dotted #b1b1b1;

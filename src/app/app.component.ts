@@ -21,18 +21,9 @@ export class AppComponent {
       fieldGroupClassName: 'formx__row',
       fieldGroup: [
         {
-            key: 'firstname',
-            type: 'input-text',
-            className: 'formx__column formx__column--w3 formx__column--horizontal',
-            templateOptions: {
-              label: 'First Name',
-              required: true
-            }
-        },
-        {
           key: 'middlename',
           type: 'input-text',
-          className: 'formx__column formx__column--w3',
+          className: 'formx__column formx__column--w6',
           templateOptions: {
             label: 'Middle Name'
           }
@@ -56,7 +47,7 @@ export class AppComponent {
             type: 'input-text',
             className: 'formx__column formx__column--horizontal',
             templateOptions: {
-              label: 'First Name',
+              label: 'Address',
               required: true
             }
         },
@@ -65,15 +56,7 @@ export class AppComponent {
           type: 'input-text',
           className: 'formx__column ',
           templateOptions: {
-            label: 'Middle Name'
-          }
-        },
-        {
-          key: 'city',
-          type: 'input-text',
-          className: 'formx__column ',
-          templateOptions: {
-            label: 'Last Name'
+            label: 'Province'
           }
         },
       ],

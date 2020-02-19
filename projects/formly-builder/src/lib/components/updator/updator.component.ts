@@ -22,6 +22,10 @@ export class UpdatorComponent implements OnInit, OnDestroy {
 
   inputTypeOptions = [
     {
+      label: 'Empty',
+      value: 'input-empty'
+    },
+    {
       label: 'Input Text',
       value: 'input-text'
     },
@@ -44,9 +48,8 @@ export class UpdatorComponent implements OnInit, OnDestroy {
 
   private watchEvents() {
     return this.srv.events.subscribe( (x: FormlyEvent) => {
-      if (x.action === FormlyAction.SELECT_INPUT) {
+      if (x.action === FormlyAction.EDIT_INPUT) {
         this.field = x.data;
-        console.log(x.data);
         this.buildForm();
         this.show = true;
         this.selectedTab = this.tabs[0];
@@ -96,7 +99,7 @@ export class UpdatorComponent implements OnInit, OnDestroy {
     });
   }
 
-  save() {
+  update() {
     const value = this.form.value;
     this.field.template.label = value.label;
     this.field.input.key = value.key;

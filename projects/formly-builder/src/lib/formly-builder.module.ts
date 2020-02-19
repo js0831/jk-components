@@ -7,7 +7,8 @@ import { CommonModule } from '@angular/common';
 import { InputTextAreaComponent } from './inputs/input.textarea';
 import { UpdatorComponent } from './components/updator/updator.component';
 import { InputEmptyComponent } from './inputs/input.empty';
-// import { ColumnWrapperComponent } from './wrappers/column.wrapper';
+import { ActionButtonsComponent } from './components/action-buttons/action-buttons.component';
+// import { RowWrapperComponent } from './wrappers/row.wrapper';
 
 @NgModule({
   declarations: [
@@ -18,9 +19,10 @@ import { InputEmptyComponent } from './inputs/input.empty';
     InputTextComponent,
     InputTextAreaComponent,
     InputEmptyComponent,
+    ActionButtonsComponent,
 
     // WRAPPERS
-    // ColumnWrapperComponent
+    // RowWrapperComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,7 @@ import { InputEmptyComponent } from './inputs/input.empty';
         { name: 'input-empty', component: InputEmptyComponent },
       ],
       wrappers: [
-        // { name: 'column', component: ColumnWrapperComponent },
+        // { name: 'row', component: RowWrapperComponent },
       ],
     })
   ],
