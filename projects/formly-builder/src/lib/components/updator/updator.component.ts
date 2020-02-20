@@ -20,25 +20,6 @@ export class UpdatorComponent implements OnInit, OnDestroy {
   tabs = ['Main', 'Layout', 'Validation'];
   selectedTab = this.tabs[0];
 
-  inputTypeOptions = [
-    {
-      label: 'Empty',
-      value: 'empty'
-    },
-    {
-      label: 'Input Text',
-      value: 'input-text'
-    },
-    {
-      label: 'Select',
-      value: 'select'
-    },
-    {
-      label: 'Textarea',
-      value: 'input-textarea'
-    }
-  ];
-
   constructor(
     private srv: FormlyBuilderService,
     private formBuilder: FormBuilder
@@ -48,19 +29,6 @@ export class UpdatorComponent implements OnInit, OnDestroy {
     this.subs = [
       this.watchEvents(),
     ];
-  }
-
-  onSelectType() {
-    setTimeout( x => {
-      this.addOptionTab();
-    });
-
-    if (this.form.value.type === 'select') {
-      if (this.form.value.options.length === 0) {
-        this.addOption();
-      }
-    }
-
   }
 
   private watchEvents() {
@@ -77,7 +45,7 @@ export class UpdatorComponent implements OnInit, OnDestroy {
 
   private addOptionTab() {
     if (
-      this.form.value.type === 'select'
+      this.form.value.main.type === 'select'
     ) {
       if (this.tabs.indexOf('Options')  === -1) {
         this.tabs.push('Options');
@@ -120,14 +88,25 @@ export class UpdatorComponent implements OnInit, OnDestroy {
 
   private buildForm() {
 
-
-    let formGroup = {
+    const mainForm = this.formBuilder.group({
       label: this.field.template.label,
       key: this.field.input.key,
       type: this.field.input.type,
-      view: this.getCurrentViewValue(),
+    });
+
+    const layoutForm = this.formBuilder.group({
       column: this.getCurrentColumnValue(),
+      view: this.getCurrentViewValue()
+    });
+
+    const validationForm = this.formBuilder.group({
       required: !!this.field.template.required,
+    });
+
+    let formGroup = {
+      main: mainForm,
+      layout: layoutForm,
+      validation: validationForm,
       options: new FormArray([]),
     };
 
@@ -147,32 +126,22 @@ export class UpdatorComponent implements OnInit, OnDestroy {
     }
 
     this.form = this.formBuilder.group(formGroup);
-  }
 
-  addOption() {
-    const group = new FormGroup({
-      id: new FormControl(''),
-      label: new FormControl('')
+    this.form.get('main').get('type').valueChanges.subscribe( x => {
+      setTimeout(() => {
+        this.addOptionTab();
+      });
     });
-    (this.form.get('options') as FormArray).push(group);
-  }
-
-  deleteOption(index) {
-    (this.form.get('options') as FormArray).removeAt(index);
-  }
-
-  getOptions() {
-    return (this.form.get('options') as FormGroup).controls;
   }
 
   update() {
     const value = this.form.value;
-    this.field.template.label = value.label;
-    this.field.input.key = value.key;
-    this.field.input.type = value.type;
-    this.field.input.className = this.getNewViewValue(value.view);
-    this.field.input.className = this.getNewColumnValue(value.column);
-    this.field.template.required = value.required;
+    this.field.template.label = value.main.label;
+    this.field.input.key = value.main.key;
+    this.field.input.type = value.main.type;
+    this.field.input.className = this.getNewViewValue(value.layout.view);
+    this.field.input.className = this.getNewColumnValue(value.layout.column);
+    this.field.template.required = value.validation.required;
 
     if (value.type === 'select') {
       this.field.template.options = value.options;

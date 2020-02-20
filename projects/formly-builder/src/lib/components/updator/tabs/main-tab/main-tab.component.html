@@ -1,0 +1,33 @@
+<form [formGroup]="form">
+  <div class="updator__form-row">
+    <div class="updator__form-column">
+      <label>Input Type:</label>
+    </div>
+    <div class="updator__form-column">
+      <select formControlName="type">
+        <option
+          [value]="op.value"
+          *ngFor="let op of inputTypeOptions">
+          {{op.label}}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="updator__form-row">
+    <div class="updator__form-column">
+      <label>Label: </label>
+    </div>
+    <div class="updator__form-column">
+      <input type="text" formControlName="label">
+    </div>
+  </div>
+  <div class="updator__form-row">
+    <div class="updator__form-column">
+      <label>Key: </label>
+    </div>
+    <div class="updator__form-column">
+      <input type="text"  formControlName="key">
+    </div>
+  </div>
+</form>

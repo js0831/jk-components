@@ -1,0 +1,10 @@
+<div class="updator__form-column input-options">
+  <div
+    [formGroup]="option"
+    *ngFor="let option of form.controls; let i = index">
+    <input type="text" [readonly]="form.value.length !== (i+1)" placeholder="value" formControlName="id" >
+    <input type="text" [readonly]="form.value.length !== (i+1)" placeholder="label" formControlName="label" >
+    <button (click)="deleteOption(i)" *ngIf="form.value.length !== (i+1)">x</button>
+    <button (click)="addOption()" *ngIf="form.value.length === (i+1)">+</button>
+  </div>
+</div>

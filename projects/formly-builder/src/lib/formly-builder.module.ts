@@ -9,6 +9,10 @@ import { UpdatorComponent } from './components/updator/updator.component';
 import { EmptyComponent } from './inputs/empty';
 import { ActionButtonsComponent } from './components/action-buttons/action-buttons.component';
 import { SelectComponent } from './inputs/select';
+import { OptionsTabComponent } from './components/updator/tabs/options-tab/options-tab.component';
+import { ValidationsTabComponent } from './components/updator/tabs/validations-tab/validations-tab.component';
+import { LayoutTabComponent } from './components/updator/tabs/layout-tab/layout-tab.component';
+import { MainTabComponent } from './components/updator/tabs/main-tab/main-tab.component';
 // import { RowWrapperComponent } from './wrappers/row.wrapper';
 
 @NgModule({
@@ -23,6 +27,14 @@ import { SelectComponent } from './inputs/select';
     SelectComponent,
 
     ActionButtonsComponent,
+
+    OptionsTabComponent,
+
+    ValidationsTabComponent,
+
+    LayoutTabComponent,
+
+    MainTabComponent,
 
     // WRAPPERS
     // RowWrapperComponent
