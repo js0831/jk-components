@@ -21,11 +21,35 @@ export class AppComponent {
       fieldGroupClassName: 'formx__row',
       fieldGroup: [
         {
+            key: 'address',
+            type: 'input-textarea',
+            className: 'formx__column formx__column--vertical',
+            templateOptions: {
+              label: 'Address',
+              required: true
+            }
+        },
+        {
+          key: 'province',
+          type: 'input-text',
+          className: 'formx__column formx__column--horizontal',
+          templateOptions: {
+            label: 'Province',
+            required: true
+          }
+        },
+      ],
+    },
+    {
+      fieldGroupClassName: 'formx__row',
+      fieldGroup: [
+        {
           key: 'middlename',
           type: 'select',
           className: 'formx__column formx__column--w6',
           templateOptions: {
             label: 'Middle Name',
+            required: true,
             options: [
               { id: '1', label: 'Soccer' },
               { id: '2', label: 'Basketball' },
@@ -50,7 +74,7 @@ export class AppComponent {
         {
             key: 'address',
             type: 'input-text',
-            className: 'formx__column formx__column--horizontal',
+            className: 'formx__column formx__column--vertical',
             templateOptions: {
               label: 'Address',
               required: true

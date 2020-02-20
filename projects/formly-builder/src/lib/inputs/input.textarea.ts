@@ -11,7 +11,12 @@ import { FormlyBuilderService } from '../formly-builder.service';
       *ngIf="to.label">
       {{to.label}}
     </label>
-    <textarea class="formx__field" [formControl]="formControl" [formlyAttributes]="field"></textarea>
+    <textarea
+      [ngClass]="{ 'formx__field--invalid': showError}"
+      class="formx__field" [formControl]="formControl" [formlyAttributes]="field"></textarea>
+
+    <formly-validation-message *ngIf="showError" [field]="field"></formly-validation-message>
+
     <jk-action-buttons
       [field]="field"
       [template]="to"

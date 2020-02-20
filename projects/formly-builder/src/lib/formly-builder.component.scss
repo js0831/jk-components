@@ -46,11 +46,18 @@
     }
 
     .formx{
-      &__column{
-        position: relative;
-        width: 100%;
 
-        jk-action-buttons{
+      &__field {
+        &--invalid{
+          border-color: #929292;
+          box-shadow: none;
+        }
+      }
+
+      &__column{
+
+        jk-action-buttons,
+        formly-validation-message{
           display: none;
         }
 
@@ -94,7 +101,9 @@
     justify-content: flex-start;
     padding: .5em;
     min-height: 4em;
-    overflow: hidden;
+    // overflow-x: hidden;
+    position: relative;
+    width: 100%;
 
     @for $i from 1 through 12 {
       &--w#{$i}{
@@ -118,6 +127,18 @@
       }
     }
 
+    formly-validation-message{
+      position: absolute;
+      top: 14px;
+      right: 5px;
+      font-size: 12px;
+      color: #ff2323;
+    }
+
+    jk-action-buttons{
+      display: none;
+    }
+
     // ALL INPUT FIELD TYPE
     > * {
       display: block;
@@ -126,7 +147,9 @@
   }
 
   &__label{
-    font-size: 1.5em;
+    font-size: 14px;
+    padding: 5px 0;
+    display: inline-block;
 
     &--required{
       &:after{
@@ -139,7 +162,7 @@
   }
 
   &__field{
-    font-size: 1.5em;
+    font-size: 14px;
     border: 1px solid #929292;
     padding: .5em;
     border-radius: 5px;
@@ -147,5 +170,10 @@
     width: 100%;
     flex:1;
     min-width: 8em;
+
+    &--invalid{
+      box-shadow: 0 0 2px 0px red;
+      border-color: #fb1919;
+    }
   }
 }

@@ -53,6 +53,9 @@ import { MainTabComponent } from './components/updator/tabs/main-tab/main-tab.co
       wrappers: [
         // { name: 'row', component: RowWrapperComponent },
       ],
+      validationMessages: [
+        { name: 'required', message: 'This field is required' },
+      ],
     })
   ],
   exports: [FormlyBuilderComponent]

@@ -12,11 +12,15 @@ import { FormlyBuilderService } from '../formly-builder.service';
       {{to.label}}
     </label>
 
-    <select class="formx__field" [formControl]="formControl" [formlyAttributes]="field">
+    <select
+      [ngClass]="{ 'formx__field--invalid': showError}"
+      class="formx__field" [formControl]="formControl" [formlyAttributes]="field">
       <option [value]="o.id" *ngFor="let o of to.options">
         {{o.label}}
       </option>
     </select>
+
+    <formly-validation-message *ngIf="showError" [field]="field"></formly-validation-message>
 
     <jk-action-buttons
       [field]="field"
