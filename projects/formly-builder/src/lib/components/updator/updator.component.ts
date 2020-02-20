@@ -44,15 +44,22 @@ export class UpdatorComponent implements OnInit, OnDestroy {
   }
 
   private addOptionTab() {
-    if (
-      this.form.value.main.type === 'select'
-    ) {
+    if (this.isWithOptionTab(this.form.value.main.type)) {
       if (this.tabs.indexOf('Options')  === -1) {
         this.tabs.push('Options');
       }
     } else {
       this.tabs = this.tabs.filter( x => x !== 'Options');
     }
+  }
+
+  private isWithOptionTab(type) {
+    const types = ['select', 'input-radio', 'input-checkbox-multiple'];
+    return types.indexOf(type) >= 0;
+  }
+
+  private isObjectType(type) {
+    return type === 'input-checkbox-multiple';
   }
 
   private getCurrentViewValue() {
@@ -110,15 +117,8 @@ export class UpdatorComponent implements OnInit, OnDestroy {
       options: new FormArray([]),
     };
 
-    if (this.field.input.type === 'select') {
-      const options = new FormArray([]);
-      this.field.template.options.forEach( x => {
-        const option = new FormGroup({
-          id: new FormControl(x.id),
-          label: new FormControl(x.label)
-        });
-        options.push(option);
-      });
+    if (this.isWithOptionTab(this.field.input.type)) {
+      const options = this.getCurrentFieldOptions();
       formGroup = {
         ...formGroup,
         options,
@@ -126,12 +126,27 @@ export class UpdatorComponent implements OnInit, OnDestroy {
     }
 
     this.form = this.formBuilder.group(formGroup);
-
     this.form.get('main').get('type').valueChanges.subscribe( x => {
       setTimeout(() => {
         this.addOptionTab();
       });
     });
+  }
+
+  private getCurrentFieldOptions() {
+    const isObjectType = this.isObjectType(this.field.input.type);
+    const currentOptions = isObjectType
+        ? this.field.input.fieldGroup
+        : this.field.template.options;
+    const options = new FormArray([]);
+    currentOptions.forEach( x => {
+      const option = new FormGroup({
+        id: new FormControl(isObjectType ? x.key : x.id),
+        label: new FormControl(isObjectType ? x.templateOptions.label : x.label)
+      });
+      options.push(option);
+    });
+    return options;
   }
 
   update() {
@@ -143,8 +158,21 @@ export class UpdatorComponent implements OnInit, OnDestroy {
     this.field.input.className = this.getNewColumnValue(value.layout.column);
     this.field.template.required = value.validation.required;
 
-    if (value.type === 'select') {
-      this.field.template.options = value.options;
+    if (this.isWithOptionTab(value.main.type)) {
+
+      if (this.isObjectType(value.main.type)) {
+        // NOTE: For multiple checkbox
+        this.field.input.fieldGroup = value.options.map( x => {
+          return {
+            key: x.id,
+            templateOptions: {
+              label: x.label
+            }
+          };
+        });
+      } else {
+        this.field.template.options = value.options;
+      }
     }
 
     this.srv.saveInput();
