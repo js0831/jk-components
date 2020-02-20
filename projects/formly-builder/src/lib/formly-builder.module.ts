@@ -13,6 +13,9 @@ import { OptionsTabComponent } from './components/updator/tabs/options-tab/optio
 import { ValidationsTabComponent } from './components/updator/tabs/validations-tab/validations-tab.component';
 import { LayoutTabComponent } from './components/updator/tabs/layout-tab/layout-tab.component';
 import { MainTabComponent } from './components/updator/tabs/main-tab/main-tab.component';
+import { InputRadioComponent } from './inputs/input.radio';
+import { InputCheckboxMultipleComponent } from './inputs/input.checkbox-multiple';
+import { InputCheckboxComponent } from './inputs/input.checkbox';
 // import { RowWrapperComponent } from './wrappers/row.wrapper';
 
 @NgModule({
@@ -25,15 +28,14 @@ import { MainTabComponent } from './components/updator/tabs/main-tab/main-tab.co
     InputTextAreaComponent,
     EmptyComponent,
     SelectComponent,
+    InputRadioComponent,
+    InputCheckboxComponent,
+    InputCheckboxMultipleComponent,
 
     ActionButtonsComponent,
-
     OptionsTabComponent,
-
     ValidationsTabComponent,
-
     LayoutTabComponent,
-
     MainTabComponent,
 
     // WRAPPERS
@@ -48,6 +50,9 @@ import { MainTabComponent } from './components/updator/tabs/main-tab/main-tab.co
         { name: 'empty', component: EmptyComponent },
         { name: 'input-text', component: InputTextComponent },
         { name: 'input-textarea', component: InputTextAreaComponent },
+        { name: 'input-radio', component: InputRadioComponent },
+        { name: 'input-checkbox', component: InputCheckboxComponent },
+        { name: 'input-checkbox-multiple', component: InputCheckboxMultipleComponent },
         { name: 'select', component: SelectComponent },
       ],
       wrappers: [

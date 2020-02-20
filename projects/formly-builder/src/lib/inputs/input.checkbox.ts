@@ -1,9 +1,8 @@
 import { Component, OnInit, HostListener, Host } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
-import { FormlyBuilderService } from '../formly-builder.service';
 
 @Component({
- selector: 'jk-input-text',
+ selector: 'jk-input-checkbox',
  template: `
     <label
       [ngClass]="{'formx__label--required': to.required }"
@@ -11,9 +10,10 @@ import { FormlyBuilderService } from '../formly-builder.service';
       *ngIf="to.label">
       {{to.label}}
     </label>
-    <input
-      [ngClass]="{ 'formx__field--invalid': showError}"
-      class="formx__field formx__field--text" type="input" [formControl]="formControl" [formlyAttributes]="field">
+
+    <div class="formx__field formx__field--checkbox" >
+      <input type="checkbox" [formControl]="formControl" [formlyAttributes]="field">
+    </div>
 
     <formly-validation-message *ngIf="showError" [field]="field"></formly-validation-message>
 
@@ -27,4 +27,4 @@ import { FormlyBuilderService } from '../formly-builder.service';
    `
  ]
 })
-export class InputTextComponent extends FieldType {}
+export class InputCheckboxComponent extends FieldType {}

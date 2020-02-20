@@ -14,7 +14,7 @@ import { FormlyBuilderService } from '../formly-builder.service';
 
     <select
       [ngClass]="{ 'formx__field--invalid': showError}"
-      class="formx__field" [formControl]="formControl" [formlyAttributes]="field">
+      class="formx__field  formx__field--select" [formControl]="formControl" [formlyAttributes]="field">
       <option [value]="o.id" *ngFor="let o of to.options">
         {{o.label}}
       </option>

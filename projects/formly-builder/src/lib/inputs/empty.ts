@@ -19,11 +19,4 @@ import { FormlyBuilderService } from '../formly-builder.service';
    `
  ]
 })
-export class EmptyComponent extends FieldType {
-
-  constructor(
-    private srv: FormlyBuilderService
-  ) {
-    super();
-  }
-}
+export class EmptyComponent extends FieldType {}

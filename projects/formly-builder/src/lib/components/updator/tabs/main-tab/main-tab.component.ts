@@ -26,6 +26,18 @@ export class MainTabComponent implements OnInit {
     {
       label: 'Textarea',
       value: 'input-textarea'
+    },
+    {
+      label: 'Input Radio',
+      value: 'input-radio'
+    },
+    {
+      label: 'Input Checkbox',
+      value: 'input-checkbox'
+    },
+    {
+      label: 'Input Checkbox ( Multiple )',
+      value: 'input-checkbox-multiple'
     }
   ];
 

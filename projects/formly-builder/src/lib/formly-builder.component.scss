@@ -30,7 +30,8 @@
 
     input,
     textarea,
-    select{
+    select,
+    label{
       pointer-events: none;
     }
 
@@ -49,7 +50,14 @@
 
       &__field {
         &--invalid{
-          border-color: #929292;
+          border-color: #929292 !important;
+          box-shadow: none;
+        }
+
+        &--radio,
+        &--checkbox-multiple,
+        &--checkbox{
+          border:none !important;
           box-shadow: none;
         }
       }
@@ -111,22 +119,6 @@
       }
     }
 
-    &--horizontal {
-      > *{
-        display: flex !important;
-
-        label{
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
-          max-width: 9em;
-          padding-right: 0.5em;
-          width: 100%;
-          padding-right: .5em;
-        }
-      }
-    }
-
     formly-validation-message{
       position: absolute;
       top: 14px;
@@ -143,6 +135,26 @@
     > * {
       display: block;
       width: 100%;
+    }
+
+    &--horizontal {
+      > *{
+        display: flex !important;
+
+        label{
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          max-width: 9em;
+          padding-right: 0.5em;
+          width: 100%;
+          padding-right: .5em;
+        }
+      }
+
+      formly-validation-message{
+        top: -14px;
+      }
     }
   }
 
@@ -161,19 +173,53 @@
     }
   }
 
-  &__field{
-    font-size: 14px;
-    border: 1px solid #929292;
-    padding: .5em;
-    border-radius: 5px;
-    color: #6b6b6b;
-    width: 100%;
-    flex:1;
-    min-width: 8em;
+  &__field {
+
+    &--text,
+    &--textarea,
+    &--select,
+    &--radio,
+    &--checkbox,
+    &--checkbox-multiple{
+      font-size: 14px;
+      padding: .5em;
+      border-radius: 5px;
+      color: #6b6b6b;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &--text,
+    &--textarea,
+    &--select{
+      width: 100%;
+      border: 1px solid #929292;
+      flex: 1;
+      min-width: 8em;
+    }
 
     &--invalid{
       box-shadow: 0 0 2px 0px red;
-      border-color: #fb1919;
+      border: 1px solid #fb1919 !important;
+    }
+
+    &--radio, &--checkbox-multiple{
+      border: none;
+      display: flex;
+      flex-wrap: wrap;
+
+      label{
+        display: flex;
+        align-items: center;
+        margin-right: 8px;
+        width: max-content;
+
+        span{
+          margin-left: 2px;
+        }
+      }
     }
   }
 }

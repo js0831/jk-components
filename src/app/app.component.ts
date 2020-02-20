@@ -21,20 +21,26 @@ export class AppComponent {
       fieldGroupClassName: 'formx__row',
       fieldGroup: [
         {
-            key: 'address',
-            type: 'input-textarea',
-            className: 'formx__column formx__column--vertical',
+            key: 'sports',
+            type: 'input-checkbox-multiple',
+            className: 'formx__column formx__column--horizontal',
+            // defaultValue: '2',
             templateOptions: {
-              label: 'Address',
-              required: true
+              label: 'Sports',
+              required: true,
+              options: [
+                { id: '1', label: 'Soccer' },
+                { id: '2', label: 'Basketball' },
+                { id: '3', label: 'Taekwondo' },
+              ],
             }
         },
         {
-          key: 'province',
-          type: 'input-text',
+          key: 'automatic',
+          type: 'input-checkbox',
           className: 'formx__column formx__column--horizontal',
           templateOptions: {
-            label: 'Province',
+            label: 'Automatic',
             required: true
           }
         },
@@ -73,7 +79,7 @@ export class AppComponent {
       fieldGroup: [
         {
             key: 'address',
-            type: 'input-text',
+            type: 'input-textarea',
             className: 'formx__column formx__column--vertical',
             templateOptions: {
               label: 'Address',
