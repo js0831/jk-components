@@ -15,8 +15,8 @@ import { FormlyBuilderService } from '../formly-builder.service';
     <div
       [ngClass]="{ 'formx__field--invalid': showError}"
       class="formx__field formx__field--checkbox-multiple">
-      <label *ngFor="let o of to.options">
-        <input type="checkbox" [value]="o.id" [formControl]="formControl"> <span>{{o.label}}</span>
+      <label *ngFor="let f of field.fieldGroup">
+        <input type="checkbox" [formControl]="f.formControl"> <span>{{f.templateOptions.label}}</span>
       </label>
     </div>
 
@@ -32,4 +32,9 @@ import { FormlyBuilderService } from '../formly-builder.service';
    `
  ]
 })
-export class InputCheckboxMultipleComponent extends FieldType {}
+export class InputCheckboxMultipleComponent extends FieldType implements OnInit {
+
+  ngOnInit() {
+    console.log(this.field);
+  }
+}

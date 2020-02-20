@@ -14,7 +14,10 @@ export class AppComponent {
   title = 'jk-components';
 
   form = new FormGroup({});
-  model: any = {};
+  model: any = {
+    automatic: true,
+    address: 'test'
+  };
   options: FormlyFormOptions = {};
   fields: FormlyFieldConfig[] = [
     {
@@ -24,16 +27,29 @@ export class AppComponent {
             key: 'sports',
             type: 'input-checkbox-multiple',
             className: 'formx__column formx__column--horizontal',
-            // defaultValue: '2',
             templateOptions: {
-              label: 'Sports',
-              required: true,
-              options: [
-                { id: '1', label: 'Soccer' },
-                { id: '2', label: 'Basketball' },
-                { id: '3', label: 'Taekwondo' },
-              ],
-            }
+              label: 'Sports'
+            },
+            fieldGroup: [
+              {
+                key: 'soccer',
+                templateOptions: {
+                  label: 'Soccer'
+                }
+              },
+              {
+                key: 'basketball',
+                templateOptions: {
+                  label: 'Basketball'
+                }
+              },
+              {
+                key: 'taekwondo',
+                templateOptions: {
+                  label: 'Taekwondo'
+                }
+              }
+            ]
         },
         {
           key: 'automatic',

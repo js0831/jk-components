@@ -17,7 +17,7 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
   @Input() model: any;
   @Input() options: FormlyFormOptions;
   @Input() fields: FormlyFieldConfig[];
-  @Input() editable = false;
+  @Input() editable = true;
   show = true;
 
   private subs: Subscription[];

@@ -11,6 +11,7 @@ import { FormlyBuilderService } from '../formly-builder.service';
       *ngIf="to.label">
       {{to.label}}
     </label>
+
     <input
       [ngClass]="{ 'formx__field--invalid': showError}"
       class="formx__field formx__field--text" type="input" [formControl]="formControl" [formlyAttributes]="field">
