@@ -16,6 +16,11 @@ import { MainTabComponent } from './components/updator/tabs/main-tab/main-tab.co
 import { InputRadioComponent } from './inputs/input.radio';
 import { InputCheckboxMultipleComponent } from './inputs/input.checkbox-multiple';
 import { InputCheckboxComponent } from './inputs/input.checkbox';
+import { InputDateComponent } from './inputs/input.date';
+import { InputEmailComponent } from './inputs/input.email';
+import { InputTimeComponent } from './inputs/input.time';
+import { InputNumberComponent } from './inputs/input.number';
+import { InputPasswordComponent } from './inputs/input.password';
 // import { RowWrapperComponent } from './wrappers/row.wrapper';
 
 @NgModule({
@@ -25,6 +30,12 @@ import { InputCheckboxComponent } from './inputs/input.checkbox';
 
     // INPUT TYPES
     InputTextComponent,
+    InputDateComponent,
+    InputEmailComponent,
+    InputTimeComponent,
+    InputNumberComponent,
+    InputNumberComponent,
+    InputPasswordComponent,
     InputTextAreaComponent,
     EmptyComponent,
     SelectComponent,
@@ -49,6 +60,11 @@ import { InputCheckboxComponent } from './inputs/input.checkbox';
       types: [
         { name: 'empty', component: EmptyComponent },
         { name: 'input-text', component: InputTextComponent },
+        { name: 'input-date', component: InputDateComponent },
+        { name: 'input-email', component: InputEmailComponent },
+        { name: 'input-number', component: InputNumberComponent },
+        { name: 'input-password', component: InputPasswordComponent },
+        { name: 'input-time', component: InputTimeComponent },
         { name: 'input-textarea', component: InputTextAreaComponent },
         { name: 'input-radio', component: InputRadioComponent },
         { name: 'input-checkbox', component: InputCheckboxComponent },

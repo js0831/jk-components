@@ -19,14 +19,6 @@ export class ActionButtonsComponent implements OnInit {
         value: 'edit'
       },
       {
-        label: 'Delete Column',
-        value: 'delete_column'
-      },
-      {
-        label: 'Delete Row',
-        value: 'delete_row'
-      },
-      {
         label: 'Add Column next',
         value: 'add_column_next'
       },
@@ -41,6 +33,14 @@ export class ActionButtonsComponent implements OnInit {
       {
         label: 'Add Row below',
         value: 'add_row_below'
+      },
+      {
+        label: 'Delete Column',
+        value: 'delete_column'
+      },
+      {
+        label: 'Delete Row',
+        value: 'delete_row'
       },
     ];
 

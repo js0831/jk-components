@@ -95,10 +95,14 @@ export class UpdatorComponent implements OnInit, OnDestroy {
 
   private buildForm() {
 
+    const defaultValue = this.getDefaultValue(this.field.input.defaultValue, this.field.input.type);
+
     const mainForm = this.formBuilder.group({
       label: this.field.template.label,
+      placeholder: this.field.template.placeholder,
       key: this.field.input.key,
       type: this.field.input.type,
+      defaultValue
     });
 
     const layoutForm = this.formBuilder.group({
@@ -152,10 +156,12 @@ export class UpdatorComponent implements OnInit, OnDestroy {
   update() {
     const value = this.form.value;
     const cloneField = JSON.parse(JSON.stringify(this.field));
+    const defaultValue = this.getDefaultValue(value.main.defaultValue, value.main.type);
     cloneField.template.label = value.main.label;
     cloneField.template.required = value.validation.required;
-
+    cloneField.template.placeholder = value.main.placeholder;
     cloneField.input.key = value.main.key;
+    cloneField.input.defaultValue = defaultValue;
     cloneField.input.type = value.main.type;
     cloneField.input.className = this.getNewViewValue(value.layout.view, this.field.className);
     cloneField.input.className = this.getNewColumnValue(value.layout.column, cloneField.input.className);
@@ -181,6 +187,40 @@ export class UpdatorComponent implements OnInit, OnDestroy {
     const path = this.srv.getInputOriginPath(this.field.input);
     this.srv.saveInput(path, cloneField);
     this.show = false;
+  }
+
+  private getDefaultValue(defaultValue, type) {
+    let def = defaultValue;
+    if (def === undefined || def === null) {
+      if (type === 'input-checkbox-multiple'){
+        def = {};
+      } else {
+        def = '';
+      }
+    }
+
+    const falsy = [0, '0', false, 'false', '', null, undefined];
+    if (type === 'input-checkbox') {
+      return !(falsy.indexOf(def) >= 0);
+    } else if (type === 'input-checkbox-multiple') {
+
+      if (typeof def === 'string') {
+        let defObject = {};
+        def.split(',').forEach( x => {
+          if (x.length > 0) {
+            defObject = {
+              ...defObject,
+              [x.trim()]: true
+            };
+          }
+        });
+        return defObject;
+      } else {
+        return Object.keys(def).join(',');
+      }
+
+    }
+    return def;
   }
 
   cancel() {

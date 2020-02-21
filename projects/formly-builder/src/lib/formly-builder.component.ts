@@ -66,14 +66,18 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
 
   private updateFieldConfig(data) {
     this.form = new FormGroup({});
+    this.model = {};
     const clonedFields = JSON.parse(JSON.stringify(this.fields));
     const field = this.srv.getFieldByPath(data.path, clonedFields);
-    const {label, required, options} = data.field.template;
-    const {key, type, className, fieldGroup} = data.field.input;
+    const {label, required, options, placeholder} = data.field.template;
+    const {key, type, className, fieldGroup, defaultValue} = data.field.input;
     field.templateOptions.label = label;
+    field.templateOptions.placeholder = placeholder;
     field.templateOptions.required = required;
     field.templateOptions.options = options;
+
     field.key = key;
+    field.defaultValue = defaultValue;
     field.type = type;
     field.className = className;
     field.fieldGroup = fieldGroup;

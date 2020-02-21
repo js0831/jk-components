@@ -14,10 +14,7 @@ export class AppComponent {
   title = 'jk-components';
 
   form = new FormGroup({});
-  model: any = {
-    automatic: true,
-    address: 'test'
-  };
+  model: any = {};
   options: FormlyFormOptions = {};
   fields: FormlyFieldConfig[] = [
     {
@@ -106,8 +103,10 @@ export class AppComponent {
           key: 'province',
           type: 'input-text',
           className: 'formx__column ',
+          defaultValue: 'Pampanga',
           templateOptions: {
-            label: 'Province'
+            label: 'Province',
+            placeholder: 'test',
           }
         },
       ],

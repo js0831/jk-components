@@ -176,6 +176,11 @@
   &__field {
 
     &--text,
+    &--date,
+    &--time,
+    &--email,
+    &--password,
+    &--number,
     &--textarea,
     &--select,
     &--radio,
@@ -193,7 +198,13 @@
 
     &--text,
     &--textarea,
-    &--select{
+    &--select,
+    &--date,
+    &--time,
+    &--email,
+    &--password,
+    &--number
+    {
       width: 100%;
       border: 1px solid #929292;
       flex: 1;

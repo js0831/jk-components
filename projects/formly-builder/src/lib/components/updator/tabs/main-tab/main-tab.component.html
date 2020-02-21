@@ -13,7 +13,6 @@
       </select>
     </div>
   </div>
-
   <div class="updator__form-row">
     <div class="updator__form-column">
       <label>Label: </label>
@@ -22,12 +21,28 @@
       <input type="text" formControlName="label">
     </div>
   </div>
+  <div *ngIf="withPlaceholder()" class="updator__form-row">
+    <div class="updator__form-column">
+      <label>Placeholder: </label>
+    </div>
+    <div class="updator__form-column">
+      <input type="text" formControlName="placeholder">
+    </div>
+  </div>
   <div class="updator__form-row">
     <div class="updator__form-column">
       <label>Key: </label>
     </div>
     <div class="updator__form-column">
       <input type="text"  formControlName="key">
+    </div>
+  </div>
+  <div class="updator__form-row">
+    <div class="updator__form-column">
+      <label>Default Value: </label>
+    </div>
+    <div class="updator__form-column">
+      <input type="text"  formControlName="defaultValue">
     </div>
   </div>
 </form>
