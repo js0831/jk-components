@@ -43,6 +43,6 @@ export class AppComponent {
   }
 
   onSave(data) {
-    console.log(data);
+    console.log(JSON.stringify(data));
   }
 }

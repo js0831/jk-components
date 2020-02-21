@@ -38,7 +38,6 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
     this.subs = [
       this.watchEvents(),
     ];
-
   }
 
   private defaultFields() {
@@ -97,13 +96,28 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
     this.model = {};
     const clonedFields = JSON.parse(JSON.stringify(this.fields));
     const field = this.srv.getFieldByPath(data.path, clonedFields);
-    const {label, required, options, placeholder, multiple} = data.field.template;
+    const {
+      label,
+      options,
+      placeholder,
+      multiple,
+      required, pattern,
+      max, min,
+      maxLength, minLength
+    } = data.field.template;
+
     const {key, type, className, fieldGroup, defaultValue} = data.field.input;
     field.templateOptions.label = label;
     field.templateOptions.placeholder = placeholder;
-    field.templateOptions.required = required;
     field.templateOptions.options = options;
     field.templateOptions.multiple = multiple;
+
+    field.templateOptions.required = required;
+    field.templateOptions.max = max;
+    field.templateOptions.maxLength = maxLength;
+    field.templateOptions.min = min;
+    field.templateOptions.minLength = minLength;
+    field.templateOptions.pattern = pattern;
 
     field.key = key;
     field.defaultValue = defaultValue;

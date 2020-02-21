@@ -128,6 +128,11 @@ export class UpdatorComponent implements OnInit, OnDestroy {
 
     const validationForm = this.formBuilder.group({
       required: !!this.field.template.required,
+      minLength: this.field.template.minLength,
+      maxLength: this.field.template.maxLength,
+      // pattern: this.field.template.pattern,
+      min: this.field.template.min,
+      max: this.field.template.max,
     });
 
     let formGroup = {
@@ -175,9 +180,15 @@ export class UpdatorComponent implements OnInit, OnDestroy {
     const cloneField = JSON.parse(JSON.stringify(this.field));
     const defaultValue = this.getDefaultValue(value.main.defaultValue, value.main.type);
     cloneField.template.label = value.main.label;
-    cloneField.template.required = value.validation.required;
     cloneField.template.placeholder = value.main.placeholder;
     cloneField.template.multiple = value.main.multiple;
+
+    cloneField.template.required = value.validation.required;
+    cloneField.template.max = value.validation.max;
+    cloneField.template.maxLength = value.validation.maxLength;
+    cloneField.template.min = value.validation.min;
+    cloneField.template.minLength = value.validation.minLength;
+    // cloneField.template.pattern = value.validation.pattern;
 
     cloneField.input.key = value.main.key;
     cloneField.input.defaultValue = defaultValue;

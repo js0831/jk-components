@@ -25,6 +25,26 @@ import { SectionTitleComponent } from './templates/section-title';
 
 // import { RowWrapperComponent } from './wrappers/row.wrapper';
 
+export function minlengthValidationMessage(err, field) {
+  return `Should have atleast ${field.templateOptions.minLength} characters`;
+}
+
+export function maxlengthValidationMessage(err, field) {
+  return `This value should be less than ${field.templateOptions.maxLength} characters`;
+}
+
+export function minValidationMessage(err, field) {
+  return `This value should be more than ${field.templateOptions.min}`;
+}
+
+export function maxValidationMessage(err, field) {
+  return `This value should be less than ${field.templateOptions.max}`;
+}
+
+export function patternValidationMessage(err, field) {
+  return `Is not a valid pattern`;
+}
+
 @NgModule({
   declarations: [
     FormlyBuilderComponent,
@@ -83,6 +103,11 @@ import { SectionTitleComponent } from './templates/section-title';
       ],
       validationMessages: [
         { name: 'required', message: 'This field is required' },
+        { name: 'minlength', message: minlengthValidationMessage },
+        { name: 'maxlength', message: maxlengthValidationMessage },
+        { name: 'min', message: minValidationMessage },
+        { name: 'max', message: maxValidationMessage },
+        { name: 'pattern', message: patternValidationMessage },
       ],
     })
   ],
