@@ -64,10 +64,11 @@ export class AppComponent {
       fieldGroup: [
         {
           key: 'middlename',
-          type: 'input-radio',
+          type: 'select',
           className: 'formx__column formx__column--w6',
           templateOptions: {
             label: 'Middle Name',
+            multiple: true,
             required: true,
             options: [
               { id: '1', label: 'Soccer' },

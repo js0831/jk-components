@@ -100,6 +100,7 @@ export class UpdatorComponent implements OnInit, OnDestroy {
     const mainForm = this.formBuilder.group({
       label: this.field.template.label,
       placeholder: this.field.template.placeholder,
+      multiple: this.field.template.multiple,
       key: this.field.input.key,
       type: this.field.input.type,
       defaultValue
@@ -160,6 +161,8 @@ export class UpdatorComponent implements OnInit, OnDestroy {
     cloneField.template.label = value.main.label;
     cloneField.template.required = value.validation.required;
     cloneField.template.placeholder = value.main.placeholder;
+    cloneField.template.multiple = value.main.multiple;
+
     cloneField.input.key = value.main.key;
     cloneField.input.defaultValue = defaultValue;
     cloneField.input.type = value.main.type;

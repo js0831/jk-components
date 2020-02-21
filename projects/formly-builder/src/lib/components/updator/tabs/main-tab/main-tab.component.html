@@ -13,6 +13,14 @@
       </select>
     </div>
   </div>
+  <div *ngIf="form.value.type === 'select'" class="updator__form-row">
+    <div class="updator__form-column">
+      <label>Multiple: </label>
+    </div>
+    <div class="updator__form-column">
+      <input type="checkbox" formControlName="multiple">
+    </div>
+  </div>
   <div class="updator__form-row">
     <div class="updator__form-column">
       <label>Label: </label>
