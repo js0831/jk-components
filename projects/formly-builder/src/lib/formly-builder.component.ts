@@ -38,7 +38,7 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
     return this.srv.events.subscribe( (x: FormlyEvent) => {
       switch (x.action) {
         case FormlyAction.UPDATE_INPUT:
-          this.reload();
+          this.updateFieldConfig(x.data);
           break;
         case FormlyAction.DELETE_INPUT:
           this.deleteInput(x.data);
@@ -62,6 +62,23 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
           break;
       }
     });
+  }
+
+  private updateFieldConfig(data) {
+    this.form = new FormGroup({});
+    const clonedFields = JSON.parse(JSON.stringify(this.fields));
+    const field = this.srv.getFieldByPath(data.path, clonedFields);
+    const {label, required, options} = data.field.template;
+    const {key, type, className, fieldGroup} = data.field.input;
+    field.templateOptions.label = label;
+    field.templateOptions.required = required;
+    field.templateOptions.options = options;
+    field.key = key;
+    field.type = type;
+    field.className = className;
+    field.fieldGroup = fieldGroup;
+    this.fields = clonedFields;
+    this.reload();
   }
 
   private addRow(direction: 'above' | 'below', field) {

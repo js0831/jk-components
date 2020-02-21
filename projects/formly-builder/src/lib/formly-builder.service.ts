@@ -34,9 +34,13 @@ export class FormlyBuilderService {
     });
   }
 
-  saveInput() {
+  saveInput(path, field) {
     this.pevent.next({
       action: FormlyAction.UPDATE_INPUT,
+      data: {
+        path,
+        field
+      }
     });
   }
 
@@ -69,9 +73,9 @@ export class FormlyBuilderService {
 
   getFieldByPath(path, fields) {
     let fieldHolder = fields;
-    path.forEach( x => {
+    path.forEach( (x, i) => {
       const field = this.getFieldById(x, fieldHolder);
-      fieldHolder = field.fieldGroup || field;
+      fieldHolder = path.length === (i + 1) ? field : (field.fieldGroup || field);
     });
     return fieldHolder;
   }

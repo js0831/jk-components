@@ -76,7 +76,7 @@ export class UpdatorComponent implements OnInit, OnDestroy {
     return '';
   }
 
-  private getNewViewValue(value: string) {
+  private getNewViewValue(value: string, currentClassName: string) {
     const classNames = (this.field.input.className || '').split(' ');
     const removeExisting = classNames.filter( x => {
       return !(x.split('--horizontal').length > 1 || x.split('--vertical').length > 1);
@@ -85,8 +85,8 @@ export class UpdatorComponent implements OnInit, OnDestroy {
     return removeExisting.join(' ');
   }
 
-  private getNewColumnValue(value: string) {
-    let classNames = this.field.input.className;
+  private getNewColumnValue(value: string, currentClassName: string) {
+    let classNames = currentClassName;
     for (let i = 12; i >= 1; i--) {
       classNames = classNames.replace(`formx__column--w${i}`, '');
     }
@@ -151,12 +151,14 @@ export class UpdatorComponent implements OnInit, OnDestroy {
 
   update() {
     const value = this.form.value;
-    this.field.template.label = value.main.label;
-    this.field.input.key = value.main.key;
-    this.field.input.type = value.main.type;
-    this.field.input.className = this.getNewViewValue(value.layout.view);
-    this.field.input.className = this.getNewColumnValue(value.layout.column);
-    this.field.template.required = value.validation.required;
+    const cloneField = JSON.parse(JSON.stringify(this.field));
+    cloneField.template.label = value.main.label;
+    cloneField.template.required = value.validation.required;
+
+    cloneField.input.key = value.main.key;
+    cloneField.input.type = value.main.type;
+    cloneField.input.className = this.getNewViewValue(value.layout.view, this.field.className);
+    cloneField.input.className = this.getNewColumnValue(value.layout.column, cloneField.input.className);
 
     if (this.isWithOptionTab(value.main.type)) {
 
@@ -170,13 +172,14 @@ export class UpdatorComponent implements OnInit, OnDestroy {
             }
           };
         });
-        this.field.input.fieldGroup = formatted;
+        cloneField.input.fieldGroup = formatted;
       } else {
-        this.field.template.options = value.options;
+        cloneField.template.options = value.options;
       }
     }
 
-    this.srv.saveInput();
+    const path = this.srv.getInputOriginPath(this.field.input);
+    this.srv.saveInput(path, cloneField);
     this.show = false;
   }
 
