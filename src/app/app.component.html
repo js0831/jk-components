@@ -6,6 +6,6 @@
     [fields]="fields"
     [options]="options"
     [form]="form"
+    [editable]="true"
+    (onsave)="onSave($event)"
 ></jk-formly-builder>
-
-<!-- <pre>{{form.value | json}}</pre> -->

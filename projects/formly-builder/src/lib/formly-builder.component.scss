@@ -26,8 +26,11 @@
     display: block;
   }
 
-  &--editable{
+  &__buttons{
+    display: none;
+  }
 
+  &--editable{
     input,
     textarea,
     select,
@@ -47,6 +50,30 @@
     }
 
     .formx{
+      &__buttons{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 10px 0;
+
+        button{
+          padding: 5px 10px;
+          border: none;
+          background: #4b97ce;
+          font-size: 14px;
+          border-radius: 3px;
+          color: #fff;
+          cursor: pointer;
+
+          &:hover{
+            background: #3774a0;
+          }
+
+          &:last-child{
+            margin-left: 5px;
+          }
+        }
+      }
 
       &__field {
         &--invalid{
@@ -162,6 +189,7 @@
     font-size: 14px;
     padding: 5px 0;
     display: inline-block;
+    font-weight: bold;
 
     &--required{
       &:after{

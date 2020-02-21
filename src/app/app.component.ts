@@ -16,103 +16,7 @@ export class AppComponent {
   form = new FormGroup({});
   model: any = {};
   options: FormlyFormOptions = {};
-  fields: FormlyFieldConfig[] = [
-    {
-      fieldGroupClassName: 'formx__row',
-      fieldGroup: [
-        {
-            key: 'sports',
-            type: 'input-checkbox-multiple',
-            className: 'formx__column formx__column--horizontal',
-            templateOptions: {
-              label: 'Sports'
-            },
-            fieldGroup: [
-              {
-                key: 'soccer',
-                templateOptions: {
-                  label: 'Soccer'
-                }
-              },
-              {
-                key: 'basketball',
-                templateOptions: {
-                  label: 'Basketball'
-                }
-              },
-              {
-                key: 'taekwondo',
-                templateOptions: {
-                  label: 'Taekwondo'
-                }
-              }
-            ]
-        },
-        {
-          key: 'automatic',
-          type: 'input-checkbox',
-          className: 'formx__column formx__column--horizontal',
-          templateOptions: {
-            label: 'Automatic',
-            required: true
-          }
-        },
-      ],
-    },
-    {
-      fieldGroupClassName: 'formx__row',
-      fieldGroup: [
-        {
-          key: 'middlename',
-          type: 'select',
-          className: 'formx__column formx__column--w6',
-          templateOptions: {
-            label: 'Middle Name',
-            multiple: true,
-            required: true,
-            options: [
-              { id: '1', label: 'Soccer' },
-              { id: '2', label: 'Basketball' },
-              { id: '3', label: 'Taekwondo' },
-            ],
-          }
-        },
-        {
-          key: 'lastname',
-          type: 'input-text',
-          className: 'formx__column formx__column--w6',
-          templateOptions: {
-            label: 'Last Name'
-          }
-        },
-      ],
-    },
-
-    {
-      fieldGroupClassName: 'formx__row',
-      fieldGroup: [
-        {
-            key: 'address',
-            type: 'input-textarea',
-            className: 'formx__column formx__column--vertical',
-            templateOptions: {
-              label: 'Address',
-              required: true
-            }
-        },
-        {
-          key: 'province',
-          type: 'input-text',
-          className: 'formx__column ',
-          defaultValue: 'Pampanga',
-          templateOptions: {
-            label: 'Province',
-            placeholder: 'test',
-          }
-        },
-      ],
-    },
-  ];
+  fields: FormlyFieldConfig[] = [];
 
   constructor(
     private wait: JkWaitService,
@@ -136,5 +40,9 @@ export class AppComponent {
     //     alert(y);
     //   });
     // }, 100);
+  }
+
+  onSave(data) {
+    console.log(data);
   }
 }

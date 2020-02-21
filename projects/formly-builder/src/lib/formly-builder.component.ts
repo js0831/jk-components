@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyBuilderService } from './formly-builder.service';
@@ -18,7 +18,12 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
   @Input() options: FormlyFormOptions;
   @Input() fields: FormlyFieldConfig[];
   @Input() editable = true;
+  @Output() onsave: EventEmitter<FormlyFieldConfig[]> = new EventEmitter<FormlyFieldConfig[]>();
+  // @Input() json = false;
+
+
   show = true;
+  private savedFields: FormlyFieldConfig[];
 
   private subs: Subscription[];
 
@@ -28,10 +33,33 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     FormlyBuilderService.editable = this.editable;
+    this.defaultFields();
+    this.save();
     this.subs = [
       this.watchEvents(),
     ];
 
+  }
+
+  private defaultFields() {
+    if (!this.fields || this.fields.length === 0) {
+      this.fields = [
+        {
+          fieldGroupClassName: 'formx__row',
+          fieldGroup: [
+            { type: 'empty', className: 'formx__column formx__column--w6', },
+            { type: 'empty', className: 'formx__column formx__column--w6', }
+          ]
+        },
+        {
+          fieldGroupClassName: 'formx__row',
+          fieldGroup: [
+            { type: 'empty', className: 'formx__column formx__column--w6', },
+            { type: 'empty', className: 'formx__column formx__column--w6', }
+          ]
+        },
+      ];
+    }
   }
 
   private watchEvents() {
@@ -152,6 +180,19 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
     setTimeout( x => {
       this.show = true;
     });
+  }
+
+  save() {
+    this.savedFields = JSON.parse(JSON.stringify(this.fields));
+    this.onsave.emit(this.savedFields);
+  }
+
+  reset() {
+    this.show = false;
+    this.form = new FormGroup({});
+    this.model = {};
+    this.fields = this.savedFields;
+    this.reload();
   }
 
   ngOnDestroy() {

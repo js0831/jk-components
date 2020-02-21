@@ -1,10 +1,17 @@
-<form class="formx" [formGroup]="form" [ngClass]="{ 'formx--editable': editable }">
-  <formly-form
-    *ngIf="show"
-    [model]="model"
-    [fields]="fields"
-    [options]="options"
-    [form]="form">
-  </formly-form>
-</form>
-<jk-updator></jk-updator>
+<!-- <ng-container *ngIf="!json"> -->
+  <form class="formx" [formGroup]="form" [ngClass]="{ 'formx--editable': editable }">
+    <formly-form
+      *ngIf="show"
+      [model]="model"
+      [fields]="fields"
+      [options]="options"
+      [form]="form">
+    </formly-form>
+
+    <div class="formx__buttons">
+      <button (click)="reset()">Reset</button>
+      <button (click)="save()">Save</button>
+    </div>
+
+  </form>
+  <jk-updator></jk-updator>
