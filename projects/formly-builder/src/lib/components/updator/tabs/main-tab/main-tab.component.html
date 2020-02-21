@@ -5,15 +5,24 @@
     </div>
     <div class="updator__form-column">
       <select formControlName="type">
-        <option
-          [value]="op.value"
-          *ngFor="let op of inputTypeOptions">
-          {{op.label}}
-        </option>
+        <optgroup label="Inputs">
+          <option
+            [value]="op.value"
+            *ngFor="let op of inputTypeOptions.inputs">
+            {{op.label}}
+          </option>
+        </optgroup>
+        <optgroup label="Templates">
+          <option
+            [value]="op.value"
+            *ngFor="let op of inputTypeOptions.templates">
+            {{op.label}}
+          </option>
+        </optgroup>
       </select>
     </div>
   </div>
-  <div *ngIf="form.value.type === 'select'" class="updator__form-row">
+  <div *ngIf="without('multiple')" class="updator__form-row">
     <div class="updator__form-column">
       <label>Multiple: </label>
     </div>
@@ -21,7 +30,7 @@
       <input type="checkbox" formControlName="multiple">
     </div>
   </div>
-  <div class="updator__form-row">
+  <div *ngIf="!without('label')" class="updator__form-row">
     <div class="updator__form-column">
       <label>Label: </label>
     </div>
@@ -29,7 +38,7 @@
       <input type="text" formControlName="label">
     </div>
   </div>
-  <div *ngIf="withPlaceholder()" class="updator__form-row">
+  <div *ngIf="!without('placeholder')" class="updator__form-row">
     <div class="updator__form-column">
       <label>Placeholder: </label>
     </div>
@@ -37,7 +46,7 @@
       <input type="text" formControlName="placeholder">
     </div>
   </div>
-  <div class="updator__form-row">
+  <div *ngIf="!without('key')" class="updator__form-row">
     <div class="updator__form-column">
       <label>Key: </label>
     </div>
@@ -45,7 +54,7 @@
       <input type="text"  formControlName="key">
     </div>
   </div>
-  <div class="updator__form-row">
+  <div *ngIf="!without('defaultValue')" class="updator__form-row">
     <div class="updator__form-column">
       <label>Default Value: </label>
     </div>

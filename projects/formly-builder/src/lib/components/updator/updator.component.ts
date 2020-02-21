@@ -20,6 +20,21 @@ export class UpdatorComponent implements OnInit, OnDestroy {
   tabs = ['Main', 'Layout', 'Validation'];
   selectedTab = this.tabs[0];
 
+  private withoutTab = {
+    options: ['select', 'input-radio', 'input-checkbox-multiple'],
+    validation: ['input-text',
+    'input-date',
+    'input-email',
+    'input-number',
+    'input-password',
+    'input-time',
+    'input-textarea',
+    'input-radio',
+    'input-checkbox',
+    'input-checkbox-multiple',
+    'select']
+  };
+
   constructor(
     private srv: FormlyBuilderService,
     private formBuilder: FormBuilder
@@ -38,24 +53,24 @@ export class UpdatorComponent implements OnInit, OnDestroy {
         this.buildForm();
         this.show = true;
         this.selectedTab = this.tabs[0];
-        this.addOptionTab();
+        this.addTab('Options');
+        this.addTab('Validation');
       }
     });
   }
 
-  private addOptionTab() {
-    if (this.isWithOptionTab(this.form.value.main.type)) {
-      if (this.tabs.indexOf('Options')  === -1) {
-        this.tabs.push('Options');
+  private addTab(tab: string) {
+    if (this.without(tab.toLowerCase(), this.form.value.main.type)) {
+      if (this.tabs.indexOf(tab)  === -1) {
+        this.tabs.push(tab);
       }
     } else {
-      this.tabs = this.tabs.filter( x => x !== 'Options');
+      this.tabs = this.tabs.filter( x => x !== tab);
     }
   }
 
-  private isWithOptionTab(type) {
-    const types = ['select', 'input-radio', 'input-checkbox-multiple'];
-    return types.indexOf(type) >= 0;
+  without(tab, type) {
+    return this.withoutTab[tab].indexOf(type) >= 0;
   }
 
   private isObjectType(type) {
@@ -122,7 +137,7 @@ export class UpdatorComponent implements OnInit, OnDestroy {
       options: new FormArray([]),
     };
 
-    if (this.isWithOptionTab(this.field.input.type)) {
+    if (this.without('options', this.field.input.type)) {
       const options = this.getCurrentFieldOptions();
       formGroup = {
         ...formGroup,
@@ -133,7 +148,8 @@ export class UpdatorComponent implements OnInit, OnDestroy {
     this.form = this.formBuilder.group(formGroup);
     this.form.get('main').get('type').valueChanges.subscribe( x => {
       setTimeout(() => {
-        this.addOptionTab();
+        this.addTab('Options');
+        this.addTab('Validation');
       });
     });
   }
@@ -169,7 +185,7 @@ export class UpdatorComponent implements OnInit, OnDestroy {
     cloneField.input.className = this.getNewViewValue(value.layout.view, this.field.className);
     cloneField.input.className = this.getNewColumnValue(value.layout.column, cloneField.input.className);
 
-    if (this.isWithOptionTab(value.main.type)) {
+    if (this.without('options', value.main.type)) {
 
       if (this.isObjectType(value.main.type)) {
         // NOTE: For multiple checkbox
@@ -195,7 +211,7 @@ export class UpdatorComponent implements OnInit, OnDestroy {
   private getDefaultValue(defaultValue, type) {
     let def = defaultValue;
     if (def === undefined || def === null) {
-      if (type === 'input-checkbox-multiple'){
+      if (type === 'input-checkbox-multiple') {
         def = {};
       } else {
         def = '';

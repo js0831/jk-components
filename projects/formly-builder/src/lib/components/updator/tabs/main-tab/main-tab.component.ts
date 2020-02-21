@@ -9,74 +9,91 @@ import { FormGroup } from '@angular/forms';
 export class MainTabComponent implements OnInit {
 
   @Input() form: FormGroup;
-  fieldsWithPlaceholder = [
-    'input-text',
-    'input-password',
-    'input-date',
-    'input-time',
-    'input-textarea',
-    'input-date',
-    'input-number',
-    'input-email',
-  ];
 
-  inputTypeOptions = [
-    {
-      label: 'Empty',
-      value: 'empty'
-    },
-    {
-      label: 'Input Text',
-      value: 'input-text'
-    },
-    {
-      label: 'Input Date',
-      value: 'input-date'
-    },
-    {
-      label: 'Input Time',
-      value: 'input-time'
-    },
-    {
-      label: 'Input Email',
-      value: 'input-email'
-    },
-    {
-      label: 'Input Number',
-      value: 'input-number'
-    },
-    {
-      label: 'Input Password',
-      value: 'input-password'
-    },
-    {
-      label: 'Select',
-      value: 'select'
-    },
-    {
-      label: 'Textarea',
-      value: 'input-textarea'
-    },
-    {
-      label: 'Input Radio',
-      value: 'input-radio'
-    },
-    {
-      label: 'Input Checkbox',
-      value: 'input-checkbox'
-    },
-    {
-      label: 'Input Checkbox ( Multiple )',
-      value: 'input-checkbox-multiple'
-    }
-  ];
+  private withoutFields = {
+    key: ['section-title', 'empty'],
+    defaultValue: ['section-title', 'empty'],
+    placeholder: [
+      'section-title',
+      'empty',
+      'select',
+      'input-radio',
+      'input-checkbox',
+      'input-checkbox-multiple'
+    ],
+    multiple: [
+      'select'
+    ],
+    label: ['empty'],
+  };
+
+
+  inputTypeOptions = {
+    inputs: [
+      {
+        label: 'Empty',
+        value: 'empty'
+      },
+      {
+        label: 'Input Text',
+        value: 'input-text'
+      },
+      {
+        label: 'Input Date',
+        value: 'input-date'
+      },
+      {
+        label: 'Input Time',
+        value: 'input-time'
+      },
+      {
+        label: 'Input Email',
+        value: 'input-email'
+      },
+      {
+        label: 'Input Number',
+        value: 'input-number'
+      },
+      {
+        label: 'Input Password',
+        value: 'input-password'
+      },
+      {
+        label: 'Select',
+        value: 'select'
+      },
+      {
+        label: 'Textarea',
+        value: 'input-textarea'
+      },
+      {
+        label: 'Input Radio',
+        value: 'input-radio'
+      },
+      {
+        label: 'Input Checkbox',
+        value: 'input-checkbox'
+      },
+      {
+        label: 'Input Checkbox ( Multiple )',
+        value: 'input-checkbox-multiple'
+      },
+    ],
+    templates: [
+      {
+        label: 'Section Title',
+        value: 'section-title'
+      }
+    ]
+  };
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  withPlaceholder() {
-    return this.fieldsWithPlaceholder.indexOf(this.form.get('type').value) >= 0;
+  without(field) {
+    const type = this.form.get('type').value;
+    return this.withoutFields[field].indexOf(type) >= 0;
   }
 }

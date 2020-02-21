@@ -21,6 +21,8 @@ import { InputEmailComponent } from './inputs/input.email';
 import { InputTimeComponent } from './inputs/input.time';
 import { InputNumberComponent } from './inputs/input.number';
 import { InputPasswordComponent } from './inputs/input.password';
+import { SectionTitleComponent } from './templates/section-title';
+
 // import { RowWrapperComponent } from './wrappers/row.wrapper';
 
 @NgModule({
@@ -42,6 +44,9 @@ import { InputPasswordComponent } from './inputs/input.password';
     InputRadioComponent,
     InputCheckboxComponent,
     InputCheckboxMultipleComponent,
+
+    // TEMPLATES
+    SectionTitleComponent,
 
     ActionButtonsComponent,
     OptionsTabComponent,
@@ -70,6 +75,8 @@ import { InputPasswordComponent } from './inputs/input.password';
         { name: 'input-checkbox', component: InputCheckboxComponent },
         { name: 'input-checkbox-multiple', component: InputCheckboxMultipleComponent },
         { name: 'select', component: SelectComponent },
+
+        { name: 'section-title', component: SectionTitleComponent },
       ],
       wrappers: [
         // { name: 'row', component: RowWrapperComponent },

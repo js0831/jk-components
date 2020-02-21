@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-  <div class="updator__form-row">
+  <div *ngIf="!without('view')" class="updator__form-row">
     <div class="updator__form-column">
       <label>View: </label>
     </div>

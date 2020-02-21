@@ -10,10 +10,17 @@ export class LayoutTabComponent implements OnInit {
 
   @Input() form: FormGroup;
 
+  private withoutFields = {
+    view: ['section-title', 'empty'],
+  };
   constructor() { }
 
   ngOnInit() {
 
   }
 
+  without(field) {
+    const type = this.form.parent.value.main.type;
+    return this.withoutFields[field].indexOf(type) >= 0;
+  }
 }
