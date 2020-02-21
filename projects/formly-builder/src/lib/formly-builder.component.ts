@@ -135,7 +135,7 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
   private deleteInput(field) {
     const parent = field.parent;
     parent.fieldGroup = parent.fieldGroup.filter( x => {
-      return x.key !== field.key;
+      return x.id !== field.id;
     });
   }
 
