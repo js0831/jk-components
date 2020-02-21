@@ -91,7 +91,7 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
     };
   }
 
-  private get newCOlumn() {
+  private get newColumn() {
     return {
       type: 'empty',
       className: 'formx__column',
@@ -106,7 +106,7 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
       index += 1;
     }
 
-    field.parent.fieldGroup.splice(index, 0, Object.assign({}, this.newCOlumn));
+    field.parent.fieldGroup.splice(index, 0, Object.assign({}, this.newColumn));
     this.reload();
   }
 

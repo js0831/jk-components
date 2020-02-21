@@ -162,7 +162,7 @@ export class UpdatorComponent implements OnInit, OnDestroy {
 
       if (this.isObjectType(value.main.type)) {
         // NOTE: For multiple checkbox
-        this.field.input.fieldGroup = value.options.map( x => {
+        const formatted = value.options.map( x => {
           return {
             key: x.id,
             templateOptions: {
@@ -170,6 +170,7 @@ export class UpdatorComponent implements OnInit, OnDestroy {
             }
           };
         });
+        this.field.input.fieldGroup = formatted;
       } else {
         this.field.template.options = value.options;
       }

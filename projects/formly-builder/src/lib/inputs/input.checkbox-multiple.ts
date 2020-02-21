@@ -35,6 +35,5 @@ import { FormlyBuilderService } from '../formly-builder.service';
 export class InputCheckboxMultipleComponent extends FieldType implements OnInit {
 
   ngOnInit() {
-    console.log(this.field);
   }
 }

@@ -54,4 +54,31 @@ export class FormlyBuilderService {
       });
     });
   }
+
+  getInputOriginPath(field) {
+    let ids = [field.id];
+    if (field.parent && field.parent.id) {
+      const parentId = this.getInputOriginPath(field.parent);
+      ids = [
+        ...ids,
+        ...parentId
+      ];
+    }
+    return ids.reverse();
+  }
+
+  getFieldByPath(path, fields) {
+    let fieldHolder = fields;
+    path.forEach( x => {
+      const field = this.getFieldById(x, fieldHolder);
+      fieldHolder = field.fieldGroup || field;
+    });
+    return fieldHolder;
+  }
+
+  getFieldById(id, fields) {
+    return fields.filter( x => {
+      return x.id === id;
+    })[0];
+  }
 }
