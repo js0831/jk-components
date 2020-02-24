@@ -16,16 +16,16 @@
   border-radius: 5px;
   box-shadow: 0 3px 5px 0px #000;
   margin: auto;
-  margin-top: 5em;
+  margin-top: 65px;
   overflow: hidden;
 
   &__title{
-    padding: .5em;
+    padding: 10px;
     margin: 0;
     background: #eeeeee;
     color: #3c7ead;
     border-bottom: 1px solid gainsboro;
-    font-size: 1.45em;
+    font-size: 18px;
   }
 
   &__tab{
@@ -35,11 +35,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: .25rem;
+    padding: 5px;
 
     li{
       flex:1;
-      padding:.5em;
+      padding:10px;
       text-align: center;
       border-bottom: 3px solid #f3f3f3;
       cursor: pointer;
@@ -54,11 +54,11 @@
   }
 
   &__form{
-    padding: 1em;
+    padding: 10px;
 
     &-row{
       display: flex;
-      padding: .25em 0;
+      padding: 5px 0;
     }
 
     &-column{
@@ -81,7 +81,7 @@
       // &:last-child{
       input[type=text],
       select{
-        padding: .25em;
+        padding: 5px;
         border: 1px solid #a0a0a0;
         width: 100%;
         box-sizing: border-box;;
@@ -92,7 +92,7 @@
 
 
   &__buttons{
-    padding: .5em;
+    padding: 5px;
     background: #eee;
     display: flex;
     justify-content: flex-end;
@@ -100,10 +100,10 @@
 
     button{
       background: #fff;
-      padding: .5em 1em;
+      padding: 5px 10px;
       border: none;
       border-radius: 3px;
-      margin-left: .5em;
+      margin-left: 5px;
       cursor: pointer;
       background: #3c7ead;
       color: #fff;

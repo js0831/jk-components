@@ -24,9 +24,6 @@ import { FormlyBuilderService } from '../formly-builder.service';
  `,
  styles: [
    `
-    textarea{
-      font-size: 1.75em;
-    }
    `
  ]
 })
