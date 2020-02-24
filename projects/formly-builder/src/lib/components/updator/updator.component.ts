@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { FormlyBuilderService } from '../../formly-builder.service';
 import { Subscription } from 'rxjs';
 import { FieldType } from '@ngx-formly/core';
-import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { FormlyEvent, FormlyAction } from '../../interface/formly-event.interface';
 
 @Component({
@@ -155,8 +155,31 @@ export class UpdatorComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         this.addTab('Options');
         this.addTab('Validation');
+        this.setConditionalRequiredFields();
       });
     });
+  }
+
+
+
+  private setConditionalRequiredFields() {
+    const key = this.form.get('main').get('key');
+    const label = this.form.get('main').get('label');
+    const typeValue = this.form.value.main.type;
+
+    if (['empty', 'section-title'].indexOf(typeValue) >= 0) {
+      key.setValidators(null);
+    } else {
+      key.setValidators(Validators.required);
+    }
+    key.updateValueAndValidity();
+
+    if (typeValue === 'section-title') {
+      label.setValidators(Validators.required);
+    } else {
+      label.setValidators(null);
+    }
+    label.updateValueAndValidity();
   }
 
   private getCurrentFieldOptions() {
@@ -176,6 +199,8 @@ export class UpdatorComponent implements OnInit, OnDestroy {
   }
 
   update() {
+    if (!this.isValidForm()) { return; }
+
     const value = this.form.value;
     const cloneField = JSON.parse(JSON.stringify(this.field));
     const defaultValue = this.getDefaultValue(value.main.defaultValue, value.main.type);
@@ -217,6 +242,20 @@ export class UpdatorComponent implements OnInit, OnDestroy {
     const path = this.srv.getInputOriginPath(this.field.input);
     this.srv.saveInput(path, cloneField);
     this.show = false;
+  }
+
+  private isValidForm() {
+    const main = this.form.get('main');
+    if (main.get('key').invalid) {
+      alert('Key field is required');
+      return false;
+    }
+
+    if (main.get('label').invalid) {
+      alert('Label field is required');
+      return false;
+    }
+    return true;
   }
 
   private getDefaultValue(defaultValue, type) {

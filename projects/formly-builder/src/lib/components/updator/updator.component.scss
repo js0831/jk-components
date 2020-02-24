@@ -85,6 +85,11 @@
         border: 1px solid #a0a0a0;
         width: 100%;
         box-sizing: border-box;;
+
+        &.ng-invalid.ng-touched{
+          border-color: #ff6868;
+          box-shadow: 0 0 4px 0px red;
+        }
       }
       // }
     }
