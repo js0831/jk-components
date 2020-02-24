@@ -129,12 +129,18 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
   }
 
   private addRow(direction: 'above' | 'below', field) {
-    const id = field.parent.id;
-    let index = parseInt(id.split('_')[id.split('_').length - 1], 0);
+    const parent = field.parent;
+    const gparent = parent.parent;
+    let index = null;
+
+    gparent.fieldGroup.forEach((o, i) => {
+      if (o.id === parent.id) {
+        index = i;
+      }
+    });
     if (direction === 'below') {
       index += 1;
     }
-
     field.parent.parent.fieldGroup.splice(index, 0, this.newRow);
     this.reload();
   }
