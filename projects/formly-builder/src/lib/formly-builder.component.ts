@@ -23,7 +23,7 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
 
 
   show = true;
-  private savedFields: FormlyFieldConfig[];
+  private savedFields: any[];
 
   private subs: Subscription[];
 
@@ -34,7 +34,7 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     FormlyBuilderService.editable = this.editable;
     this.defaultFields();
-    this.save();
+    this.savedFields = JSON.parse(JSON.stringify(this.fields));
     this.subs = [
       this.watchEvents(),
     ];
@@ -197,8 +197,28 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.savedFields = JSON.parse(JSON.stringify(this.fields));
+    this.savedFields = this.deleteUnnecessaryProperties(JSON.parse(JSON.stringify(this.fields)));
+
     this.onsave.emit(this.savedFields);
+  }
+
+  // Delete focus and _keypath
+  private deleteUnnecessaryProperties(fields: any[]) {
+    return fields.map( x => {
+      x.fieldGroup = x.fieldGroup.map( y => {
+        if (y._keyPath) {
+          delete y._keyPath;
+        }
+        if (y.templateOptions) {
+          delete y.templateOptions.focus;
+        }
+        if (y.fieldGroup && y.fieldGroup.length > 0) {
+          y.fieldGroup = this.deleteUnnecessaryProperties(y.fieldGroup);
+        }
+        return y;
+      });
+      return x;
+    });
   }
 
   reset() {

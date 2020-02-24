@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { JkWaitService } from 'projects/jk-wait/src/public-api';
 import { JkAlertService } from 'projects/jk-alert/src/public-api';
-import { AlertType } from 'projects/jk-alert/src/lib/alert.interface';
 import { FormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 
