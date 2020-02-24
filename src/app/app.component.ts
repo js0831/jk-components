@@ -10,8 +10,8 @@ import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  isEdit = true;
   title = 'jk-components';
-
   form = new FormGroup({});
   model: any = {};
   options: FormlyFormOptions = {};

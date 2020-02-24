@@ -148,10 +148,12 @@
 
     formly-validation-message{
       position: absolute;
-      top: 14px;
-      right: 5px;
+      top: 24px;
+      right: 12px;
       font-size: 12px;
       color: #ff2323;
+      background: #fff;
+      padding: 0 3px;
     }
 
     jk-action-buttons{
@@ -167,19 +169,20 @@
     &--horizontal {
       > *{
         display: flex !important;
+        align-items: center;
 
         label{
           display: flex;
           align-items: center;
           justify-content: flex-start;
-          max-width: 125px;
+          max-width: 170px;
           padding-right: 5px;
           width: 100%;
         }
       }
 
       formly-validation-message{
-        top: -14px;
+        top: -1px;
       }
     }
   }

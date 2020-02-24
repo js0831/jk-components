@@ -1,11 +1,14 @@
 <!-- <ng-jk-wait></ng-jk-wait>
 <ng-jk-alert></ng-jk-alert> -->
 
+Edit: <input type="checkbox" [(ngModel)]="isEdit">
+<hr>
+
 <jk-formly-builder
     [model]="model"
     [fields]="fields"
     [options]="options"
     [form]="form"
-    [editable]="true"
+    [editable]="isEdit"
     (onsave)="onSave($event)"
 ></jk-formly-builder>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, OnDestroy, Output, EventEmitter, OnChanges } from '@angular/core';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyBuilderService } from './formly-builder.service';
@@ -11,7 +11,7 @@ import { FormlyEvent, FormlyAction } from './interface/formly-event.interface';
   styleUrls: ['formly-builder.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class FormlyBuilderComponent implements OnInit, OnDestroy {
+export class FormlyBuilderComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() form: FormGroup;
   @Input() model: any;
@@ -38,6 +38,12 @@ export class FormlyBuilderComponent implements OnInit, OnDestroy {
     this.subs = [
       this.watchEvents(),
     ];
+  }
+
+  ngOnChanges() {
+    setTimeout( x => {
+      this.form.reset();
+    }, 250);
   }
 
   private defaultFields() {
