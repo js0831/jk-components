@@ -61,6 +61,10 @@
     @include theme(#d66a1d)
   }
 
+  &--5{
+    @include theme(#4c4949)
+  }
+
   &__title{
     width: 100%;
     padding: 1em;

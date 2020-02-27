@@ -1,0 +1,16 @@
+<input *ngIf="promptType.TEXT === type" type="text" [(ngModel)]="data.value">
+
+<select *ngIf="promptType.SELECT === type && data.options" [(ngModel)]="data.value">
+  <option
+    [value]="o.value"
+    *ngFor="let o of data.options">
+    {{o.label}}
+  </option>
+</select>
+
+<div *ngIf="promptType.RADIO === type">
+  <label *ngFor="let o of data.options">
+    <input type="radio" [value]="o.value" [(ngModel)]="data.value">
+    {{o.label}}
+  </label>
+</div>

@@ -1,7 +1,12 @@
 <div *ngIf="show" class="container">
 <div class="alert alert--{{alert.type}}">
-    <h2 class="alert__title">{{alert.title}}</h2>
-    <p class="alert__message">{{alert.message}}</p>
+
+    <h2 class="alert__title" *ngIf="alert.title && alert.title.length > 0">{{alert.title}}</h2>
+    <p class="alert__message" *ngIf="alert.message && alert.message.length > 0">{{alert.message}}</p>
+
+    <ng-prompt
+      *ngIf="alert.type === alertType.PROMPT"
+      [data]="alert.promptConfig.data" [type]="alert.promptConfig.type"></ng-prompt>
 
     <div class="alert__buttons">
       <button

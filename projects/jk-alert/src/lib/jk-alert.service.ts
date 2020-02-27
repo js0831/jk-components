@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AlertInterface, AlertType } from './alert.interface';
 import { Subject, of, Observable } from 'rxjs';
+import { PrompType } from './components/prompt/prompt-type.enum';
+import { PromptDataInterface } from './components/prompt/promp-data.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +65,22 @@ export class JkAlertService {
     };
 
     return this.alert(data);
+  }
+
+  prompt(
+    config: {type: PrompType, data: PromptDataInterface},
+    title?: string,
+    message?: string) {
+
+    const alert: AlertInterface = {
+      title,
+      type: AlertType.PROMPT,
+      message,
+      buttons: ['OK', 'CANCEL'],
+      promptConfig: config
+    };
+
+    return this.alert(alert);
   }
 
   alert(data: AlertInterface) {

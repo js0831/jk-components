@@ -3,6 +3,7 @@ import { JkWaitService } from 'projects/jk-wait/src/public-api';
 import { JkAlertService } from 'projects/jk-alert/src/public-api';
 import { FormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
+import { PrompType } from 'projects/jk-alert/src/lib/components/prompt/prompt-type.enum';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,23 @@ export class AppComponent implements OnInit {
   // model: any = {};
   // options: FormlyFormOptions = {};
   // fields: FormlyFieldConfig[] = [];
+  data = {
+    value: 'B',
+    options: [
+      {
+        label: 'OPTION A',
+        value: 'A'
+      },
+      {
+        label: 'OPTION B',
+        value: 'B'
+      },
+      {
+        label: 'OPTION C',
+        value: 'C'
+      }
+    ]
+  };
 
   constructor(
     private wait: JkWaitService,
@@ -26,26 +44,15 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout( x => {
-      this.wait.start({
-        type: 'TEXT_SPINNER',
-        text: 'Hello'
-      });
-    });
 
-    setTimeout( x => {
-      this.wait.end();
-    }, 3000);
-
-    setTimeout( x => {
-      setTimeout( x => {
-        this.wait.start();
-      });
-
-      setTimeout( x => {
-        this.wait.end();
-      }, 3000);
-    }, 5000);
+    // setTimeout( x => {
+    //   this.sv.prompt({
+    //     type: PrompType.TEXT,
+    //     data: this.data
+    //   }, 'TITLE', 'MESSAGE').then( (xy: any) => {
+    //     alert(xy.value);
+    //   });
+    // });
 
   }
 

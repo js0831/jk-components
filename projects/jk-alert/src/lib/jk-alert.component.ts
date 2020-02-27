@@ -1,7 +1,9 @@
 import { Component, OnInit, ElementRef, OnDestroy} from '@angular/core';
-import { AlertInterface } from './alert.interface';
+import { AlertInterface, AlertType } from './alert.interface';
 import { JkAlertService } from './jk-alert.service';
 import { Subscription } from 'rxjs';
+import { PrompType } from './components/prompt/prompt-type.enum';
+import { PromptDataInterface } from './components/prompt/promp-data.interface';
 
 @Component({
   selector: 'ng-jk-alert',
@@ -15,6 +17,8 @@ export class JkAlertComponent implements OnInit, OnDestroy {
   show = false;
   alert: AlertInterface;
   subs: Subscription;
+  promptType = PrompType;
+  alertType = AlertType;
 
   constructor(
     private srv: JkAlertService,
@@ -39,7 +43,12 @@ export class JkAlertComponent implements OnInit, OnDestroy {
   }
 
   answer(ans: string) {
-    this.srv.answer(ans);
+    const answer = this.alert.type === this.alertType.PROMPT ? {
+      answer: ans,
+      value: this.alert.promptConfig.data.value
+    } : ans;
+
+    this.srv.answer(answer);
     this.show = false;
   }
 
