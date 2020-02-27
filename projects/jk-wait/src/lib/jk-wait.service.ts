@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, of, Observable } from 'rxjs';
+import { WaitConfig } from './config/wait.config';
+import { WaitEventInterface } from './interface/wait-event.interface';
 
 enum E1 {
   A, B, C
@@ -10,26 +12,27 @@ enum E1 {
 })
 export class JkWaitService {
 
-  private event = new Subject<{event: string, data?: any}>();
+  private event = new Subject<WaitEventInterface>();
   constructor(
   ) { }
 
-  start() {
+  start(config?: WaitConfig) {
     this.event.next({
-      event: 'START'
+      name: 'START',
+      data: config
     });
   }
 
   end() {
     this.event.next({
-      event: 'END'
+      name: 'END'
     });
   }
 
-  get watch(): Observable<string> {
-    return new Observable<string>( (i) => {
+  get watch(): Observable<WaitEventInterface> {
+    return new Observable<WaitEventInterface>( (i) => {
       this.event.subscribe( x => {
-        i.next(x.event);
+        i.next(x);
       });
     });
   }

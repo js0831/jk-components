@@ -27,23 +27,33 @@ export class JkWaitComponent implements OnInit, OnDestroy {
 
   isTextType = false;
   isSpinnerType = false;
+  private rootConfig: WaitConfig;
 
   constructor(
     @Inject(WaitConfigService) private config: WaitConfig,
     private service: JkWaitService
   ) {
-    this.configData = {
-      ...this.configData,
-      ...this.config
-    };
-    this.isTextType = (this.config.type === 'TEXT' || this.config.type === 'TEXT_SPINNER');
-    this.isSpinnerType = (this.config.type === 'SPINNER' || this.config.type === 'TEXT_SPINNER');
+    this.rootConfig = config;
   }
 
   ngOnInit() {
-    this.subs = this.service.watch.subscribe( event => {
-      this.show = event === 'START';
+    this.subs = this.service.watch.subscribe( x => {
+      if (x.data) {
+        this.setConfig(x.data);
+      } else {
+        this.setConfig(this.rootConfig);
+      }
+      this.show = x.name === 'START';
     });
+  }
+
+  private setConfig(config) {
+    this.configData = {
+      ...this.configData,
+      ...config
+    };
+    this.isTextType = (config.type === 'TEXT' || config.type === 'TEXT_SPINNER');
+    this.isSpinnerType = (config.type === 'SPINNER' || config.type === 'TEXT_SPINNER');
   }
 
   ngOnDestroy() {
