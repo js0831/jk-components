@@ -16,7 +16,9 @@ import { FormlyBuilderService } from '../formly-builder.service';
       [ngClass]="{ 'formx__field--invalid': showError}"
       class="formx__field formx__field--text" type="input" [formControl]="formControl" [formlyAttributes]="field">
 
-    <formly-validation-message *ngIf="showError" [field]="field"></formly-validation-message>
+    <formly-validation-message
+      [ngClass]="{'no-label' : !to.label || to.label.length === 0}"
+      *ngIf="showError" [field]="field"></formly-validation-message>
 
     <jk-action-buttons
       [field]="field"

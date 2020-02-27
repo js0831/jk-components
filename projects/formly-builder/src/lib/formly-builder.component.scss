@@ -154,6 +154,10 @@
       color: #ff2323;
       background: #fff;
       padding: 0 3px;
+
+      &.no-label{
+        top: -1px;
+      }
     }
 
     jk-action-buttons{
@@ -246,8 +250,11 @@
     }
 
     &--invalid{
-      box-shadow: 0 0 2px 0px red;
-      border: 1px solid #fb1919 !important;
+
+      &.ng-touched{
+        box-shadow: 0 0 2px 0px red;
+        border: 1px solid #fb1919 !important;
+      }
     }
 
     &--radio, &--checkbox-multiple{
