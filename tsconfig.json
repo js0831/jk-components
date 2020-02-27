@@ -42,6 +42,12 @@
       ],
       "formly-builder/*": [
         "dist/formly-builder/*"
+      ],
+      "ilogin-button": [
+        "dist/ilogin-button"
+      ],
+      "ilogin-button/*": [
+        "dist/ilogin-button/*"
       ]
     }
   },

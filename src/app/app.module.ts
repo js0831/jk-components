@@ -9,6 +9,7 @@ import { JkAlertModule } from 'projects/jk-alert/src/public-api';
 import { FormlyBuilderModule } from 'projects/formly-builder/src/public-api';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { IloginButtonModule } from 'projects/ilogin-button/src/public-api';
 
 const waitConfig: WaitConfig = {
   type: 'SPINNER',
@@ -26,7 +27,10 @@ const waitConfig: WaitConfig = {
     AppRoutingModule,
     JkWaitModule.forRoot(waitConfig),
     JkAlertModule,
-    FormlyBuilderModule
+    FormlyBuilderModule,
+    IloginButtonModule.forRoot({
+      appId: '5e15a157522bc3d4a4a0329b'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

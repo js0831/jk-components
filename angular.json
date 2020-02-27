@@ -264,6 +264,41 @@
           }
         }
       }
+    },
+    "iloginButton": {
+      "projectType": "library",
+      "root": "projects/ilogin-button",
+      "sourceRoot": "projects/ilogin-button/src",
+      "prefix": "jk",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ilogin-button/tsconfig.lib.json",
+            "project": "projects/ilogin-button/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ilogin-button/src/test.ts",
+            "tsConfig": "projects/ilogin-button/tsconfig.spec.json",
+            "karmaConfig": "projects/ilogin-button/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ilogin-button/tsconfig.lib.json",
+              "projects/ilogin-button/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "jk-components"
 }

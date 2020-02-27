@@ -19,27 +19,27 @@ export class AppComponent implements OnInit {
   // model: any = {};
   // options: FormlyFormOptions = {};
   // fields: FormlyFieldConfig[] = [];
-  data = {
-    value: 'B',
-    options: [
-      {
-        label: 'OPTION A',
-        value: 'A'
-      },
-      {
-        label: 'OPTION B',
-        value: 'B'
-      },
-      {
-        label: 'OPTION C',
-        value: 'C'
-      }
-    ]
-  };
+  // data = {
+  //   value: 'B',
+  //   options: [
+  //     {
+  //       label: 'OPTION A',
+  //       value: 'A'
+  //     },
+  //     {
+  //       label: 'OPTION B',
+  //       value: 'B'
+  //     },
+  //     {
+  //       label: 'OPTION C',
+  //       value: 'C'
+  //     }
+  //   ]
+  // };
 
   constructor(
-    private wait: JkWaitService,
-    private sv: JkAlertService
+    // private wait: JkWaitService,
+    // private sv: JkAlertService
   ) {
   }
 
@@ -56,6 +56,9 @@ export class AppComponent implements OnInit {
 
   }
 
+  onsuccess(e) {
+    console.log(e);
+  }
   // FORMLY BUILDER
   // onSave(data) {
   //   console.log(JSON.stringify(data));
