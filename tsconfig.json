@@ -48,6 +48,12 @@
       ],
       "ilogin-button/*": [
         "dist/ilogin-button/*"
+      ],
+      "form-builder": [
+        "dist/form-builder"
+      ],
+      "form-builder/*": [
+        "dist/form-builder/*"
       ]
     }
   },

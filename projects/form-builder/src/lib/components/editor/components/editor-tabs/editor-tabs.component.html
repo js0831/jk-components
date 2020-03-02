@@ -1,0 +1,8 @@
+<ul class="nav nav-tabs">
+  <li
+    (click)="selectTab(tab)"
+    class="nav-item" *ngFor="let tab of tabs">
+    <a class="nav-link" [ngClass]="{'active': tab.value === activeTab.value}" >{{tab.label}}</a>
+  </li>
+</ul>
+<br>

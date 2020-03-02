@@ -10,6 +10,7 @@ import { FormlyBuilderModule } from 'projects/formly-builder/src/public-api';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IloginButtonModule } from 'projects/ilogin-button/src/public-api';
+import { FormBuilderModule } from 'projects/form-builder/src/public-api';
 
 const waitConfig: WaitConfig = {
   type: 'SPINNER',
@@ -30,7 +31,8 @@ const waitConfig: WaitConfig = {
     FormlyBuilderModule,
     IloginButtonModule.forRoot({
       appId: '5e15a157522bc3d4a4a0329b'
-    })
+    }),
+    FormBuilderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
