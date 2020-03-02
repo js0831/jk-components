@@ -9,15 +9,15 @@ import { FormBuilderAction } from './interface/form-builder.actions';
   selector: 'jk-form-builder',
   template: `
     <jk-editor *ngIf="isEdit"></jk-editor>
+
     <formly-form
       *ngIf="show"
       [model]="model"
       [fields]="fields"
-      [options]="options"
       [form]="form">
     </formly-form>
 
-    <pre>{{model | json}}</pre>
+    <!-- <pre>{{model | json}}</pre> -->
   `,
   styles: []
 })
@@ -28,12 +28,21 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   show = true;
   form = new FormGroup({});
   model: any = {};
-  options: FormlyFormOptions = {
-    formState: {
-      awesomeIsForced: false,
-    },
-  };
   fields: FormlyFieldConfig[] = [
+    {
+      wrappers: ['form-section'],
+      templateOptions: {
+        label: 'Default Form Title'
+      },
+      fieldGroup: [
+        {
+          wrappers: ['form-section'],
+          templateOptions: {
+            label: 'Default Form Title'
+          },
+        },
+      ]
+    },
     {
       wrappers: ['form-section'],
       key: 'default',
@@ -187,9 +196,21 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
         case FormBuilderAction.EDIT_INPUT:
           this.isEdit = x.data.value;
           break;
+        case FormBuilderAction.UPDATE_INPUT:
+          this.reloadForm();
+          break;
         default:
           break;
       }
+    });
+  }
+
+  private reloadForm() {
+    this.show = false;
+    this.form = new FormGroup({});
+    this.model = {};
+    setTimeout( () => {
+      this.show = true;
     });
   }
 

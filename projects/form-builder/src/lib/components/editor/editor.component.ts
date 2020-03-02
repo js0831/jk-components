@@ -30,7 +30,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   private watchEvents() {
     return this.service.events.subscribe( x => {
-      if (x.data.data) {
+      if (x.data && x.data.data) {
         this.field = x.data.data.field;
         this.template = x.data.data.template;
         this.buildForm();
@@ -49,7 +49,7 @@ export class EditorComponent implements OnInit, OnDestroy {
       label,
     } = this.template;
 
-    const finalType = this.template.type ? `${type}-${this.template.type}` : type;
+    const finalType = type === 'input' ? `${type}-${this.template.type}` : type;
     const main = this.fb.group({
       key: [key],
       label: [label],
@@ -74,6 +74,21 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   isTab(tabValue) {
     return this.activeTab && this.activeTab.value === tabValue;
+  }
+
+  update() {
+    const formValue = this.form.value;
+    const main = formValue.main;
+
+    const type = main.type.split('-');
+    this.template.label = main.label;
+    this.field.type = type[0];
+    this.field.key = main.key;
+    if (type.length > 1) {
+      this.template.type = type[1];
+    }
+    this.close();
+    this.service.dispatchAction(FormBuilderAction.UPDATE_INPUT);
   }
 
   ngOnDestroy() {
