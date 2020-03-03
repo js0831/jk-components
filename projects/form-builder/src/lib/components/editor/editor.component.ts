@@ -103,16 +103,29 @@ export class EditorComponent implements OnInit, OnDestroy {
     const main = formValue.main;
     const layout = formValue.layout;
 
-    const type = main.type.split('-');
-    this.field.templateOptions.label = main.label;
-    this.field.type = type[0];
-    this.field.key = main.key;
-    this.field.className = this.generateNewFieldClassName(layout);
-    if (type.length > 1) {
-      this.field.templateOptions.type = type[1];
+
+    if (main.type !== 'formly-group') {
+      const type = main.type.split('-');
+      this.field.templateOptions.label = main.label;
+      this.field.type = type[0];
+      this.field.key = main.key;
+      this.field.className = this.generateNewFieldClassName(layout);
+      if (type.length > 1) {
+        this.field.templateOptions.type = type[1];
+      }
+      this.updateFieldOptions(formValue);
+    } else {
+      this.field = {
+        wrappers: ['form-section'],
+        className: this.generateNewFieldClassName(layout),
+        key: main.key,
+        templateOptions: {
+          label: main.label
+        },
+        type: 'formly-group',
+      };
     }
 
-    this.updateFieldOptions(formValue);
     this.close();
     this.service.dispatchAction(FormBuilderAction.UPDATE_INPUT, {
       path: this.inputPath,
@@ -121,7 +134,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   private generateNewFieldClassName(layout) {
-    const currentClass = this.field.className;
+    const currentClass = this.field.className || '';
     const currentColumn = this.getCurrentFieldColumn();
     const newClass = currentClass.replace(`col-md-${currentColumn}`, `col-md-${layout.column}`);
     return newClass;
@@ -145,6 +158,11 @@ export class EditorComponent implements OnInit, OnDestroy {
         delete this.field.fieldGroup;
         this.field.templateOptions.options = formValue.options;
       }
+      return;
+    }
+    delete this.field.templateOptions.options;
+    if (this.field.type !== 'formly-group') {
+      delete this.field.fieldGroup;
     }
   }
 

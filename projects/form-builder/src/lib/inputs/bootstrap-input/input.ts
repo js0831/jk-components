@@ -4,6 +4,8 @@ import { FieldType } from '@ngx-formly/core';
 @Component({
  selector: 'jk-input',
  template: `
+    <!-- ADD col-sm-4 to label for inline -->
+    <!-- ADD col-sm-8 to input for inline -->
     <label>{{to.label}}</label>
     <input
       [type]="to.type"
@@ -21,6 +23,7 @@ import { FieldType } from '@ngx-formly/core';
     :host{
       position:relative;
       display: block;
+      /* flex for inline */
     }
 
     :host:hover{

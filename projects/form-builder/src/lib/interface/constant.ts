@@ -3,13 +3,17 @@ export const CONSTANT = {
     options: ['select', 'radio', 'checkboxes']
   },
   without: {
-    layout: []
+    layout: ['formly-group']
   },
 
   inputTypes: [
     {
       label: 'Blank',
       value: 'blank'
+    },
+    {
+      label: 'Form Section',
+      value: 'formly-group'
     },
     {
       label: 'Input Text',

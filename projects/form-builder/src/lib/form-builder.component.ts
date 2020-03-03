@@ -45,18 +45,12 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       templateOptions: {
         label: 'Default Form Title'
       },
-      fieldGroup: [
-        {
-          wrappers: ['form-section'],
-          templateOptions: {
-            label: 'Default Form Title'
-          },
-        },
-      ]
+      type: 'formly-group',
     },
     {
       wrappers: ['form-section'],
       key: 'default',
+      type: 'formly-group',
       templateOptions: {
         label: 'Default Form Title'
       },
@@ -100,16 +94,26 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           fieldGroupClassName: 'form-row',
           fieldGroup: [
             {
-              type: 'blank',
+              wrappers: ['form-section'],
               className: 'form-group col-md-4',
+              key: 'testss',
+              templateOptions: {
+                label: 'Default Form Title'
+              },
+              type: 'formly-group',
             },
             {
               type: 'blank',
               className: 'form-group col-md-4',
             },
             {
-              type: 'blank',
+              type: 'input',
+              key: 'test',
               className: 'form-group col-md-4',
+              templateOptions: {
+                label: 'test',
+                type: 'text'
+              }
             },
           ]
         }
@@ -356,6 +360,9 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     field.type = newFieldValues.type;
     field.className = newFieldValues.className;
     field.fieldGroup = newFieldValues.fieldGroup;
+    if (newFieldValues.wrappers) {
+      field.wrappers = newFieldValues.wrappers;
+    }
     this.fields = cloneFields;
     this.reloadForm();
   }
