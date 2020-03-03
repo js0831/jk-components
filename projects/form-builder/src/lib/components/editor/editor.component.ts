@@ -54,10 +54,14 @@ export class EditorComponent implements OnInit, OnDestroy {
       label: [label],
       type: [finalType]
     });
+    const layoutForm = this.fb.group({
+      column: this.getCurrentFieldColumn(),
+    });
 
     let allForm = {
       main: mainForm,
-      options: new FormArray([])
+      options: new FormArray([]),
+      layout: layoutForm
     };
 
     if (this.service.isWith('options', this.field.type)) {
@@ -69,6 +73,14 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
 
     this.form = this.fb.group(allForm);
+  }
+
+  private getCurrentFieldColumn() {
+    const className = (this.field.className || '').split('col-md-');
+    if (className[1]) {
+      return className[1].split(' ')[0];
+    }
+    return '';
   }
 
   close() {
@@ -89,11 +101,13 @@ export class EditorComponent implements OnInit, OnDestroy {
   update() {
     const formValue = this.form.value;
     const main = formValue.main;
+    const layout = formValue.layout;
 
     const type = main.type.split('-');
     this.field.templateOptions.label = main.label;
     this.field.type = type[0];
     this.field.key = main.key;
+    this.field.className = this.generateNewFieldClassName(layout);
     if (type.length > 1) {
       this.field.templateOptions.type = type[1];
     }
@@ -104,6 +118,13 @@ export class EditorComponent implements OnInit, OnDestroy {
       path: this.inputPath,
       field: this.field
     });
+  }
+
+  private generateNewFieldClassName(layout) {
+    const currentClass = this.field.className;
+    const currentColumn = this.getCurrentFieldColumn();
+    const newClass = currentClass.replace(`col-md-${currentColumn}`, `col-md-${layout.column}`);
+    return newClass;
   }
 
   private updateFieldOptions(formValue) {

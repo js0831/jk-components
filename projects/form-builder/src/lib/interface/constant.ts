@@ -2,6 +2,9 @@ export const CONSTANT = {
   with: {
     options: ['select', 'radio', 'checkboxes']
   },
+  without: {
+    layout: []
+  },
 
   inputTypes: [
     {

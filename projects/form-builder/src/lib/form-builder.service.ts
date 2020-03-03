@@ -41,6 +41,10 @@ export class FormBuilderService {
     return CONSTANT.with[what].indexOf(type) >= 0;
   }
 
+  isWithout(what, type) {
+    return CONSTANT.without[what].indexOf(type) >= 0;
+  }
+
   getInputOriginPath(field) {
     let ids = [field.id];
     if (field.parent && field.parent.id) {

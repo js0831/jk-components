@@ -35,6 +35,7 @@ export class EditorTabsComponent implements OnInit, OnDestroy {
       this.watchInputTypeChange()
     ];
     this.appendOptionsTab(this.field.type);
+    this.appendLayoutTab(this.field.type);
     this.selectTab(this.tabs[0]);
   }
 
@@ -43,6 +44,7 @@ export class EditorTabsComponent implements OnInit, OnDestroy {
       switch (x.action) {
         case FormBuilderAction.INPUT_TYPE_CHANGE:
           this.appendOptionsTab(x.data);
+          this.appendLayoutTab(x.data);
           break;
         default:
           break;
@@ -61,6 +63,16 @@ export class EditorTabsComponent implements OnInit, OnDestroy {
       this.tabs.push({
         label: 'Options',
         value: 'options'
+      });
+    }
+  }
+
+  appendLayoutTab(type) {
+    this.tabs = this.tabs.filter( x => x.value !== 'layout');
+    if (!this.service.isWithout('layout', type)) {
+      this.tabs.push({
+        label: 'Layout',
+        value: 'layout'
       });
     }
   }
