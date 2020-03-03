@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilderService } from '../../form-builder.service';
 import { FormBuilderAction } from '../../interface/form-builder.actions';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -50,15 +50,26 @@ export class EditorComponent implements OnInit, OnDestroy {
     } = this.template;
 
     const finalType = type === 'input' ? `${type}-${this.template.type}` : type;
-    const main = this.fb.group({
+    const mainForm = this.fb.group({
       key: [key],
       label: [label],
       type: [finalType]
     });
 
-    this.form = this.fb.group({
-      main,
-    });
+    let allForm = {
+      main: mainForm,
+      options: new FormArray([])
+    };
+
+    if (this.service.isWith('options', this.field.type)) {
+      const options = this.getCurrentFieldOptions();
+      allForm = {
+        ...allForm,
+        options,
+      };
+    }
+
+    this.form = this.fb.group(allForm);
   }
 
   close() {
@@ -87,8 +98,50 @@ export class EditorComponent implements OnInit, OnDestroy {
     if (type.length > 1) {
       this.template.type = type[1];
     }
+    this.updateFieldOptions(formValue);
     this.close();
     this.service.dispatchAction(FormBuilderAction.UPDATE_INPUT);
+  }
+
+  private updateFieldOptions(formValue) {
+    if (this.service.isWith('options', this.field.type)) {
+      if (this.isObjectType(this.field.type)) {
+        // NOTE: For multiple checkbox
+        const formatted = formValue.options.map( x => {
+          return {
+            key: x.id,
+            templateOptions: {
+              label: x.label
+            }
+          };
+        });
+        delete this.template.options;
+        this.field.fieldGroup = formatted;
+      } else {
+        delete this.field.fieldGroup;
+        this.template.options = formValue.options;
+      }
+    }
+  }
+
+  private getCurrentFieldOptions() {
+    const isObjectType = this.isObjectType(this.field.type);
+    const currentOptions = isObjectType
+        ? this.field.fieldGroup
+        : this.template.options;
+    const options = new FormArray([]);
+    currentOptions.forEach( x => {
+      const option = new FormGroup({
+        id: new FormControl(isObjectType ? x.key : x.id),
+        label: new FormControl(isObjectType ? x.templateOptions.label : x.label)
+      });
+      options.push(option);
+    });
+    return options;
+  }
+
+  private isObjectType(type) {
+    return type === 'checkboxes';
   }
 
   ngOnDestroy() {

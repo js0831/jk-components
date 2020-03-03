@@ -15,7 +15,7 @@
       </div>
       <div class="modal-body">
 
-        <jk-editor-tabs (onselect)="onTabSelect($event)"></jk-editor-tabs>
+        <jk-editor-tabs [field]="field" (onselect)="onTabSelect($event)"></jk-editor-tabs>
 
         <form [formGroup]="form" *ngIf="form && activeTab">
 

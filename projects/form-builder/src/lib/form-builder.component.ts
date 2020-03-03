@@ -54,13 +54,26 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           fieldGroupClassName: 'form-row',
           fieldGroup: [
             {
-              type: 'input',
-              key: 'test',
+              type: 'checkboxes',
+              key: 'sports',
               className: 'form-group col-md-4',
               templateOptions: {
-                type: 'date',
-                label: 'test'
-              }
+                label: 'Sports',
+              },
+              fieldGroup: [
+                {
+                  key: 'basketball',
+                  templateOptions: {
+                    label: 'Basketball',
+                  },
+                },
+                {
+                  key: 'taekwondo',
+                  templateOptions: {
+                    label: 'Taekwondo',
+                  },
+                }
+              ]
             },
             {
               type: 'blank',
