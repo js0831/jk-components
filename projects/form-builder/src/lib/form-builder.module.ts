@@ -9,6 +9,7 @@ import { EditorComponent } from './components/editor/editor.component';
 import { EditorTabsComponent } from './components/editor/components/editor-tabs/editor-tabs.component';
 import { EditorMainTabComponent } from './components/editor/components/editor-main-tab/editor-main-tab.component';
 import { EditorOptionsTabComponent } from './components/editor/components/editor-options-tab/editor-options-tab.component';
+import { FormActionsComponent } from './components/form-actions/form-actions.component';
 
 
 
@@ -18,7 +19,8 @@ import { EditorOptionsTabComponent } from './components/editor/components/editor
     EditorComponent,
     EditorTabsComponent,
     EditorMainTabComponent,
-    EditorOptionsTabComponent
+    EditorOptionsTabComponent,
+    FormActionsComponent
   ],
   imports: [
     CommonModule,

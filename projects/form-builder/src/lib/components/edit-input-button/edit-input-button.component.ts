@@ -20,8 +20,16 @@ export class EditInputButtonComponent implements OnInit {
     //
   }
 
-  edit() {
-    this.service.dispatchAction(FormBuilderAction.EDIT_INPUT, {
+  edit(type) {
+    if (type === 'field') {
+      this.service.dispatchAction(FormBuilderAction.EDIT_INPUT, {
+        value: true,
+        data: this.field
+      });
+      return;
+    }
+
+    this.service.dispatchAction(FormBuilderAction.EDIT_FORM, {
       value: true,
       data: this.field
     });

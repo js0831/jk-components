@@ -56,5 +56,62 @@ export const CONSTANT = {
       label: 'Checkbox (Multiple)',
       value: 'checkboxes'
     }
-  ]
+  ],
+
+  formActions: [
+    {
+      label: 'Duplicate Row',
+      id: 'duplicate_row'
+    },
+    {
+      label: 'Duplicate Column',
+      id: 'duplicate_column'
+    },
+    {
+      label: 'Add Column next',
+      id: 'add_column_next'
+    },
+    {
+      label: 'Add Column previous',
+      id: 'add_column_prev'
+    },
+    {
+      label: 'Add Row above',
+      id: 'add_row_above'
+    },
+    {
+      label: 'Add Row below',
+      id: 'add_row_below'
+    },
+    {
+      label: 'Delete Column',
+      id: 'delete_column'
+    },
+    {
+      label: 'Delete Row',
+      id: 'delete_row'
+    },
+  ],
+
+  newColumn: {
+    type: 'blank',
+    className: 'form-group col-md-4',
+  },
+  newRow: {
+    fieldGroupClassName: 'form-row',
+    fieldGroup: [
+      {
+        type: 'blank',
+        className: 'form-group col-md-4',
+      },
+      {
+        type: 'blank',
+        className: 'form-group col-md-4',
+      },
+      {
+        type: 'blank',
+        className: 'form-group col-md-4',
+      },
+    ]
+  }
 };

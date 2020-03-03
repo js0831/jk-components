@@ -1,14 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { FormBuilderService } from './form-builder.service';
 import { Subscription } from 'rxjs';
 import { FormBuilderAction } from './interface/form-builder.actions';
+import { CONSTANT } from './interface/constant';
 
 @Component({
   selector: 'jk-form-builder',
+  encapsulation: ViewEncapsulation.None,
   template: `
     <jk-editor *ngIf="isEdit"></jk-editor>
+    <jk-form-actions *ngIf="isEditForm"></jk-form-actions>
 
     <formly-form
       *ngIf="show"
@@ -17,14 +20,21 @@ import { FormBuilderAction } from './interface/form-builder.actions';
       [form]="form">
     </formly-form>
 
-    <!-- <pre>{{model | json}}</pre> -->
+    <pre>{{model | json}}</pre>
   `,
-  styles: []
+  styles: [
+    `
+      .form-row:hover{
+        box-shadow: 0 0 0 2px rgba(44, 138, 255, 0.5);
+      }
+    `
+  ]
 })
 export class FormBuilderComponent implements OnInit, OnDestroy {
 
   subs: Subscription[];
   isEdit = false;
+  isEditForm = false;
   show = true;
   form = new FormGroup({});
   model: any = {};
@@ -213,10 +223,120 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
         case FormBuilderAction.UPDATE_INPUT:
           this.updateInput(x.data);
           break;
+        case FormBuilderAction.EDIT_FORM:
+          this.isEditForm = x.data.value;
+          break;
+        case FormBuilderAction.APPLY_FORM_ACTION:
+          this.isEditForm = false;
+          this.applyFormAction(x.data);
+          break;
         default:
           break;
       }
     });
+  }
+
+  private applyFormAction(data) {
+    switch (data.action) {
+      case 'delete_column':
+        this.deleteInput(data.field);
+        break;
+      case 'delete_row':
+        this.deleteRow(data.field);
+        break;
+      case 'add_column_next':
+        this.addColumn('next', data.field, CONSTANT.newColumn);
+        break;
+      case 'add_column_prev':
+        this.addColumn('prev', data.field, CONSTANT.newColumn);
+        break;
+      case 'add_row_above':
+        this.addRow('above', data.field, CONSTANT.newRow);
+        break;
+      case 'add_row_below':
+        this.addRow('below', data.field, CONSTANT.newRow);
+        break;
+      case 'duplicate_row':
+        this.duplicate('row', data.field);
+        break;
+      case 'duplicate_column':
+        this.duplicate('column', data.field);
+        break;
+      default:
+        break;
+    }
+    this.reloadForm();
+  }
+
+  private deleteInput(field) {
+    const parent = field.parent;
+    parent.fieldGroup = parent.fieldGroup.filter( x => {
+      return x.id !== field.id;
+    });
+  }
+
+  private deleteRow(field) {
+    field.parent.fieldGroup = [];
+    this.fields = this.fields.filter( x => {
+      return x.id !== field.parent.id;
+    });
+  }
+
+  private duplicate(what: 'column' | 'row', field) {
+    if (what === 'column') {
+      const duplidateColumn = JSON.parse(JSON.stringify(field));
+      const stamp = Math.floor(Date.now() / 1000);
+      duplidateColumn.key = `${duplidateColumn.key}_${stamp}`;
+      delete duplidateColumn.id;
+      this.deleteFieldGroupMembersID(duplidateColumn);
+      this.addColumn('next', field, duplidateColumn);
+
+    } else {
+      const duplidateRow = JSON.parse(JSON.stringify(field.parent));
+      delete duplidateRow.id;
+      duplidateRow.fieldGroup = duplidateRow.fieldGroup.map( x => {
+        const stamp = Math.floor(Date.now() / 1000);
+        x.key = `${x.key || ''}_${stamp}`;
+        this.deleteFieldGroupMembersID(x);
+        delete x.id;
+        return x;
+      });
+      this.addRow('below', field, duplidateRow);
+    }
+  }
+
+  private deleteFieldGroupMembersID(field) {
+    if (field.fieldGroup && field.fieldGroup.length > 0) {
+      field.fieldGroup = field.fieldGroup.map( x => {
+        delete x.id;
+        return x;
+      });
+    }
+  }
+
+  private addColumn(direction: 'next' | 'prev', field, newColumn) {
+    const id = field.id;
+    let index = parseInt(id.split('_')[id.split('_').length - 1], 0);
+    if (direction === 'next') {
+      index += 1;
+    }
+    field.parent.fieldGroup.splice(index, 0, Object.assign({}, newColumn));
+  }
+
+  private addRow(direction: 'above' | 'below', field, newRow) {
+    const parent = field.parent;
+    const gparent = parent.parent;
+    let index = null;
+
+    gparent.fieldGroup.forEach((o, i) => {
+      if (o.id === parent.id) {
+        index = i;
+      }
+    });
+    if (direction === 'below') {
+      index += 1;
+    }
+    field.parent.parent.fieldGroup.splice(index, 0, newRow);
   }
 
   private updateInput(data) {
@@ -241,12 +361,16 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   }
 
   private reloadForm() {
-    this.show = false;
-    this.form = new FormGroup({});
-    this.model = {};
+    this.resetForm();
     setTimeout( () => {
       this.show = true;
     });
+  }
+
+  private resetForm() {
+    this.show = false;
+    this.form = new FormGroup({});
+    this.model = {};
   }
 
   ngOnDestroy() {
