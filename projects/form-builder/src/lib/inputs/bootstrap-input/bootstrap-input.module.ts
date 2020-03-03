@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormSectionWrapperComponent } from './wrappers/form-section.wrapper';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SelectComponent } from './select';
 import { InputComponent } from './input';
 import { CheckboxComponent } from './checkbox';
@@ -32,6 +32,7 @@ import { EditInputButtonComponent } from '../../components/edit-input-button/edi
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     FormlyModule.forRoot({
       types: [

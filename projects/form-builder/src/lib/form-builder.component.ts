@@ -28,6 +28,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   show = true;
   form = new FormGroup({});
   model: any = {};
+  field: any;
   fields: FormlyFieldConfig[] = [
     {
       wrappers: ['form-section'],
@@ -210,12 +211,33 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           this.isEdit = x.data.value;
           break;
         case FormBuilderAction.UPDATE_INPUT:
-          this.reloadForm();
+          this.updateInput(x.data);
           break;
         default:
           break;
       }
     });
+  }
+
+  private updateInput(data) {
+    this.show = false;
+    this.form = new FormGroup({});
+    this.model = {};
+    const cloneFields = JSON.parse(JSON.stringify(this.fields));
+    const newFieldValues = data.field;
+    const field = this.service.getFieldByPath(data.path, cloneFields);
+    this.service.getFieldByPath(data.path, cloneFields).templateOptions = {
+      ...field.templateOptions,
+      ...newFieldValues.templateOptions
+    };
+
+    field.key = newFieldValues.key;
+    field.defaultValue = newFieldValues.defaultValue;
+    field.type = newFieldValues.type;
+    field.className = newFieldValues.className;
+    field.fieldGroup = newFieldValues.fieldGroup;
+    this.fields = cloneFields;
+    this.reloadForm();
   }
 
   private reloadForm() {

@@ -17,15 +17,13 @@ export class EditInputButtonComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    //
   }
 
   edit() {
     this.service.dispatchAction(FormBuilderAction.EDIT_INPUT, {
       value: true,
-      data: {
-        field: this.field,
-        template: this.template
-      }
+      data: this.field
     });
   }
 

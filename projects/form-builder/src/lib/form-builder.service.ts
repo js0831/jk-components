@@ -40,4 +40,31 @@ export class FormBuilderService {
   isWith(what, type) {
     return CONSTANT.with[what].indexOf(type) >= 0;
   }
+
+  getInputOriginPath(field) {
+    let ids = [field.id];
+    if (field.parent && field.parent.id) {
+      const parentId = this.getInputOriginPath(field.parent);
+      ids = [
+        ...ids,
+        ...parentId
+      ];
+    }
+    return ids;
+  }
+
+  getFieldByPath(path, fields) {
+    let fieldHolder = fields;
+    path.forEach( (x, i) => {
+      const field = this.getFieldById(x, fieldHolder);
+      fieldHolder = path.length === (i + 1) ? field : (field.fieldGroup || field);
+    });
+    return fieldHolder;
+  }
+
+  getFieldById(id, fields) {
+    return fields.filter( x => {
+      return x.id === id;
+    })[0];
+  }
 }

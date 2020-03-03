@@ -13,9 +13,9 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
   field: any;
-  template: any;
   subs: Subscription[];
   activeTab: any;
+  inputPath: string[];
 
   constructor(
     private service: FormBuilderService,
@@ -31,11 +31,10 @@ export class EditorComponent implements OnInit, OnDestroy {
   private watchEvents() {
     return this.service.events.subscribe( x => {
       if (x.data && x.data.data) {
-        this.field = x.data.data.field;
-        this.template = x.data.data.template;
+        this.inputPath = this.service.getInputOriginPath(x.data.data).reverse();
+        this.field = JSON.parse(JSON.stringify(x.data.data));
         this.buildForm();
       }
-
     });
   }
 
@@ -47,9 +46,9 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     const {
       label,
-    } = this.template;
+    } = this.field.templateOptions;
 
-    const finalType = type === 'input' ? `${type}-${this.template.type}` : type;
+    const finalType = type === 'input' ? `${type}-${this.field.templateOptions.type}` : type;
     const mainForm = this.fb.group({
       key: [key],
       label: [label],
@@ -92,15 +91,19 @@ export class EditorComponent implements OnInit, OnDestroy {
     const main = formValue.main;
 
     const type = main.type.split('-');
-    this.template.label = main.label;
+    this.field.templateOptions.label = main.label;
     this.field.type = type[0];
     this.field.key = main.key;
     if (type.length > 1) {
-      this.template.type = type[1];
+      this.field.templateOptions.type = type[1];
     }
+
     this.updateFieldOptions(formValue);
     this.close();
-    this.service.dispatchAction(FormBuilderAction.UPDATE_INPUT);
+    this.service.dispatchAction(FormBuilderAction.UPDATE_INPUT, {
+      path: this.inputPath,
+      field: this.field
+    });
   }
 
   private updateFieldOptions(formValue) {
@@ -115,11 +118,11 @@ export class EditorComponent implements OnInit, OnDestroy {
             }
           };
         });
-        delete this.template.options;
+        delete this.field.templateOptions.options;
         this.field.fieldGroup = formatted;
       } else {
         delete this.field.fieldGroup;
-        this.template.options = formValue.options;
+        this.field.templateOptions.options = formValue.options;
       }
     }
   }
@@ -128,7 +131,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     const isObjectType = this.isObjectType(this.field.type);
     const currentOptions = isObjectType
         ? this.field.fieldGroup
-        : this.template.options;
+        : this.field.templateOptions.options;
     const options = new FormArray([]);
     currentOptions.forEach( x => {
       const option = new FormGroup({

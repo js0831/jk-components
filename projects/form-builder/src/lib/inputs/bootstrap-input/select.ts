@@ -6,7 +6,7 @@ import { FieldType } from '@ngx-formly/core';
  template: `
     <label>{{to.label}}</label>
 
-    <select class="form-control form-control-sm" [formControl]="formControl">
+    <select class="form-control form-control-sm" [formControl]="formControl" [formlyAttributes]="field">
       <option [value]="o.id" *ngFor="let o of to.options">
         {{o.label}}
       </option>
