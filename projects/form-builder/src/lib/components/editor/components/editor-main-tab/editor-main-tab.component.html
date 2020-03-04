@@ -35,6 +35,13 @@
             {{opt.label}}
           </option>
         </select>
+        <select multiple="true" *ngSwitchCase="'select_multiple'" class="form-control" formControlName="defaultValue">
+          <option
+            [value]="opt.id"
+            *ngFor="let opt of form.parent.value.options">
+            {{opt.label}}
+          </option>
+        </select>
 
         <ng-container *ngSwitchCase="'radio'">
           <div class="form-check" *ngFor="let opt of form.parent.value.options">

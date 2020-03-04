@@ -208,7 +208,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         ? this.field.fieldGroup
         : this.field.templateOptions.options;
     const options = new FormArray([]);
-    currentOptions.forEach( x => {
+    ( currentOptions || [] ).forEach( x => {
       const option = new FormGroup({
         id: new FormControl(isObjectType ? x.key : x.id),
         label: new FormControl(isObjectType ? x.templateOptions.label : x.label)

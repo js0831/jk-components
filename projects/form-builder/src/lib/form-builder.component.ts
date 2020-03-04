@@ -137,17 +137,13 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
                   className: 'form-group col-md-4',
                 },
                 {
-                  type: 'input',
+                  type: 'select',
                   key: 'test',
                   className: 'form-group col-md-4',
                   templateOptions: {
                     label: 'test',
-                    required: null,
-                    maxLength: 10,
-                    // minLength: 5,
-                    // min: 10,
-                    // max: 20,
-                    type: 'text'
+                    multiple: true,
+                    required: true
                   },
                 },
               ]

@@ -1,6 +1,6 @@
 export const CONSTANT = {
   with: {
-    options: ['select', 'radio', 'checkboxes'],
+    options: ['select', 'select_multiple', 'radio', 'checkboxes'],
     additionalFormAction: ['formly-group'],
     maxValue: ['input-number'],
   },
@@ -9,7 +9,7 @@ export const CONSTANT = {
     defaultValue: ['formly-group', 'blank'],
     validation: ['blank', 'formly-group', 'checkbox', 'input-range'],
     required: ['checkbox', 'input-range'],
-    maxLength: ['checkboxes', 'radio', 'input-range', 'input-number', 'select'],
+    maxLength: ['checkboxes', 'radio', 'input-range', 'input-number', 'select', 'select_multiple'],
   },
 
   inputTypes: [
@@ -56,6 +56,10 @@ export const CONSTANT = {
     {
       label: 'Select',
       value: 'select'
+    },
+    {
+      label: 'Select (Multiple)',
+      value: 'select_multiple'
     },
     {
       label: 'Radio',

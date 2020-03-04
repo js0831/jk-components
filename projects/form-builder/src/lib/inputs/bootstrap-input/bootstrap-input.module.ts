@@ -12,6 +12,7 @@ import { TextareaComponent } from './textarea';
 import { BlankComponent } from './blank';
 import { FormComponent } from './form';
 import { EditInputButtonComponent } from '../../components/edit-input-button/edit-input-button.component';
+import { SelectMultipleComponent } from './select-multiple';
 
 
 export function minlengthValidationMessage(err, field) {
@@ -41,6 +42,7 @@ export function patternValidationMessage(err, field) {
     InputComponent,
     TextareaComponent,
     SelectComponent,
+    SelectMultipleComponent,
     CheckboxComponent,
     CheckboxesComponent,
     RadioComponent,
@@ -58,6 +60,7 @@ export function patternValidationMessage(err, field) {
         { name: 'input', component: InputComponent },
         { name: 'textarea', component: TextareaComponent },
         { name: 'select', component: SelectComponent },
+        { name: 'select_multiple', component: SelectMultipleComponent },
         { name: 'radio', component: RadioComponent },
         { name: 'checkbox', component: CheckboxComponent },
         { name: 'checkboxes', component: CheckboxesComponent },
