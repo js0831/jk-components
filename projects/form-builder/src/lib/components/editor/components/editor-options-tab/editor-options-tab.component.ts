@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormArray, FormControl } from '@angular/forms';
+import { FormGroup, FormArray, FormControl, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'jk-editor-options-tab',
@@ -12,7 +12,9 @@ export class EditorOptionsTabComponent implements OnInit {
   id = '';
   label = '';
 
-  // constructor() { }
+  constructor(
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit() {
     //
@@ -25,8 +27,15 @@ export class EditorOptionsTabComponent implements OnInit {
         label: new FormControl(this.label)
       });
       this.form.push(group);
+      this.appendDefaultValueControl();
       this.id = '';
       this.label = '';
+    }
+  }
+
+  private appendDefaultValueControl() {
+    if (this.form.parent.value.main.type === 'checkboxes') {
+      (this.form.parent.get('main').get('defaultValue') as FormGroup).addControl(this.id, new FormControl(false));
     }
   }
 

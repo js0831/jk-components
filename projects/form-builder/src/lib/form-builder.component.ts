@@ -133,8 +133,9 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
                   className: 'form-group col-md-4',
                   templateOptions: {
                     label: 'test',
-                    type: 'text'
-                  }
+                    type: 'text',
+                  },
+                  defaultValue: 'test'
                 },
               ]
             }

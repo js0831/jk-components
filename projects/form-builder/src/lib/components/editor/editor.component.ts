@@ -41,18 +41,18 @@ export class EditorComponent implements OnInit, OnDestroy {
   private buildForm() {
     const {
       key,
-      type
+      type,
+      defaultValue
     } = this.field;
-
     const {
       label,
     } = this.field.templateOptions;
-
     const finalType = type === 'input' ? `${type}-${this.field.templateOptions.type}` : type;
     const mainForm = this.fb.group({
       key: [key],
       label: [label],
-      type: [finalType]
+      type: [finalType],
+      defaultValue: this.getDefaultValue(defaultValue)
     });
     const layoutForm = this.fb.group({
       column: this.getCurrentFieldColumn(),
@@ -73,6 +73,24 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
 
     this.form = this.fb.group(allForm);
+  }
+
+  private getDefaultValue(def) {
+    switch (this.field.type) {
+      case 'formly-group':
+        return '';
+      case 'checkboxes':
+        let fromOptions = {};
+        this.field.fieldGroup.forEach( x => {
+          fromOptions = {
+            ...fromOptions,
+            ...{ [x.key]: false }
+          };
+        });
+        return this.fb.group(def || fromOptions);
+      default:
+        return def;
+    }
   }
 
   private getCurrentFieldColumn() {
@@ -111,7 +129,7 @@ export class EditorComponent implements OnInit, OnDestroy {
       this.field.key = main.key;
       this.field.className = this.generateNewFieldClassName(layout);
       this.field.wrappers = [];
-      delete this.field.defaultValue;
+      this.field.defaultValue = main.defaultValue;
       if (type.length > 1) {
         this.field.templateOptions.type = type[1];
       }

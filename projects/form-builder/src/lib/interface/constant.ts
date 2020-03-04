@@ -4,7 +4,8 @@ export const CONSTANT = {
     additionalFormAction: ['formly-group']
   },
   without: {
-    layout: []
+    layout: [],
+    defaultValue: ['formly-group', 'blank']
   },
 
   inputTypes: [

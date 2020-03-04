@@ -33,8 +33,12 @@ export class EditorMainTabComponent implements OnInit, OnDestroy {
   private watchFieldTypeOnChange() {
     const type = this.form.get('type');
     return type.statusChanges.subscribe( x => {
-      this.service.dispatchAction(FormBuilderAction.INPUT_TYPE_CHANGE, type.value)
+      this.service.dispatchAction(FormBuilderAction.INPUT_TYPE_CHANGE, type.value);
     });
+  }
+
+  isWithDefaultValue() {
+    return !this.service.isWithout('defaultValue', this.form.value.type);
   }
 
   ngOnDestroy() {

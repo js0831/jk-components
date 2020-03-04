@@ -1,22 +1,63 @@
 <form [formGroup]="form" *ngIf="form">
   <div class="form-group row">
-    <label class="col-sm-2 col-form-label">Label</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" formControlName="label">
-    </div>
-  </div>
-  <div class="form-group row">
-    <label class="col-sm-2 col-form-label">Key</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" formControlName="key">
-    </div>
-  </div>
-  <div class="form-group row">
-    <label class="col-sm-2 col-form-label">Type</label>
-    <div class="col-sm-10">
+    <label class="col-sm-3 col-form-label">Type</label>
+    <div class="col-sm-9">
       <select class="form-control" formControlName="type">
         <option *ngFor="let type of inputTypes" [value]="type.value">{{type.label}}</option>
       </select>
     </div>
   </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Label</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" formControlName="label">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Key</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" formControlName="key">
+    </div>
+  </div>
+  <div class="form-group row" *ngIf="isWithDefaultValue()">
+    <label class="col-sm-3 col-form-label">Default Value</label>
+    <div class="col-sm-9">
+
+      <ng-container [ngSwitch]="form.value.type">
+        <div *ngSwitchCase="'checkbox'" class="checkbox-type">
+          <input class="form-check-input" type="checkbox" formControlName="defaultValue">
+        </div>
+
+        <select *ngSwitchCase="'select'" class="form-control" formControlName="defaultValue">
+          <option
+            [value]="opt.id"
+            *ngFor="let opt of form.parent.value.options">
+            {{opt.label}}
+          </option>
+        </select>
+
+        <ng-container *ngSwitchCase="'radio'">
+          <div class="form-check" *ngFor="let opt of form.parent.value.options">
+            <input [id]="opt.id" class="form-check-input" type="radio" [value]="opt.id" formControlName="defaultValue">
+            <label [for]="opt.id" class="form-check-label">
+              {{opt.label}}
+            </label>
+          </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'checkboxes'" [formGroup]="form.get('defaultValue')">
+          <div class="form-check" *ngFor="let opt of form.parent.value.options">
+            <input [id]="opt.id" class="form-check-input" type="checkbox" [formControlName]="opt.id">
+            <label [for]="opt.id" class="form-check-label">
+              {{opt.label}}
+            </label>
+          </div>
+        </ng-container>
+
+        <input *ngSwitchDefault class="form-control" formControlName="defaultValue">
+      </ng-container>
+
+    </div>
+  </div>
 </form>
+<!-- {{form.value.defaultValue | json}} -->
