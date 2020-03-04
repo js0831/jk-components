@@ -24,10 +24,6 @@ styles: [
       display: block;
     }
 
-    .card:hover {
-      box-shadow: 0 0 0px 3px rgba(255, 131, 0, 0.5);
-    }
-
     .card-header:hover jk-edit-input-button{
       display:block;
     }

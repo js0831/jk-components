@@ -28,7 +28,7 @@ import { CONSTANT } from './interface/constant';
         position:relative;
       }
       .form-row:hover:before{
-        box-shadow: 0 0 0 4px rgba(44, 138, 255, 0.5);
+        box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.7);
         content: '';
         display: block;
         width: 100%;
@@ -289,6 +289,9 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       case 'duplicate_column':
         this.duplicate('column', data.field);
         break;
+      case 'insert_row':
+        this.insertRow(data.field);
+        break;
       default:
         break;
     }
@@ -300,6 +303,13 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     parent.fieldGroup = parent.fieldGroup.filter( x => {
       return x.id !== field.id;
     });
+  }
+
+  private insertRow(field) {
+    field.fieldGroup = [
+      ...(field.fieldGroup || []),
+      this.service.clone(CONSTANT.newRow)
+    ];
   }
 
   private deleteRow(field) {
