@@ -1,5 +1,6 @@
-import { Component, OnInit, HostListener, Host } from '@angular/core';
+import { Component, OnInit, HostListener, Host, OnDestroy } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
+import { Subscription } from 'rxjs';
 
 @Component({
  selector: 'jk-checkboxes',
@@ -13,7 +14,7 @@ import { FieldType } from '@ngx-formly/core';
     </label>
   </div>
 
-  <formly-validation-message class="invalid-feedback" *ngIf="showError" [field]="field"></formly-validation-message>
+  <div class="invalid-feedback" *ngIf="isInvalid">Al least one checkbox must be selected.</div>
 
   <jk-edit-input-button
     [field]="field" [template]="to"
@@ -49,4 +50,25 @@ import { FieldType } from '@ngx-formly/core';
    `
  ]
 })
-export class CheckboxesComponent extends FieldType {}
+export class CheckboxesComponent extends FieldType implements OnInit, OnDestroy {
+
+  isInvalid = true;
+  sub: Subscription;
+
+  ngOnInit() {
+    this.sub = this.formControl.valueChanges.subscribe( x => {
+      this.checkIfValid();
+    });
+    this.checkIfValid();
+  }
+
+  private checkIfValid() {
+    this.isInvalid = Object.keys(this.formControl.value).filter( xx => {
+      return this.formControl.value[xx];
+    }).length === 0 && this.to.required && this.formControl.touched;
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+}

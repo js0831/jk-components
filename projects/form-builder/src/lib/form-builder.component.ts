@@ -89,7 +89,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
                   className: 'form-group col-md-4',
                   templateOptions: {
                     label: 'Sports',
-                    required: true,
+                    // required: true,
                   },
                   // defaultValue: {
                   //   basketball: true,
