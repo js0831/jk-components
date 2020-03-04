@@ -86,6 +86,10 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
                   templateOptions: {
                     label: 'Sports',
                   },
+                  defaultValue: {
+                    basketball: true,
+                    taekwondo: false
+                  },
                   fieldGroup: [
                     {
                       key: 'basketball',
