@@ -110,6 +110,8 @@ export class EditorComponent implements OnInit, OnDestroy {
       this.field.type = type[0];
       this.field.key = main.key;
       this.field.className = this.generateNewFieldClassName(layout);
+      this.field.wrappers = [];
+      delete this.field.defaultValue;
       if (type.length > 1) {
         this.field.templateOptions.type = type[1];
       }
