@@ -6,7 +6,8 @@ import { FieldType } from '@ngx-formly/core';
  template: `
     <label>{{to.label}}</label>
     <textarea class="form-control form-control-sm" [formControl]="formControl"></textarea>
-    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+
+    <formly-validation-message class="invalid-feedback" *ngIf="showError" [field]="field"></formly-validation-message>
 
     <jk-edit-input-button
       [field]="field" [template]="to"
@@ -30,6 +31,10 @@ import { FieldType } from '@ngx-formly/core';
 
     jk-edit-input-button{
       display:none;
+    }
+
+    .invalid-feedback{
+      display:block;
     }
    `
  ]

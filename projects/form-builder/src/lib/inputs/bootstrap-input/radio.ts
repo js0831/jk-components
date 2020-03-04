@@ -13,6 +13,8 @@ import { FieldType } from '@ngx-formly/core';
     </label>
   </div>
 
+  <formly-validation-message class="invalid-feedback" *ngIf="showError" [field]="field"></formly-validation-message>
+
   <jk-edit-input-button
       [field]="field" [template]="to"
   ></jk-edit-input-button>
@@ -39,6 +41,10 @@ import { FieldType } from '@ngx-formly/core';
 
     jk-edit-input-button{
       display:none;
+    }
+
+    .invalid-feedback{
+      display:block;
     }
    `
  ]

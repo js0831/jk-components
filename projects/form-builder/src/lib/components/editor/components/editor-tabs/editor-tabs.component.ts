@@ -34,8 +34,7 @@ export class EditorTabsComponent implements OnInit, OnDestroy {
     this.subs = [
       this.watchInputTypeChange()
     ];
-    this.appendOptionsTab(this.field.type);
-    this.appendLayoutTab(this.field.type);
+    this.appendDynamicTabs(this.field.type);
     this.selectTab(this.tabs[0]);
   }
 
@@ -43,13 +42,18 @@ export class EditorTabsComponent implements OnInit, OnDestroy {
     return this.service.events.subscribe( x => {
       switch (x.action) {
         case FormBuilderAction.INPUT_TYPE_CHANGE:
-          this.appendOptionsTab(x.data);
-          this.appendLayoutTab(x.data);
+          this.appendDynamicTabs(x.data);
           break;
         default:
           break;
       }
     });
+  }
+
+  private appendDynamicTabs(type) {
+    this.appendOptionsTab(type);
+    this.appendLayoutTab(type);
+    this.appendValidationTab(type);
   }
 
   selectTab(tab) {
@@ -73,6 +77,16 @@ export class EditorTabsComponent implements OnInit, OnDestroy {
       this.tabs.push({
         label: 'Layout',
         value: 'layout'
+      });
+    }
+  }
+
+  appendValidationTab(type) {
+    this.tabs = this.tabs.filter( x => x.value !== 'validation');
+    if (!this.service.isWithout('validation', type)) {
+      this.tabs.push({
+        label: 'Validation',
+        value: 'validation'
       });
     }
   }

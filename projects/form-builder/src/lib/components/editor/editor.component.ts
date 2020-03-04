@@ -46,7 +46,9 @@ export class EditorComponent implements OnInit, OnDestroy {
     } = this.field;
     const {
       label,
+      required, maxLength, minLength, min, max,
     } = this.field.templateOptions;
+
     const finalType = type === 'input' ? `${type}-${this.field.templateOptions.type}` : type;
     const mainForm = this.fb.group({
       key: [key],
@@ -57,11 +59,19 @@ export class EditorComponent implements OnInit, OnDestroy {
     const layoutForm = this.fb.group({
       column: this.getCurrentFieldColumn(),
     });
+    const validationForm = this.fb.group({
+      required,
+      minLength,
+      maxLength,
+      max,
+      min
+    });
 
     let allForm = {
       main: mainForm,
       options: new FormArray([]),
-      layout: layoutForm
+      layout: layoutForm,
+      validation: validationForm
     };
 
     if (this.service.isWith('options', this.field.type)) {
@@ -120,11 +130,17 @@ export class EditorComponent implements OnInit, OnDestroy {
     const formValue = this.form.value;
     const main = formValue.main;
     const layout = formValue.layout;
+    const validation = formValue.validation;
 
 
     if (main.type !== 'formly-group') {
       const type = main.type.split('-');
       this.field.templateOptions.label = main.label;
+      this.field.templateOptions = {
+        ...this.field.templateOptions,
+        ...validation
+      };
+
       this.field.type = type[0];
       this.field.key = main.key;
       this.field.className = this.generateNewFieldClassName(layout);

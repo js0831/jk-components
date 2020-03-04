@@ -22,7 +22,8 @@ export class EditorMainTabComponent implements OnInit, OnDestroy {
   formLoaded = true;
 
   constructor(
-    private service: FormBuilderService
+    private service: FormBuilderService,
+    private fb: FormBuilder
   ) {
     //
   }
@@ -41,6 +42,7 @@ export class EditorMainTabComponent implements OnInit, OnDestroy {
       this.formLoaded = false;
       this.service.dispatchAction(FormBuilderAction.INPUT_TYPE_CHANGE, type.value);
       this.updateFormControlDefaultValue();
+      this.form.parent.get('validation').reset();
     });
   }
 
@@ -56,7 +58,14 @@ export class EditorMainTabComponent implements OnInit, OnDestroy {
       if (type !== 'checkboxes') {
         this.form.addControl('defaultValue', new FormControl(''));
       } else {
-        this.form.addControl('defaultValue', new FormGroup({}));
+        let fromOptions = {};
+        this.form.parent.value.options.forEach( xx => {
+          fromOptions = {
+            ...fromOptions,
+            ...{ [xx.id]: false }
+          };
+        });
+        this.form.addControl('defaultValue', this.fb.group(fromOptions));
       }
       this.formLoaded = true;
     });

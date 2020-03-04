@@ -38,6 +38,10 @@ import { CONSTANT } from './interface/constant';
         left: 0;
         border-radius: 5px;
       }
+
+      .ng-invalid.ng-touched{
+        border-color:#dc3545;
+      }
     `
   ]
 })
@@ -85,11 +89,12 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
                   className: 'form-group col-md-4',
                   templateOptions: {
                     label: 'Sports',
+                    required: true,
                   },
-                  defaultValue: {
-                    basketball: true,
-                    taekwondo: false
-                  },
+                  // defaultValue: {
+                  //   basketball: true,
+                  //   taekwondo: false
+                  // },
                   fieldGroup: [
                     {
                       key: 'basketball',
@@ -137,9 +142,13 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
                   className: 'form-group col-md-4',
                   templateOptions: {
                     label: 'test',
-                    type: 'text',
+                    required: null,
+                    maxLength: 10,
+                    // minLength: 5,
+                    // min: 10,
+                    // max: 20,
+                    type: 'text'
                   },
-                  defaultValue: 'test'
                 },
               ]
             }

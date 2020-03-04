@@ -1,11 +1,15 @@
 export const CONSTANT = {
   with: {
     options: ['select', 'radio', 'checkboxes'],
-    additionalFormAction: ['formly-group']
+    additionalFormAction: ['formly-group'],
+    maxValue: ['input-number'],
   },
   without: {
     layout: [],
-    defaultValue: ['formly-group', 'blank']
+    defaultValue: ['formly-group', 'blank'],
+    validation: ['blank', 'formly-group', 'checkbox', 'input-range'],
+    required: ['checkbox', 'input-range'],
+    maxLength: ['checkboxes', 'radio', 'input-range', 'input-number', 'select'],
   },
 
   inputTypes: [
