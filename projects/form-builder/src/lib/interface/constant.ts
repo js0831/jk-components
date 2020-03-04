@@ -10,6 +10,9 @@ export const CONSTANT = {
     validation: ['blank', 'formly-group', 'checkbox', 'input-range'],
     required: ['checkbox', 'input-range'],
     maxLength: ['checkboxes', 'radio', 'input-range', 'input-number', 'select', 'select_multiple'],
+    label: ['blank'],
+    key: ['blank'],
+    requiredKey: ['blank', 'formly-group']
   },
 
   inputTypes: [
@@ -18,7 +21,7 @@ export const CONSTANT = {
       value: 'blank'
     },
     {
-      label: 'Form Section',
+      label: 'Form Group',
       value: 'formly-group'
     },
     {

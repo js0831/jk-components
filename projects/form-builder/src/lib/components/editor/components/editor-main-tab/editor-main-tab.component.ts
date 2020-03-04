@@ -46,6 +46,10 @@ export class EditorMainTabComponent implements OnInit, OnDestroy {
     });
   }
 
+  isWithout(what) {
+    return !this.service.isWithout(what, this.form.value.type);
+  }
+
   private updateFormControlDefaultValue() {
     setTimeout( x => {
       this.form.removeControl('defaultValue');
@@ -69,10 +73,6 @@ export class EditorMainTabComponent implements OnInit, OnDestroy {
       }
       this.formLoaded = true;
     });
-  }
-
-  isWithDefaultValue() {
-    return !this.service.isWithout('defaultValue', this.form.value.type);
   }
 
   ngOnDestroy() {

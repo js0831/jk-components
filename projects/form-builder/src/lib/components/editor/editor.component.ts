@@ -132,6 +132,12 @@ export class EditorComponent implements OnInit, OnDestroy {
     const layout = formValue.layout;
     const validation = formValue.validation;
 
+    if (!this.service.isWithout('requiredKey', main.type)) {
+      if (!main.key) {
+        alert('Key field is required');
+        return;
+      }
+    }
 
     if (main.type !== 'formly-group') {
       const type = main.type.split('-');
@@ -152,7 +158,7 @@ export class EditorComponent implements OnInit, OnDestroy {
       this.updateFieldOptions(formValue);
     } else {
       this.field = {
-        wrappers: ['form-section'],
+        wrappers: ['form-group'],
         className: this.generateNewFieldClassName(layout),
         key: main.key,
         templateOptions: {

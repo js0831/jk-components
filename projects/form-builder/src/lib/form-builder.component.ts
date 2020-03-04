@@ -59,7 +59,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       fieldGroupClassName: 'form-row',
       fieldGroup: [
         {
-          wrappers: ['form-section'],
+          wrappers: ['form-group'],
           className: 'form-group col-md-12',
           templateOptions: {
             label: 'Default Form Title'
@@ -72,7 +72,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       fieldGroupClassName: 'form-row',
       fieldGroup: [
         {
-          wrappers: ['form-section'],
+          wrappers: ['form-group'],
           className: 'form-group col-md-12',
           key: 'default',
           type: 'formly-group',
@@ -124,7 +124,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
               fieldGroupClassName: 'form-row',
               fieldGroup: [
                 {
-                  wrappers: ['form-section'],
+                  wrappers: ['form-group'],
                   className: 'form-group col-md-4',
                   key: 'testss',
                   templateOptions: {
@@ -199,7 +199,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       } else {
         const test = await this.getTest(x.id);
         delete x.type;
-        x.wrappers = ['form-section'];
+        x.wrappers = ['form-group'];
         x.key = 'personalInfo';
         x.templateOptions = {
           label: 'Personal Information'

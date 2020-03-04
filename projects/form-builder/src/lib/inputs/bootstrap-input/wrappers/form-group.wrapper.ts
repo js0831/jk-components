@@ -2,7 +2,7 @@ import { Component} from '@angular/core';
 import { FieldWrapper } from '@ngx-formly/core';
 
 @Component({
-selector: 'jk-form-section-wrapper',
+selector: 'jk-form-group-wrapper',
 template: `
   <div class="card">
     <div class="card-header">
@@ -34,6 +34,6 @@ styles: [
   `
 ]
 })
-export class FormSectionWrapperComponent extends FieldWrapper {
+export class FormGroupWrapperComponent extends FieldWrapper {
 
 }

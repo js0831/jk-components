@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormlyModule } from '@ngx-formly/core';
-import { FormSectionWrapperComponent } from './wrappers/form-section.wrapper';
+import { FormGroupWrapperComponent } from './wrappers/form-group.wrapper';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SelectComponent } from './select';
 import { InputComponent } from './input';
@@ -49,7 +49,7 @@ export function patternValidationMessage(err, field) {
     BlankComponent,
     FormComponent,
 
-    FormSectionWrapperComponent
+    FormGroupWrapperComponent
   ],
   imports: [
     CommonModule,
@@ -68,7 +68,7 @@ export function patternValidationMessage(err, field) {
         { name: 'form', component: FormComponent },
       ],
       wrappers: [
-        { name: 'form-section', component: FormSectionWrapperComponent },
+        { name: 'form-group', component: FormGroupWrapperComponent },
       ],
       validationMessages: [
         { name: 'required', message: 'This field is required' },
