@@ -24,8 +24,19 @@ import { CONSTANT } from './interface/constant';
   `,
   styles: [
     `
-      .form-row:hover{
-        box-shadow: 0 0 0 2px rgba(44, 138, 255, 0.5);
+      .form-row{
+        position:relative;
+      }
+      .form-row:hover:before{
+        box-shadow: 0 0 0 4px rgba(44, 138, 255, 0.5);
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: -6px;
+        left: 0;
+        border-radius: 5px;
       }
     `
   ]
@@ -54,77 +65,83 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       ]
     },
     {
-      wrappers: ['form-section'],
-      key: 'default',
-      type: 'formly-group',
-      templateOptions: {
-        label: 'Default Form Title'
-      },
+      fieldGroupClassName: 'form-row',
       fieldGroup: [
         {
-          fieldGroupClassName: 'form-row',
+          wrappers: ['form-section'],
+          className: 'form-group col-md-12',
+          key: 'default',
+          type: 'formly-group',
+          templateOptions: {
+            label: 'Default Form Title'
+          },
           fieldGroup: [
             {
-              type: 'checkboxes',
-              key: 'sports',
-              className: 'form-group col-md-4',
-              templateOptions: {
-                label: 'Sports',
-              },
+              fieldGroupClassName: 'form-row',
               fieldGroup: [
                 {
-                  key: 'basketball',
+                  type: 'checkboxes',
+                  key: 'sports',
+                  className: 'form-group col-md-4',
                   templateOptions: {
-                    label: 'Basketball',
+                    label: 'Sports',
                   },
+                  fieldGroup: [
+                    {
+                      key: 'basketball',
+                      templateOptions: {
+                        label: 'Basketball',
+                      },
+                    },
+                    {
+                      key: 'taekwondo',
+                      templateOptions: {
+                        label: 'Taekwondo',
+                      },
+                    }
+                  ]
                 },
                 {
-                  key: 'taekwondo',
-                  templateOptions: {
-                    label: 'Taekwondo',
-                  },
-                }
+                  type: 'blank',
+                  className: 'form-group col-md-4',
+                },
+                {
+                  type: 'blank',
+                  className: 'form-group col-md-4',
+                },
               ]
             },
             {
-              type: 'blank',
-              className: 'form-group col-md-4',
-            },
-            {
-              type: 'blank',
-              className: 'form-group col-md-4',
-            },
-          ]
-        },
-        {
-          fieldGroupClassName: 'form-row',
-          fieldGroup: [
-            {
-              wrappers: ['form-section'],
-              className: 'form-group col-md-4',
-              key: 'testss',
-              templateOptions: {
-                label: 'Default Form Title'
-              },
-              type: 'formly-group',
-            },
-            {
-              type: 'blank',
-              className: 'form-group col-md-4',
-            },
-            {
-              type: 'input',
-              key: 'test',
-              className: 'form-group col-md-4',
-              templateOptions: {
-                label: 'test',
-                type: 'text'
-              }
-            },
+              fieldGroupClassName: 'form-row',
+              fieldGroup: [
+                {
+                  wrappers: ['form-section'],
+                  className: 'form-group col-md-4',
+                  key: 'testss',
+                  templateOptions: {
+                    label: 'Default Form Title'
+                  },
+                  type: 'formly-group',
+                },
+                {
+                  type: 'blank',
+                  className: 'form-group col-md-4',
+                },
+                {
+                  type: 'input',
+                  key: 'test',
+                  className: 'form-group col-md-4',
+                  templateOptions: {
+                    label: 'test',
+                    type: 'text'
+                  }
+                },
+              ]
+            }
           ]
         }
       ]
-    }
+    },
   ];
 
   constructor(
@@ -296,7 +313,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     if (what === 'column') {
       const duplidateColumn = JSON.parse(JSON.stringify(field));
       const stamp = Math.floor(Date.now() / 1000);
-      if ('formly-group' === duplidateColumn.type){
+      if ('formly-group' === duplidateColumn.type) {
         delete duplidateColumn.key;
       }
 
