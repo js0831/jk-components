@@ -71,4 +71,8 @@ export class FormBuilderService {
       return x.id === id;
     })[0];
   }
+
+  clone(obj) {
+    return JSON.parse(JSON.stringify(obj));
+  }
 }

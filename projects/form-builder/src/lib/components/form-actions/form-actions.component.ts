@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class FormActionsComponent implements OnInit, OnDestroy {
 
-  formActions = CONSTANT.formActions;
+  formActions = this.service.clone(CONSTANT.formActions);
   selectedAction: any;
   field: any;
   subs: Subscription[];
@@ -31,8 +31,18 @@ export class FormActionsComponent implements OnInit, OnDestroy {
     return this.service.events.subscribe( x => {
       if (x.data && x.data.data) {
         this.field = x.data.data;
+        this.appendAdditionalActions();
       }
     });
+  }
+
+  private appendAdditionalActions() {
+    if (this.service.isWith('additionalFormAction', this.field.type)) {
+      this.formActions.push({
+        label: 'Insert Row',
+        id: 'insert_row'
+      });
+    }
   }
 
   close() {

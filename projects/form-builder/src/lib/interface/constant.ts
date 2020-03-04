@@ -1,6 +1,7 @@
 export const CONSTANT = {
   with: {
-    options: ['select', 'radio', 'checkboxes']
+    options: ['select', 'radio', 'checkboxes'],
+    additionalFormAction: ['formly-group']
   },
   without: {
     layout: []
@@ -75,8 +76,8 @@ export const CONSTANT = {
       id: 'duplicate_column'
     },
     {
-      label: 'Add Column next',
-      id: 'add_column_next'
+      label: 'Add Row below',
+      id: 'add_row_below'
     },
     {
       label: 'Add Column previous',
@@ -87,17 +88,17 @@ export const CONSTANT = {
       id: 'add_row_above'
     },
     {
-      label: 'Add Row below',
-      id: 'add_row_below'
-    },
-    {
-      label: 'Delete Column',
-      id: 'delete_column'
+      label: 'Add Column next',
+      id: 'add_column_next'
     },
     {
       label: 'Delete Row',
       id: 'delete_row'
     },
+    {
+      label: 'Delete Column',
+      id: 'delete_column'
+    }
   ],
 
   newColumn: {

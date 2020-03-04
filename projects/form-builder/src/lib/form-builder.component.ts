@@ -311,7 +311,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   private duplicate(what: 'column' | 'row', field) {
     if (what === 'column') {
-      const duplidateColumn = JSON.parse(JSON.stringify(field));
+      const duplidateColumn = this.service.clone(field);
       const stamp = Math.floor(Date.now() / 1000);
       if ('formly-group' === duplidateColumn.type) {
         delete duplidateColumn.key;
@@ -322,7 +322,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       this.addColumn('next', field, duplidateColumn);
 
     } else {
-      const duplidateRow = JSON.parse(JSON.stringify(field.parent));
+      const duplidateRow = this.service.clone(field.parent);
       delete duplidateRow.id;
       duplidateRow.fieldGroup = duplidateRow.fieldGroup.map( x => {
         const stamp = Math.floor(Date.now() / 1000);
@@ -373,7 +373,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     this.show = false;
     this.form = new FormGroup({});
     this.model = {};
-    const cloneFields = JSON.parse(JSON.stringify(this.fields));
+    const cloneFields = this.service.clone(this.fields);
     const newFieldValues = data.field;
     const field = this.service.getFieldByPath(data.path, cloneFields);
     this.service.getFieldByPath(data.path, cloneFields).templateOptions = {

@@ -32,7 +32,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     return this.service.events.subscribe( x => {
       if (x.data && x.data.data) {
         this.inputPath = this.service.getInputOriginPath(x.data.data).reverse();
-        this.field = JSON.parse(JSON.stringify(x.data.data));
+        this.field = this.service.clone(x.data.data);
         this.buildForm();
       }
     });
