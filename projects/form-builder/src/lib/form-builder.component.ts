@@ -41,11 +41,17 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   field: any;
   fields: FormlyFieldConfig[] = [
     {
-      wrappers: ['form-section'],
-      templateOptions: {
-        label: 'Default Form Title'
-      },
-      type: 'formly-group',
+      fieldGroupClassName: 'form-row',
+      fieldGroup: [
+        {
+          wrappers: ['form-section'],
+          className: 'form-group col-md-12',
+          templateOptions: {
+            label: 'Default Form Title'
+          },
+          type: 'formly-group',
+        },
+      ]
     },
     {
       wrappers: ['form-section'],
@@ -290,7 +296,10 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     if (what === 'column') {
       const duplidateColumn = JSON.parse(JSON.stringify(field));
       const stamp = Math.floor(Date.now() / 1000);
-      duplidateColumn.key = `${duplidateColumn.key}_${stamp}`;
+      if ('formly-group' === duplidateColumn.type){
+        delete duplidateColumn.key;
+      }
+
       delete duplidateColumn.id;
       this.deleteFieldGroupMembersID(duplidateColumn);
       this.addColumn('next', field, duplidateColumn);

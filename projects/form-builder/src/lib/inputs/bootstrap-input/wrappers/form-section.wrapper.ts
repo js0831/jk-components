@@ -22,7 +22,6 @@ styles: [
     :host{
       position:relative;
       display: block;
-      margin-bottom: 10px;
     }
 
     .card:hover {

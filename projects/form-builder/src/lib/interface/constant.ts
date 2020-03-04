@@ -3,7 +3,7 @@ export const CONSTANT = {
     options: ['select', 'radio', 'checkboxes']
   },
   without: {
-    layout: ['formly-group']
+    layout: []
   },
 
   inputTypes: [
