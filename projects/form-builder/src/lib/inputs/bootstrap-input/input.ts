@@ -6,7 +6,7 @@ import { FieldType } from '@ngx-formly/core';
  template: `
     <!-- ADD col-sm-4 to label for inline -->
     <!-- ADD col-sm-8 to input for inline -->
-    <label *ngIf="to.label">{{to.label}}</label>
+    <label *ngIf="to.label" [ngClass]="{'required': to.required}">{{to.label}}</label>
     <input
       [type]="to.type"
       class="form-control form-control-sm"

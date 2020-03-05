@@ -4,7 +4,7 @@ import { FieldType } from '@ngx-formly/core';
 @Component({
  selector: 'jk-textarea',
  template: `
-    <label *ngIf="to.label">{{to.label}}</label>
+    <label *ngIf="to.label" [ngClass]="{'required': to.required}">{{to.label}}</label>
     <textarea class="form-control form-control-sm" [formControl]="formControl"></textarea>
 
     <formly-validation-message class="invalid-feedback" *ngIf="showError" [field]="field"></formly-validation-message>

@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
  selector: 'jk-checkboxes',
  template: `
   <!-- add class form-check-inline for inline-->
-  <label *ngIf="to.label">{{to.label}}</label>
+  <label *ngIf="to.label" [ngClass]="{'required': to.required}">{{to.label}}</label>
   <div class="form-check" *ngFor="let f of field.fieldGroup">
     <input [id]="f.id" class="form-check-input" type="checkbox" [formControl]="f.formControl">
     <label [for]="f.id" class="form-check-label">

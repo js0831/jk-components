@@ -24,8 +24,15 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       fieldGroupClassName: 'form-row',
       fieldGroup: [
         {
-          type: 'blank',
+          type: 'input',
           className: 'form-group col-md-4',
+          key: 'a',
+          templateOptions: {
+            label: 'test',
+            type: 'text',
+            placeholder: 'test',
+            required: true
+          }
         },
         {
           type: 'blank',

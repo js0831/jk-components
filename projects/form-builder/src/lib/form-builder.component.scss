@@ -1,5 +1,14 @@
 .form-row{
   position:relative;
+
+  label.required{
+    &:after{
+      content: "*";
+      color: red;
+      display: inline-block;
+      margin-left: 5px;
+    }
+  }
 }
 .form-row:hover:before{
   box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.7);

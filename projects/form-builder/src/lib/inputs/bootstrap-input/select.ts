@@ -4,7 +4,7 @@ import { FieldType } from '@ngx-formly/core';
 @Component({
  selector: 'jk-select',
  template: `
-    <label *ngIf="to.label">{{to.label}}</label>
+    <label *ngIf="to.label" [ngClass]="{'required': to.required}">{{to.label}}</label>
     <select class="form-control form-control-sm" [formControl]="formControl" [formlyAttributes]="field">
       <option [value]="o.id" *ngFor="let o of to.options">
         {{o.label}}
