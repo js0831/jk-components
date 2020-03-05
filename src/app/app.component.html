@@ -14,4 +14,8 @@
     (onsave)="onSave($event)"
 ></jk-formly-builder> -->
 
-<jk-form-builder></jk-form-builder>
+<jk-form-builder
+  [config]="formBuilderConfig"
+></jk-form-builder>
+
+<!-- {{formBuilderConfig.form.value | json}} -->

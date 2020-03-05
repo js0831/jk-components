@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { FormBuilderService } from './form-builder.service';
 import { Subscription } from 'rxjs';
 import { FormBuilderAction } from './interface/form-builder.actions';
 import { CONSTANT } from './interface/constant';
+import { FormBuilderConfig } from './interface/form-builder-config';
 
 @Component({
   selector: 'jk-form-builder',
@@ -14,125 +14,46 @@ import { CONSTANT } from './interface/constant';
 })
 export class FormBuilderComponent implements OnInit, OnDestroy {
 
+  @Input() config: FormBuilderConfig;
+
+  private initialFields = [
+    {
+      fieldGroupClassName: 'form-row',
+      fieldGroup: [
+        {
+          type: 'blank',
+          className: 'form-group col-md-4'
+        },
+        {
+          type: 'blank',
+          className: 'form-group col-md-4'
+        },
+        {
+          type: 'blank',
+          className: 'form-group col-md-4'
+        },
+      ]
+    }
+  ];
+
   subs: Subscription[];
   isEdit = false;
   isEditForm = false;
   show = true;
-  form = new FormGroup({});
-  model: any = {};
-  field: any;
-  fields: FormlyFieldConfig[] = [
-    {
-      fieldGroupClassName: 'form-row',
-      fieldGroup: [
-        {
-          wrappers: ['form-group'],
-          className: 'form-group col-md-12',
-          templateOptions: {
-            label: 'Default Form Title'
-          },
-          type: 'formly-group',
-        },
-      ]
-    },
-    {
-      fieldGroupClassName: 'form-row',
-      fieldGroup: [
-        {
-          wrappers: ['form-group'],
-          className: 'form-group col-md-12',
-          key: 'default',
-          type: 'formly-group',
-          templateOptions: {
-            label: 'Default Form Title'
-          },
-          fieldGroup: [
-            {
-              fieldGroupClassName: 'form-row',
-              fieldGroup: [
-                {
-                  type: 'checkboxes',
-                  key: 'sports',
-                  className: 'form-group col-md-4',
-                  templateOptions: {
-                    label: 'Sports',
-                    // required: true,
-                  },
-                  // defaultValue: {
-                  //   basketball: true,
-                  //   taekwondo: false
-                  // },
-                  fieldGroup: [
-                    {
-                      key: 'basketball',
-                      templateOptions: {
-                        label: 'Basketball',
-                      },
-                    },
-                    {
-                      key: 'taekwondo',
-                      templateOptions: {
-                        label: 'Taekwondo',
-                      },
-                    }
-                  ]
-                },
-                {
-                  type: 'blank',
-                  className: 'form-group col-md-4',
-                },
-                {
-                  type: 'blank',
-                  className: 'form-group col-md-4',
-                },
-              ]
-            },
-            {
-              fieldGroupClassName: 'form-row',
-              fieldGroup: [
-                {
-                  wrappers: ['form-group'],
-                  className: 'form-group col-md-4',
-                  key: 'testss',
-                  templateOptions: {
-                    label: 'Default Form Title'
-                  },
-                  type: 'formly-group',
-                },
-                {
-                  type: 'text_paragraph',
-                  className: 'form-group col-md-4',
-                  templateOptions: {
-                    label: 'Paragraph'
-                  },
-                },
-                {
-                  type: 'text_header',
-                  className: 'form-group col-md-4',
-                  templateOptions: {
-                    label: 'Header'
-                  },
-                },
-              ]
-            }
-          ]
-        }
-      ]
-    },
-  ];
 
   constructor(
     private service: FormBuilderService
   ) { }
 
   async ngOnInit() {
+    this.putInitialFields();
     this.subs = [
       this.watchEvents()
     ];
 
 
-    // await this.test(this.fields);
-    // console.log(this.fields);
+    // await this.test(this.config.fields);
+    // console.log(this.config.fields);
 
     // this.service.getFormById('5e5382cf71f9a0bce9b760ec').subscribe( x => {
     //   console.log(x.data.json);
@@ -146,14 +67,19 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     // console.log(test);
     // alert('a')
 
-    // await this.test(this.fields);
-    // console.log(this.fields);
+    // await this.test(this.config.fields);
+    // console.log(this.config.fields);
 
     // setTimeout( x => {
     //   this.show = true;
     // }, 2000);
   }
 
+  private putInitialFields() {
+    if (this.config && (!this.config.fields || this.config.fields.length === 0)) {
+      this.config.fields = this.initialFields;
+    }
+  }
 
   async test(fields) {
     return fields.map( async (x) => {
@@ -291,7 +217,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   private deleteRow(field) {
     field.parent.fieldGroup = [];
-    this.fields = this.fields.filter( x => {
+    this.config.fields = this.config.fields.filter( x => {
       return x.id !== field.parent.id;
     });
   }
@@ -358,9 +284,9 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   private updateInput(data) {
     this.show = false;
-    this.form = new FormGroup({});
-    this.model = {};
-    const cloneFields = this.service.clone(this.fields);
+    this.config.form = new FormGroup({});
+    this.config.model = {};
+    const cloneFields = this.service.clone(this.config.fields);
     const newFieldValues = data.field;
     const field = this.service.getFieldByPath(data.path, cloneFields);
     this.service.getFieldByPath(data.path, cloneFields).templateOptions = {
@@ -376,7 +302,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     if (newFieldValues.wrappers) {
       field.wrappers = newFieldValues.wrappers;
     }
-    this.fields = cloneFields;
+    this.config.fields = cloneFields;
     this.reloadForm();
   }
 
@@ -389,8 +315,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   private resetForm() {
     this.show = false;
-    this.form = new FormGroup({});
-    this.model = {};
+    this.config.form = new FormGroup({});
+    this.config.model = {};
   }
 
   ngOnDestroy() {

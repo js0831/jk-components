@@ -4,6 +4,7 @@ import { JkAlertService } from 'projects/jk-alert/src/public-api';
 import { FormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { PrompType } from 'projects/jk-alert/src/lib/components/prompt/prompt-type.enum';
+import { FormBuilderConfig } from 'projects/form-builder/src/lib/interface/form-builder-config';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,12 @@ import { PrompType } from 'projects/jk-alert/src/lib/components/prompt/prompt-ty
 })
 export class AppComponent implements OnInit {
 
+  formBuilderConfig: FormBuilderConfig = {
+    model: {},
+    form: new FormGroup({}),
+    fields: [],
+    options: {}
+  };
   // FORMLY BUILDER
   // isEdit = true;
   // title = 'jk-components';
@@ -41,6 +48,7 @@ export class AppComponent implements OnInit {
     // private wait: JkWaitService,
     // private sv: JkAlertService
   ) {
+    //
   }
 
   ngOnInit() {
@@ -53,7 +61,6 @@ export class AppComponent implements OnInit {
     //     alert(xy.value);
     //   });
     // });
-
   }
 
   onsuccess(e) {
