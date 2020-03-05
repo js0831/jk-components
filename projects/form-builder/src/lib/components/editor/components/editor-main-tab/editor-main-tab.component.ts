@@ -36,6 +36,10 @@ export class EditorMainTabComponent implements OnInit, OnDestroy {
     this.initialFieldType = this.form.value.type;
   }
 
+  get inputTypeGroups() {
+    return Object.keys(this.inputTypes);
+  }
+
   private watchFieldTypeOnChange() {
     const type = this.form.get('type');
     return type.statusChanges.subscribe( x => {

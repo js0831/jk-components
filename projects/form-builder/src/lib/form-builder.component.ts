@@ -133,17 +133,17 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
                   type: 'formly-group',
                 },
                 {
-                  type: 'blank',
-                  className: 'form-group col-md-4',
-                },
-                {
-                  type: 'select',
-                  key: 'test',
+                  type: 'text_paragraph',
                   className: 'form-group col-md-4',
                   templateOptions: {
-                    label: 'test',
-                    multiple: true,
-                    required: true
+                    label: 'Paragraph'
+                  },
+                },
+                {
+                  type: 'text_header',
+                  className: 'form-group col-md-4',
+                  templateOptions: {
+                    label: 'Header'
                   },
                 },
               ]

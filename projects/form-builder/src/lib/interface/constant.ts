@@ -6,76 +6,167 @@ export const CONSTANT = {
   },
   without: {
     layout: [],
-    defaultValue: ['formly-group', 'blank'],
-    validation: ['blank', 'formly-group', 'checkbox', 'input-range'],
+    defaultValue: ['formly-group', 'blank', 'text_header', 'text_paragraph'],
+    validation: ['blank', 'formly-group', 'checkbox', 'input-range', 'text_header', 'text_paragraph'],
     required: ['checkbox', 'input-range'],
     maxLength: ['checkboxes', 'radio', 'input-range', 'input-number', 'select', 'select_multiple'],
     label: ['blank'],
-    key: ['blank'],
-    requiredKey: ['blank', 'formly-group']
+    key: ['blank', 'text_header', 'text_paragraph'],
+    requiredKey: ['blank', 'formly-group', 'text_header', 'text_paragraph']
   },
 
-  inputTypes: [
-    {
-      label: 'Blank',
-      value: 'blank'
+  inputTypes: {
+    others: {
+      label: 'Others',
+      fields: [
+        {
+          label: 'Blank',
+          value: 'blank'
+        },
+        {
+          label: 'Form Group',
+          value: 'formly-group'
+        },
+      ]
     },
-    {
-      label: 'Form Group',
-      value: 'formly-group'
+    input: {
+      label: 'Inputs',
+      fields: [
+        {
+          label: 'Input Text',
+          value: 'input-text'
+        },
+        {
+          label: 'Input Password',
+          value: 'input-password'
+        },
+        {
+          label: 'Input Date',
+          value: 'input-date'
+        },
+        {
+          label: 'Input Time',
+          value: 'input-time'
+        },
+        {
+          label: 'Input Range',
+          value: 'input-range'
+        },
+        {
+          label: 'Input Number',
+          value: 'input-number'
+        },
+        {
+          label: 'Input Email',
+          value: 'input-email'
+        },
+        {
+          label: 'Textarea',
+          value: 'textarea'
+        },
+      ]
     },
-    {
-      label: 'Input Text',
-      value: 'input-text'
+    selection: {
+      label: 'Selections',
+      fields: [
+        {
+          label: 'Select',
+          value: 'select'
+        },
+        {
+          label: 'Select (Multiple)',
+          value: 'select_multiple'
+        },
+        {
+          label: 'Radio',
+          value: 'radio'
+        },
+        {
+          label: 'Checkbox',
+          value: 'checkbox'
+        },
+        {
+          label: 'Checkbox (Multiple)',
+          value: 'checkboxes'
+        }
+      ]
     },
-    {
-      label: 'Input Password',
-      value: 'input-password'
-    },
-    {
-      label: 'Input Date',
-      value: 'input-date'
-    },
-    {
-      label: 'Input Time',
-      value: 'input-time'
-    },
-    {
-      label: 'Input Range',
-      value: 'input-range'
-    },
-    {
-      label: 'Input Number',
-      value: 'input-number'
-    },
-    {
-      label: 'Input Email',
-      value: 'input-email'
-    },
-    {
-      label: 'Textarea',
-      value: 'textarea'
-    },
-    {
-      label: 'Select',
-      value: 'select'
-    },
-    {
-      label: 'Select (Multiple)',
-      value: 'select_multiple'
-    },
-    {
-      label: 'Radio',
-      value: 'radio'
-    },
-    {
-      label: 'Checkbox',
-      value: 'checkbox'
-    },
-    {
-      label: 'Checkbox (Multiple)',
-      value: 'checkboxes'
+    text: {
+      label: 'Text',
+      fields: [
+        {
+          label: 'Text (Paragraph)',
+          value: 'text_paragraph'
+        },
+        {
+          label: 'Text (Header)',
+          value: 'text_header'
+        },
+      ]
     }
+  },
+
+  xinputTypes: [
+    // {
+    //   label: 'Blank',
+    //   value: 'blank'
+    // },
+    // {
+    //   label: 'Form Group',
+    //   value: 'formly-group'
+    // },
+    // {
+    //   label: 'Input Text',
+    //   value: 'input-text'
+    // },
+    // {
+    //   label: 'Input Password',
+    //   value: 'input-password'
+    // },
+    // {
+    //   label: 'Input Date',
+    //   value: 'input-date'
+    // },
+    // {
+    //   label: 'Input Time',
+    //   value: 'input-time'
+    // },
+    // {
+    //   label: 'Input Range',
+    //   value: 'input-range'
+    // },
+    // {
+    //   label: 'Input Number',
+    //   value: 'input-number'
+    // },
+    // {
+    //   label: 'Input Email',
+    //   value: 'input-email'
+    // },
+    // {
+    //   label: 'Textarea',
+    //   value: 'textarea'
+    // },
+    // {
+    //   label: 'Select',
+    //   value: 'select'
+    // },
+    // {
+    //   label: 'Select (Multiple)',
+    //   value: 'select_multiple'
+    // },
+    // {
+    //   label: 'Radio',
+    //   value: 'radio'
+    // },
+    // {
+    //   label: 'Checkbox',
+    //   value: 'checkbox'
+    // },
+    // {
+    //   label: 'Checkbox (Multiple)',
+    //   value: 'checkboxes'
+    // }
   ],
 
   formActions: [

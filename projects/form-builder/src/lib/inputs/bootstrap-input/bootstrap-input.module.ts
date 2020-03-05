@@ -13,6 +13,8 @@ import { BlankComponent } from './blank';
 import { FormComponent } from './form';
 import { EditInputButtonComponent } from '../../components/edit-input-button/edit-input-button.component';
 import { SelectMultipleComponent } from './select-multiple';
+import { TextParagraphComponent } from './text-paragraph';
+import { TextHeaderComponent } from './text-header';
 
 
 export function minlengthValidationMessage(err, field) {
@@ -48,6 +50,8 @@ export function patternValidationMessage(err, field) {
     RadioComponent,
     BlankComponent,
     FormComponent,
+    TextParagraphComponent,
+    TextHeaderComponent,
 
     FormGroupWrapperComponent
   ],
@@ -66,6 +70,8 @@ export function patternValidationMessage(err, field) {
         { name: 'checkboxes', component: CheckboxesComponent },
         { name: 'blank', component: BlankComponent },
         { name: 'form', component: FormComponent },
+        { name: 'text_paragraph', component: TextParagraphComponent },
+        { name: 'text_header', component: TextHeaderComponent },
       ],
       wrappers: [
         { name: 'form-group', component: FormGroupWrapperComponent },
