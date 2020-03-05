@@ -4,8 +4,7 @@ import { FieldType } from '@ngx-formly/core';
 @Component({
  selector: 'jk-select-multiple',
  template: `
-    <label>{{to.label}}</label>
-
+    <label *ngIf="to.label">{{to.label}}</label>
     <select
       multiple="true"
       class="form-control form-control-sm"
