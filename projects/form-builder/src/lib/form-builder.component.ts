@@ -237,8 +237,11 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     if (what === 'column') {
       const duplidateColumn = this.service.clone(field);
       const stamp = Math.floor(Date.now() / 1000);
-      if ('formly-group' === duplidateColumn.type) {
+
+      if ('formly-group' === duplidateColumn.type || !duplidateColumn.key) {
         delete duplidateColumn.key;
+      } else {
+        duplidateColumn.key = `${duplidateColumn.key}_${stamp}`;
       }
 
       delete duplidateColumn.id;
@@ -250,7 +253,13 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       delete duplidateRow.id;
       duplidateRow.fieldGroup = duplidateRow.fieldGroup.map( x => {
         const stamp = Math.floor(Date.now() / 1000);
-        x.key = `${x.key || ''}_${stamp}`;
+
+        if (x.key && 'formly-group' !== x.type) {
+          x.key = `${x.key || ''}_${stamp}`;
+        } else {
+          delete x.key;
+        }
+
         this.deleteFieldGroupMembersID(x);
         delete x.id;
         return x;
