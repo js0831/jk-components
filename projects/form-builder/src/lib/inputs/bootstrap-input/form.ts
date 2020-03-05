@@ -5,6 +5,7 @@ import { FieldType } from '@ngx-formly/core';
  selector: 'jk-form',
  template: `
 
+  <p> FORM </p>
 
   <jk-edit-input-button
     [field]="field" [template]="to"
@@ -15,13 +16,27 @@ import { FieldType } from '@ngx-formly/core';
     :host{
       position:relative;
       display: block;
-      height: 100%;
+      height: 63px;
       width: 100%;
+      border: 1px dashed #ddd;
+      transition: all .25s ease;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 300;
+      color: #c3c3c3;
+      font-size: 25px;
+    }
+
+    p{
+      margin:0;
     }
 
     :host:hover{
       box-shadow: 0 0 0px 3px rgba(99, 255, 60, 0.4);
       background: rgba(99, 255, 60, 0.4);
+      border-color: transparent;
     }
 
     :host:hover jk-edit-input-button{
@@ -34,12 +49,4 @@ import { FieldType } from '@ngx-formly/core';
    `
  ]
 })
-export class FormComponent extends FieldType implements OnInit {
-
-  constructor() {
-    super();
-  }
-
-  ngOnInit() {
-  }
-}
+export class FormComponent extends FieldType {}

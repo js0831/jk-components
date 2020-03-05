@@ -54,6 +54,10 @@ export class EditorMainTabComponent implements OnInit, OnDestroy {
     return !this.service.isWithout(what, this.form.value.type);
   }
 
+  isWith(what) {
+    return this.service.isWith(what, this.form.value.type);
+  }
+
   private updateFormControlDefaultValue() {
     setTimeout( x => {
       this.form.removeControl('defaultValue');

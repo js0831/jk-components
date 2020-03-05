@@ -42,10 +42,10 @@ export class EditorComponent implements OnInit, OnDestroy {
     const {
       key,
       type,
-      defaultValue
+      defaultValue,
     } = this.field;
     const {
-      label,
+      label, id,
       required, maxLength, minLength, min, max,
     } = this.field.templateOptions;
 
@@ -54,7 +54,8 @@ export class EditorComponent implements OnInit, OnDestroy {
       key: [key],
       label: [label],
       type: [finalType],
-      defaultValue: this.getDefaultValue(defaultValue)
+      defaultValue: this.getDefaultValue(defaultValue),
+      formId: id,
     });
     const layoutForm = this.fb.group({
       column: this.getCurrentFieldColumn(),
@@ -134,7 +135,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     if (!this.isValidForm()) { return; }
 
-    if (main.type !== 'formly-group') {
+    if (main.type !== 'formly-group' && main.type !== 'form') {
       const type = main.type.split('-');
       this.field.templateOptions.label = main.label;
       this.field.templateOptions = {
@@ -151,6 +152,14 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.field.templateOptions.type = type[1];
       }
       this.updateFieldOptions(formValue);
+    } else if (main.type === 'form') {
+      this.field = {
+        type: 'form',
+        className: this.generateNewFieldClassName(layout),
+        templateOptions: {
+          id: main.formId
+        }
+      };
     } else {
       this.field = {
         wrappers: ['form-group'],

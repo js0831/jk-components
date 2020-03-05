@@ -3,17 +3,18 @@ export const CONSTANT = {
     options: ['select', 'select_multiple', 'radio', 'checkboxes'],
     additionalFormAction: ['formly-group'],
     maxValue: ['input-number'],
-    requiredLabel: ['formly-group', 'text_header', 'text_paragraph']
+    requiredLabel: ['formly-group', 'text_header', 'text_paragraph'],
+    formId: ['form']
   },
   without: {
     layout: [],
-    defaultValue: ['formly-group', 'blank', 'text_header', 'text_paragraph'],
-    validation: ['blank', 'formly-group', 'checkbox', 'input-range', 'text_header', 'text_paragraph'],
+    defaultValue: ['formly-group', 'blank', 'text_header', 'text_paragraph', 'form'],
+    validation: ['blank', 'formly-group', 'checkbox', 'input-range', 'text_header', 'text_paragraph', 'form'],
     required: ['checkbox', 'input-range'],
     maxLength: ['checkboxes', 'radio', 'input-range', 'input-number', 'select', 'select_multiple'],
-    label: ['blank'],
-    key: ['blank', 'text_header', 'text_paragraph'],
-    requiredKey: ['blank', 'formly-group', 'text_header', 'text_paragraph']
+    label: ['blank', 'form'],
+    key: ['blank', 'text_header', 'text_paragraph', 'form'],
+    requiredKey: ['blank', 'formly-group', 'text_header', 'text_paragraph', 'form']
   },
 
   inputTypes: {
@@ -23,6 +24,10 @@ export const CONSTANT = {
         {
           label: 'Blank',
           value: 'blank'
+        },
+        {
+          label: 'Form',
+          value: 'form'
         },
         {
           label: 'Form Group',

@@ -24,16 +24,15 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       fieldGroupClassName: 'form-row',
       fieldGroup: [
         {
-          type: 'blank',
-          className: 'form-group col-md-4'
+          type: 'form',
+          className: 'form-group col-md-6',
+          templateOptions: {
+            id: '5e609dccc97b160017499b85'
+          }
         },
         {
           type: 'blank',
-          className: 'form-group col-md-4'
-        },
-        {
-          type: 'blank',
-          className: 'form-group col-md-4'
+          className: 'form-group col-md-6'
         },
       ]
     }
@@ -55,8 +54,13 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       this.watchEvents()
     ];
     this.backup();
-    const forms = await this.loadForms(this.config.fields);
-    this.config.fields = forms as FormlyFieldConfig[];
+
+    if (!this.editable) {
+      const forms = await this.loadForms(this.config.fields);
+      this.config.fields = forms as FormlyFieldConfig[];
+      console.log(forms);
+    }
+
     this.show = true;
   }
 
@@ -71,30 +75,10 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           return x;
         }
       } else {
-        const formJson = await this.getFormSchema(x.id);
+        const formJson = await this.getFormSchema(x.templateOptions.id);
+        formJson[0].className =  x.className;
         return formJson[0];
       }
-
-      // if (x.type !== 'form') {
-      //   if (x.fieldGroup && x.fieldGroup.length > 0) {
-      //     return await this.loadForms(x.fieldGroup);
-      //   } else {
-      //     return x;
-      //   }
-      // } else {
-      //   const formJson = await this.getFormSchema(x.id);
-      //   // console.log(x);
-      //   // return {
-      //   //   type: 'input',
-      //   //   key: 'test',
-      //   //   templateOptions: {
-      //   //     label: 'test',
-      //   //     type: 'text',
-      //   //   }
-      //   // };
-      //   return x;
-      // }
-      return x;
     });
     return Promise.all(all);
   }
