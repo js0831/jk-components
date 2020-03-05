@@ -9,41 +9,8 @@ import { CONSTANT } from './interface/constant';
 @Component({
   selector: 'jk-form-builder',
   encapsulation: ViewEncapsulation.None,
-  template: `
-    <jk-editor *ngIf="isEdit"></jk-editor>
-    <jk-form-actions *ngIf="isEditForm"></jk-form-actions>
-
-    <formly-form
-      *ngIf="show"
-      [model]="model"
-      [fields]="fields"
-      [form]="form">
-    </formly-form>
-
-    <pre>{{model | json}}</pre>
-  `,
-  styles: [
-    `
-      .form-row{
-        position:relative;
-      }
-      .form-row:hover:before{
-        box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.7);
-        content: '';
-        display: block;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: -6px;
-        left: 0;
-        border-radius: 5px;
-      }
-
-      .ng-invalid.ng-touched{
-        border-color:#dc3545;
-      }
-    `
-  ]
+  templateUrl: 'form-builder.component.html',
+  styleUrls: ['form-builder.component.scss']
 })
 export class FormBuilderComponent implements OnInit, OnDestroy {
 

@@ -1,0 +1,11 @@
+<jk-editor *ngIf="isEdit"></jk-editor>
+<jk-form-actions *ngIf="isEditForm"></jk-form-actions>
+
+<formly-form
+  *ngIf="show"
+  [model]="model"
+  [fields]="fields"
+  [form]="form">
+</formly-form>
+
+<pre>{{model | json}}</pre>
