@@ -14,6 +14,7 @@ import { FormBuilderConfig } from './interface/form-builder-config';
 })
 export class FormBuilderComponent implements OnInit, OnDestroy {
 
+  @Input() editable = true;
   @Input() config: FormBuilderConfig;
 
   private initialFields = [
@@ -22,7 +23,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       fieldGroup: [
         {
           type: 'blank',
-          className: 'form-group col-md-4'
+          className: 'form-group col-md-4',
         },
         {
           type: 'blank',

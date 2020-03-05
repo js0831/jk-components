@@ -16,3 +16,30 @@
 .ng-invalid.ng-touched{
   border-color:#dc3545;
 }
+
+.preview {
+  jk-edit-input-button{
+    display: none !important;
+  }
+  jk-blank, jk-textarea, jk-select-multiple,
+  jk-radio, jk-checkbox, jk-checkboxes, jk-text-paragraph,
+  jk-text-header, jk-input, jk-select {
+    border: none;
+
+    &:hover{
+      box-shadow: unset;
+      background: transparent;
+      border-color: none;
+    }
+  }
+
+
+
+  formly-group{
+    &:hover{
+      &:before{
+        display: none;
+      }
+    }
+  }
+}

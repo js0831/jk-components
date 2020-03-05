@@ -1,12 +1,12 @@
-<jk-editor *ngIf="isEdit"></jk-editor>
-<jk-form-actions *ngIf="isEditForm"></jk-form-actions>
+<jk-editor *ngIf="isEdit && editable"></jk-editor>
+<jk-form-actions *ngIf="isEditForm && editable"></jk-form-actions>
 
 <formly-form
+  [ngClass]="{'preview' : !editable}"
   *ngIf="config && show"
   [model]="config.model"
   [fields]="config.fields"
   [form]="config.form"
   [options]="config.options"
->
-</formly-form>
+></formly-form>
 
