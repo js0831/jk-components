@@ -19,6 +19,10 @@ export class AppComponent implements OnInit {
     fields: [],
     options: {}
   };
+
+  save(e) {
+    console.log(e);
+  }
   // FORMLY BUILDER
   // isEdit = true;
   // title = 'jk-components';

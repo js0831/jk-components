@@ -17,6 +17,17 @@
   border-color:#dc3545;
 }
 
+.buttons{
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  button{
+    margin-left: 5px;
+  }
+}
+
 .preview {
   jk-edit-input-button{
     display: none !important;
@@ -32,14 +43,15 @@
       border-color: none;
     }
   }
-
-
-
   formly-group{
     &:hover{
       &:before{
         display: none;
       }
     }
+  }
+
+  .buttons{
+    display: none;
   }
 }

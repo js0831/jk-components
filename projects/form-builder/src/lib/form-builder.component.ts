@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormBuilderService } from './form-builder.service';
 import { Subscription } from 'rxjs';
 import { FormBuilderAction } from './interface/form-builder.actions';
 import { CONSTANT } from './interface/constant';
 import { FormBuilderConfig } from './interface/form-builder-config';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   selector: 'jk-form-builder',
@@ -16,6 +17,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   @Input() editable = true;
   @Input() config: FormBuilderConfig;
+  @Output() onsave: EventEmitter<FormlyFieldConfig[]> = new EventEmitter<FormlyFieldConfig[]>();
 
   private initialFields = [
     {
@@ -41,6 +43,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   isEdit = false;
   isEditForm = false;
   show = true;
+  private savedFields: FormlyFieldConfig[];
 
   constructor(
     private service: FormBuilderService
@@ -51,6 +54,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     this.subs = [
       this.watchEvents()
     ];
+    this.backup();
 
 
     // await this.test(this.config.fields);
@@ -74,6 +78,12 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     // setTimeout( x => {
     //   this.show = true;
     // }, 2000);
+  }
+
+  private backup() {
+    setTimeout( x => {
+      this.savedFields = this.service.clone(this.config.fields);
+    }, 250);
   }
 
   private putInitialFields() {
@@ -320,7 +330,19 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     this.config.model = {};
   }
 
+  save() {
+    this.backup();
+    this.onsave.emit(this.config.fields);
+  }
+
+  reset() {
+    this.show = false;
+    this.config.fields = this.savedFields;
+    this.reloadForm();
+  }
+
   ngOnDestroy() {
     this.subs.forEach( x => x.unsubscribe());
   }
+
 }
