@@ -3,6 +3,7 @@ export const CONSTANT = {
     options: ['select', 'select_multiple', 'radio', 'checkboxes'],
     additionalFormAction: ['formly-group'],
     maxValue: ['input-number'],
+    requiredLabel: ['formly-group', 'text_header', 'text_paragraph']
   },
   without: {
     layout: [],

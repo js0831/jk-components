@@ -132,12 +132,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     const layout = formValue.layout;
     const validation = formValue.validation;
 
-    if (!this.service.isWithout('requiredKey', main.type)) {
-      if (!main.key) {
-        alert('Key field is required');
-        return;
-      }
-    }
+    if (!this.isValidForm()) { return; }
 
     if (main.type !== 'formly-group') {
       const type = main.type.split('-');
@@ -173,6 +168,23 @@ export class EditorComponent implements OnInit, OnDestroy {
       path: this.inputPath,
       field: this.field
     });
+  }
+
+  private isValidForm() {
+    const { type, key, label } = this.form.value.main;
+    if (!this.service.isWithout('requiredKey', type)) {
+      if (!key) {
+        alert('Key field is required');
+        return false;
+      }
+    }
+    if (this.service.isWith('requiredLabel', type)) {
+      if (!label) {
+        alert('Label field is required');
+        return false;
+      }
+    }
+    return true;
   }
 
   private generateNewFieldClassName(layout) {
