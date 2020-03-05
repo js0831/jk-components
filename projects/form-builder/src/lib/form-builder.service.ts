@@ -34,7 +34,7 @@ export class FormBuilderService {
   }
 
   getFormById(id): Observable<any> {
-    return this.http.get('http://localhost:3000/form/' + id);
+    return this.http.get('https://app-form-builder-poc-api.herokuapp.com/form/' + id);
   }
 
   isWith(what, type) {

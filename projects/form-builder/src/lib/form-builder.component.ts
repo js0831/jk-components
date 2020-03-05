@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormBuilderService } from './form-builder.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { FormBuilderAction } from './interface/form-builder.actions';
 import { CONSTANT } from './interface/constant';
 import { FormBuilderConfig } from './interface/form-builder-config';
@@ -24,15 +24,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       fieldGroupClassName: 'form-row',
       fieldGroup: [
         {
-          type: 'input',
-          className: 'form-group col-md-4',
-          key: 'a',
-          templateOptions: {
-            label: 'test',
-            type: 'text',
-            placeholder: 'test',
-            required: true
-          }
+          type: 'blank',
+          className: 'form-group col-md-4'
         },
         {
           type: 'blank',
@@ -49,7 +42,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   subs: Subscription[];
   isEdit = false;
   isEditForm = false;
-  show = true;
+  show = false;
   private savedFields: FormlyFieldConfig[];
 
   constructor(
@@ -62,29 +55,53 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       this.watchEvents()
     ];
     this.backup();
+    const forms = await this.loadForms(this.config.fields);
+    this.config.fields = forms as FormlyFieldConfig[];
+    this.show = true;
+  }
 
+  async loadForms(fields) {
+    const all = fields.map( async (x) => {
 
-    // await this.test(this.config.fields);
-    // console.log(this.config.fields);
+      if (x.type !== 'form') {
+        if (x.fieldGroup && x.fieldGroup.length > 0) {
+          x.fieldGroup = await this.loadForms(x.fieldGroup);
+          return x;
+        } else {
+          return x;
+        }
+      } else {
+        const formJson = await this.getFormSchema(x.id);
+        return formJson[0];
+      }
 
-    // this.service.getFormById('5e5382cf71f9a0bce9b760ec').subscribe( x => {
-    //   console.log(x.data.json);
-    // });
+      // if (x.type !== 'form') {
+      //   if (x.fieldGroup && x.fieldGroup.length > 0) {
+      //     return await this.loadForms(x.fieldGroup);
+      //   } else {
+      //     return x;
+      //   }
+      // } else {
+      //   const formJson = await this.getFormSchema(x.id);
+      //   // console.log(x);
+      //   // return {
+      //   //   type: 'input',
+      //   //   key: 'test',
+      //   //   templateOptions: {
+      //   //     label: 'test',
+      //   //     type: 'text',
+      //   //   }
+      //   // };
+      //   return x;
+      // }
+      return x;
+    });
+    return Promise.all(all);
+  }
 
-    // const a = await this.service.getFormById('5e5382cf71f9a0bce9b760ec').toPromise();
-    // console.log(a);
-
-
-    // const test = await this.sample();
-    // console.log(test);
-    // alert('a')
-
-    // await this.test(this.config.fields);
-    // console.log(this.config.fields);
-
-    // setTimeout( x => {
-    //   this.show = true;
-    // }, 2000);
+  async getFormSchema(id) {
+    const test =  await this.service.getFormById(id).toPromise();
+    return (test as any).data.json;
   }
 
   private backup() {
@@ -97,69 +114,6 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     if (this.config && (!this.config.fields || this.config.fields.length === 0)) {
       this.config.fields = this.initialFields;
     }
-  }
-
-  async test(fields) {
-    return fields.map( async (x) => {
-      if (x.type !== 'form') {
-        if (x.fieldGroup && x.fieldGroup.length > 0) {
-          return await this.test(x.fieldGroup);
-        } else {
-          return x;
-        }
-      } else {
-        const test = await this.getTest(x.id);
-        delete x.type;
-        x.wrappers = ['form-group'];
-        x.key = 'personalInfo';
-        x.templateOptions = {
-          label: 'Personal Information'
-        };
-        x.fieldGroup = [
-              {
-                fieldGroupClassName: 'form-row',
-                fieldGroup: [
-                  {
-                    key: 'fname',
-                    type: 'input',
-                    className: 'form-group col-md-4',
-                    templateOptions: {
-                      label: 'First name',
-                      required: true,
-                      type: 'text'
-                    },
-                  },
-                  {
-                    key: 'mname',
-                    type: 'input',
-                    className: 'form-group col-md-4',
-                    templateOptions: {
-                      label: 'Middle name',
-                      required: true,
-                      type: 'range'
-                    },
-                  },
-                  {
-                    key: 'age',
-                    type: 'input',
-                    className: 'form-group col-md-4',
-                    templateOptions: {
-                      label: 'Age',
-                      required: true,
-                      type: 'number'
-                    },
-                  },
-                ]
-              }
-        ];
-        return x;
-      }
-    });
-  }
-
-  async getTest(id) {
-    const test =  await this.service.getFormById(id).toPromise();
-    return (test as any).data.json;
   }
 
   private watchEvents() {
