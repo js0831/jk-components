@@ -4,11 +4,14 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { FormBuilderEvent } from './interface/form-builder-event.interface';
 import { FormBuilderAction } from './interface/form-builder.actions';
 import { CONSTANT } from './interface/constant';
+import { FormTypeSelectionInterface } from './interface/form-type-selection.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormBuilderService {
+
+  private formsOptions: FormTypeSelectionInterface[];
 
   private pevent: BehaviorSubject<FormBuilderEvent> = new BehaviorSubject<FormBuilderEvent>({
     action: FormBuilderAction.INIT
@@ -98,5 +101,13 @@ export class FormBuilderService {
   async getFormSchema(id) {
     const test =  await this.getFormById(id).toPromise();
     return (test as any).data.json;
+  }
+
+  setFormsSelectionOptions(options: FormTypeSelectionInterface[]) {
+    this.formsOptions = options;
+  }
+
+  get formSelectionOptions(): FormTypeSelectionInterface[] {
+    return this.formsOptions || [];
   }
 }

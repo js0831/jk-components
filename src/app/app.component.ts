@@ -20,6 +20,8 @@ export class AppComponent implements OnInit {
     options: {}
   };
 
+  formsList = [{name: 'Name A', id: '5e609dccc97b160017499b85'}, {name: 'Name B', id: 'B123'}];
+
   save(e) {
     console.log(e);
   }

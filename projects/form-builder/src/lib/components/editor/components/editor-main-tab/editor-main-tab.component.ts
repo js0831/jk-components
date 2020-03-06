@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { CONSTANT } from 'projects/form-builder/src/lib/interface/constant';
 import { FormBuilderService } from 'projects/form-builder/src/lib/form-builder.service';
 import { FormBuilderAction } from 'projects/form-builder/src/lib/interface/form-builder.actions';
+import { FormTypeSelectionInterface } from 'projects/form-builder/src/lib/interface/form-type-selection.interface';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class EditorMainTabComponent implements OnInit, OnDestroy {
 
   inputTypes = CONSTANT.inputTypes;
   formLoaded = true;
+  formSelectionOptions: FormTypeSelectionInterface[] = [];
 
   constructor(
     private service: FormBuilderService,
@@ -34,6 +36,8 @@ export class EditorMainTabComponent implements OnInit, OnDestroy {
     ];
     this.initialDefaultValueForm = this.form.get('defaultValue');
     this.initialFieldType = this.form.value.type;
+
+    this.formSelectionOptions = this.service.formSelectionOptions;
   }
 
   get inputTypeGroups() {

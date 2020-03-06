@@ -73,7 +73,9 @@
   <div class="form-group row" *ngIf="isWith('formId')">
     <label class="col-sm-3 col-form-label">Form</label>
     <div class="col-sm-9">
-      <input type="text" class="form-control" formControlName="formId">
+      <select class="form-control" formControlName="formId">
+        <option *ngFor="let form of formSelectionOptions" [value]="form.id">{{form.name}}</option>
+      </select>
     </div>
   </div>
 </form>

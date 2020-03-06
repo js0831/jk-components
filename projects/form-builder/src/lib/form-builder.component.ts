@@ -6,6 +6,7 @@ import { FormBuilderAction } from './interface/form-builder.actions';
 import { CONSTANT } from './interface/constant';
 import { FormBuilderConfig } from './interface/form-builder-config';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { FormTypeSelectionInterface } from './interface/form-type-selection.interface';
 
 @Component({
   selector: 'jk-form-builder',
@@ -18,6 +19,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   @Input() editable = true;
   @Input() config: FormBuilderConfig;
   @Output() onsave: EventEmitter<FormlyFieldConfig[]> = new EventEmitter<FormlyFieldConfig[]>();
+  @Input() forms?: FormTypeSelectionInterface[];
 
   private initialFields = [
     {
@@ -51,6 +53,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   ) { }
 
   async ngOnInit() {
+    this.setFormsListOptions();
     this.putInitialFields();
     this.subs = [
       this.watchEvents()
@@ -60,8 +63,14 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     if (!this.editable) {
       this.loadForms();
     }
-
     this.show = true;
+  }
+
+  // Note: selection options on form type
+  private setFormsListOptions() {
+    if (this.forms && this.forms.length > 0) {
+      this.service.setFormsSelectionOptions(this.forms);
+    }
   }
 
   private async loadForms() {
