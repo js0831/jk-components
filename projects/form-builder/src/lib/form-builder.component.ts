@@ -42,7 +42,9 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   isEdit = false;
   isEditForm = false;
   show = false;
+  mode: 'edit' | 'preview' = 'edit';
   private savedFields: FormlyFieldConfig[];
+  private beforePreviewFields: FormlyFieldConfig[];
 
   constructor(
     private service: FormBuilderService
@@ -56,36 +58,15 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     this.backup();
 
     if (!this.editable) {
-      const forms = await this.loadForms(this.config.fields);
-      this.config.fields = forms as FormlyFieldConfig[];
-      console.log(forms);
+      this.loadForms();
     }
 
     this.show = true;
   }
 
-  async loadForms(fields) {
-    const all = fields.map( async (x) => {
-
-      if (x.type !== 'form') {
-        if (x.fieldGroup && x.fieldGroup.length > 0) {
-          x.fieldGroup = await this.loadForms(x.fieldGroup);
-          return x;
-        } else {
-          return x;
-        }
-      } else {
-        const formJson = await this.getFormSchema(x.templateOptions.id);
-        formJson[0].className =  x.className;
-        return formJson[0];
-      }
-    });
-    return Promise.all(all);
-  }
-
-  async getFormSchema(id) {
-    const test =  await this.service.getFormById(id).toPromise();
-    return (test as any).data.json;
+  private async loadForms() {
+    const forms = await this.service.loadForms(this.config.fields);
+    this.config.fields = forms as FormlyFieldConfig[];
   }
 
   private backup() {
@@ -290,9 +271,28 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   }
 
   reset() {
+    this.mode = 'edit';
     this.show = false;
     this.config.fields = this.savedFields;
     this.reloadForm();
+  }
+
+  async setMode(mode: 'edit' | 'preview') {
+    if (this.mode === mode) { return; }
+    this.mode = mode;
+    this.show = false;
+
+    if (mode === 'preview') {
+      this.beforePreviewFields = this.service.clone(this.config.fields);
+      await this.loadForms();
+    } else {
+      this.config.fields = this.service.clone(this.beforePreviewFields);
+    }
+    this.show = true;
+  }
+
+  modeButtonClass(mode: string) {
+    return this.mode === mode ? 'success' : 'secondary';
   }
 
   ngOnDestroy() {

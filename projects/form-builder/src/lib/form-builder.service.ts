@@ -75,4 +75,28 @@ export class FormBuilderService {
   clone(obj) {
     return JSON.parse(JSON.stringify(obj));
   }
+
+  async loadForms(fields) {
+    const all = fields.map( async (x) => {
+
+      if (x.type !== 'form') {
+        if (x.fieldGroup && x.fieldGroup.length > 0) {
+          x.fieldGroup = await this.loadForms(x.fieldGroup);
+          return x;
+        } else {
+          return x;
+        }
+      } else {
+        const formJson = await this.getFormSchema(x.templateOptions.id);
+        formJson[0].className =  x.className;
+        return formJson[0];
+      }
+    });
+    return Promise.all(all);
+  }
+
+  async getFormSchema(id) {
+    const test =  await this.getFormById(id).toPromise();
+    return (test as any).data.json;
+  }
 }
