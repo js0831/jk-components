@@ -16,6 +16,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   subs: Subscription[];
   activeTab: any;
   inputPath: string[];
+  allFieldsKeys: { key: string, id: string }[];
 
   constructor(
     private service: JkFormBuilderService,
@@ -32,6 +33,8 @@ export class EditorComponent implements OnInit, OnDestroy {
     return this.service.events.subscribe( x => {
       if (x.data && x.data.data) {
         this.inputPath = this.service.getInputOriginPath(x.data.data).reverse();
+        const allFields  = this.service.getFieldOrigin(x.data.data).fieldGroup;
+        this.allFieldsKeys = this.service.getAllFieldKeys(allFields);
         this.field = this.service.clone(x.data.data);
         this.buildForm();
       }
@@ -193,7 +196,17 @@ export class EditorComponent implements OnInit, OnDestroy {
         return false;
       }
     }
+
+    if (this.isFieldKeyAlreadyExist(key)) {
+      alert('Field key already exist');
+      return false;
+    }
     return true;
+  }
+
+  isFieldKeyAlreadyExist(key) {
+    const existingKey = this.allFieldsKeys.filter( x => x.key === key);
+    return existingKey.length > 0 && this.field.id !== existingKey[0].id;
   }
 
   private generateNewFieldClassName(layout) {

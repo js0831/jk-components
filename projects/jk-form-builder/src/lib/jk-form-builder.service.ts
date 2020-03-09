@@ -114,4 +114,33 @@ export class JkFormBuilderService {
   get formSelectionOptions(): FormTypeSelectionInterface[] {
     return this.formsOptions || [];
   }
+
+  getFieldOrigin(field) {
+    if (field.parent) {
+      return this.getFieldOrigin(field.parent);
+    } else {
+      return field;
+    }
+  }
+
+  getAllFieldKeys(fields): { key: string, id: string }[] {
+    let keys = [];
+    fields.forEach( x => {
+      if (x.key) {
+        keys.push({
+          key: x.key,
+          id: x.id
+        });
+      }
+      if (x.fieldGroup && x.fieldGroup.length > 0) {
+        const childKeys = this.getAllFieldKeys(x.fieldGroup);
+        keys = [
+          ...keys,
+          ...childKeys
+        ];
+      }
+    });
+
+    return keys;
+  }
 }

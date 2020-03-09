@@ -24,7 +24,7 @@ styles: [
       display: block;
     }
 
-    .card-header:hover jk-edit-input-button{
+    .card-header:hover ng-jk-edit-input-button{
       display:block;
     }
 
