@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { JkFormBuilderService } from '../../jk-form-builder.service';
-import { FormBuilderAction } from '../../interface/form-builder.actions';
+import { JkFormBuilderAction } from '../../interface/jk-form-builder.actions';
 
 @Component({
   selector: 'ng-jk-edit-input-button',
@@ -22,14 +22,14 @@ export class EditInputButtonComponent implements OnInit {
 
   edit(type) {
     if (type === 'field') {
-      this.service.dispatchAction(FormBuilderAction.EDIT_INPUT, {
+      this.service.dispatchAction(JkFormBuilderAction.EDIT_INPUT, {
         value: true,
         data: this.field
       });
       return;
     }
 
-    this.service.dispatchAction(FormBuilderAction.EDIT_FORM, {
+    this.service.dispatchAction(JkFormBuilderAction.EDIT_FORM, {
       value: true,
       data: this.field
     });

@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 import { JkFormBuilderService } from 'projects/jk-form-builder/src/lib/jk-form-builder.service';
 import { Subscription } from 'rxjs';
-import { FormBuilderAction } from 'projects/jk-form-builder/src/lib/interface/form-builder.actions';
+import { JkFormBuilderAction } from 'projects/jk-form-builder/src/lib/interface/jk-form-builder.actions';
 
 @Component({
   selector: 'ng-jk-editor-tabs',
@@ -41,7 +41,7 @@ export class EditorTabsComponent implements OnInit, OnDestroy {
   private watchInputTypeChange() {
     return this.service.events.subscribe( x => {
       switch (x.action) {
-        case FormBuilderAction.INPUT_TYPE_CHANGE:
+        case JkFormBuilderAction.INPUT_TYPE_CHANGE:
           this.appendDynamicTabs(x.data);
           break;
         default:

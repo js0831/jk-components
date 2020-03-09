@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { JkFormBuilderService } from '../../jk-form-builder.service';
-import { FormBuilderAction } from '../../interface/form-builder.actions';
+import { JkFormBuilderAction } from '../../interface/jk-form-builder.actions';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -116,7 +116,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   close() {
-    this.service.dispatchAction(FormBuilderAction.EDIT_INPUT, {
+    this.service.dispatchAction(JkFormBuilderAction.EDIT_INPUT, {
       value: false,
       data: null
     });
@@ -176,7 +176,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
 
     this.close();
-    this.service.dispatchAction(FormBuilderAction.UPDATE_INPUT, {
+    this.service.dispatchAction(JkFormBuilderAction.UPDATE_INPUT, {
       path: this.inputPath,
       field: this.field
     });

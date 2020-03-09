@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, Inject } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { CONSTANT } from 'projects/jk-form-builder/src/lib/interface/constant';
+import { CONSTANT } from 'projects/jk-form-builder/src/lib/interface/jk-constant';
 import { JkFormBuilderService } from 'projects/jk-form-builder/src/lib/jk-form-builder.service';
-import { FormBuilderAction } from 'projects/jk-form-builder/src/lib/interface/form-builder.actions';
-import { FormTypeSelectionInterface } from 'projects/jk-form-builder/src/lib/interface/form-type-selection.interface';
+import { JkFormBuilderAction } from 'projects/jk-form-builder/src/lib/interface/jk-form-builder.actions';
+import { JkFormTypeSelectionInterface } from 'projects/jk-form-builder/src/lib/interface/jk-form-type-selection.interface';
 import { FormBuilderConfigService } from 'projects/jk-form-builder/src/lib/config/form-builder-config.service';
 import { FormBuilderConfig } from 'projects/jk-form-builder/src/lib/config/form-builder.config';
 
@@ -23,7 +23,7 @@ export class EditorMainTabComponent implements OnInit, OnDestroy {
 
   inputTypes = this.service.clone(CONSTANT.inputTypes);
   formLoaded = true;
-  formSelectionOptions: FormTypeSelectionInterface[] = [];
+  formSelectionOptions: JkFormTypeSelectionInterface[] = [];
 
   constructor(
     private service: JkFormBuilderService,
@@ -55,7 +55,7 @@ export class EditorMainTabComponent implements OnInit, OnDestroy {
     const type = this.form.get('type');
     return type.statusChanges.subscribe( x => {
       this.formLoaded = false;
-      this.service.dispatchAction(FormBuilderAction.INPUT_TYPE_CHANGE, type.value);
+      this.service.dispatchAction(JkFormBuilderAction.INPUT_TYPE_CHANGE, type.value);
       this.updateFormControlDefaultValue();
       this.form.parent.get('validation').reset();
     });

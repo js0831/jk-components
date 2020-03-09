@@ -1,4 +1,4 @@
-export enum FormBuilderAction {
+export enum JkFormBuilderAction {
   INIT,
   EDIT_INPUT,
   UPDATE_INPUT,

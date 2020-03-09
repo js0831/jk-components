@@ -2,11 +2,11 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation, Input, Output, EventEm
 import { FormGroup } from '@angular/forms';
 import { JkFormBuilderService } from './jk-form-builder.service';
 import { Subscription, Observable } from 'rxjs';
-import { FormBuilderAction } from './interface/form-builder.actions';
-import { CONSTANT } from './interface/constant';
-import { FormBuilderConfig } from './interface/form-builder-config';
+import { JkFormBuilderAction } from './interface/jk-form-builder.actions';
+import { CONSTANT } from './interface/jk-constant';
+import { JkFormBuilderConfig } from './interface/jk-form-builder-config';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { FormTypeSelectionInterface } from './interface/form-type-selection.interface';
+import { JkFormTypeSelectionInterface } from './interface/jk-form-type-selection.interface';
 
 @Component({
   selector: 'ng-jk-form-builder',
@@ -17,9 +17,9 @@ import { FormTypeSelectionInterface } from './interface/form-type-selection.inte
 export class JkFormBuilderComponent implements OnInit, OnDestroy {
 
   @Input() editable = true;
-  @Input() config: FormBuilderConfig;
+  @Input() config: JkFormBuilderConfig;
   @Output() onsave: EventEmitter<FormlyFieldConfig[]> = new EventEmitter<FormlyFieldConfig[]>();
-  @Input() forms?: FormTypeSelectionInterface[];
+  @Input() forms?: JkFormTypeSelectionInterface[];
 
   private initialFields = [
     {
@@ -94,16 +94,16 @@ export class JkFormBuilderComponent implements OnInit, OnDestroy {
   private watchEvents() {
     return this.service.events.subscribe( x => {
       switch (x.action) {
-        case FormBuilderAction.EDIT_INPUT:
+        case JkFormBuilderAction.EDIT_INPUT:
           this.isEdit = x.data.value;
           break;
-        case FormBuilderAction.UPDATE_INPUT:
+        case JkFormBuilderAction.UPDATE_INPUT:
           this.updateInput(x.data);
           break;
-        case FormBuilderAction.EDIT_FORM:
+        case JkFormBuilderAction.EDIT_FORM:
           this.isEditForm = x.data.value;
           break;
-        case FormBuilderAction.APPLY_FORM_ACTION:
+        case JkFormBuilderAction.APPLY_FORM_ACTION:
           this.isEditForm = false;
           this.applyFormAction(x.data);
           break;

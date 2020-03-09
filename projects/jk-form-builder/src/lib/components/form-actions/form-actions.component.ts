@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { JkFormBuilderService } from '../../jk-form-builder.service';
-import { CONSTANT } from '../../interface/constant';
-import { FormBuilderAction } from '../../interface/form-builder.actions';
+import { CONSTANT } from '../../interface/jk-constant';
+import { JkFormBuilderAction } from '../../interface/jk-form-builder.actions';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -46,7 +46,7 @@ export class FormActionsComponent implements OnInit, OnDestroy {
   }
 
   close() {
-    this.service.dispatchAction(FormBuilderAction.EDIT_FORM, {
+    this.service.dispatchAction(JkFormBuilderAction.EDIT_FORM, {
       value: false,
       data: null
     });
@@ -59,7 +59,7 @@ export class FormActionsComponent implements OnInit, OnDestroy {
   apply() {
     if (!this.selectedAction) {return; }
 
-    this.service.dispatchAction(FormBuilderAction.APPLY_FORM_ACTION, {
+    this.service.dispatchAction(JkFormBuilderAction.APPLY_FORM_ACTION, {
       field: this.field,
       action: this.selectedAction.id
     });

@@ -1,10 +1,10 @@
 import { Injectable, EventEmitter, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { FormBuilderEvent } from './interface/form-builder-event.interface';
-import { FormBuilderAction } from './interface/form-builder.actions';
-import { CONSTANT } from './interface/constant';
-import { FormTypeSelectionInterface } from './interface/form-type-selection.interface';
+import { JkFormBuilderEvent } from './interface/jk-form-builder-event.interface';
+import { JkFormBuilderAction } from './interface/jk-form-builder.actions';
+import { CONSTANT } from './interface/jk-constant';
+import { JkFormTypeSelectionInterface } from './interface/jk-form-type-selection.interface';
 import { FormBuilderConfigService } from './config/form-builder-config.service';
 import { FormBuilderConfig } from './config/form-builder.config';
 
@@ -13,10 +13,10 @@ import { FormBuilderConfig } from './config/form-builder.config';
 })
 export class JkFormBuilderService {
 
-  private formsOptions: FormTypeSelectionInterface[];
+  private formsOptions: JkFormTypeSelectionInterface[];
 
-  private pevent: BehaviorSubject<FormBuilderEvent> = new BehaviorSubject<FormBuilderEvent>({
-    action: FormBuilderAction.INIT
+  private pevent: BehaviorSubject<JkFormBuilderEvent> = new BehaviorSubject<JkFormBuilderEvent>({
+    action: JkFormBuilderAction.INIT
   });
 
   constructor(
@@ -24,14 +24,14 @@ export class JkFormBuilderService {
     @Inject(FormBuilderConfigService) private config: FormBuilderConfig,
   ) { }
 
-  dispatchAction(action: FormBuilderAction, data?: any) {
+  dispatchAction(action: JkFormBuilderAction, data?: any) {
     this.pevent.next({
       action,
       data,
     });
   }
 
-  get events(): Observable<FormBuilderEvent> {
+  get events(): Observable<JkFormBuilderEvent> {
     return new Observable( a => {
       this.pevent.subscribe( b => {
         a.next(b);
@@ -107,11 +107,11 @@ export class JkFormBuilderService {
     return (test as any).data.json;
   }
 
-  setFormsSelectionOptions(options: FormTypeSelectionInterface[]) {
+  setFormsSelectionOptions(options: JkFormTypeSelectionInterface[]) {
     this.formsOptions = options;
   }
 
-  get formSelectionOptions(): FormTypeSelectionInterface[] {
+  get formSelectionOptions(): JkFormTypeSelectionInterface[] {
     return this.formsOptions || [];
   }
 
