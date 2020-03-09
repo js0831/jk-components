@@ -4,7 +4,7 @@ import { JkAlertService } from 'projects/jk-alert/src/public-api';
 import { FormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { PrompType } from 'projects/jk-alert/src/lib/components/prompt/prompt-type.enum';
-import { FormBuilderConfig } from 'projects/form-builder/src/lib/interface/form-builder-config';
+import { FormBuilderConfig } from 'projects/jk-form-builder/src/lib/interface/form-builder-config';
 
 @Component({
   selector: 'app-root',

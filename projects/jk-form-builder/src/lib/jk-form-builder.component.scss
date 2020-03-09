@@ -1,0 +1,71 @@
+.form-row{
+  position:relative;
+
+  label.required{
+    &:after{
+      content: "*";
+      color: red;
+      display: inline-block;
+      margin-left: 5px;
+    }
+  }
+}
+.form-row:hover:before{
+  box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.7);
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: -6px;
+  left: 0;
+  border-radius: 5px;
+}
+
+.ng-invalid.ng-touched{
+  border-color:#dc3545;
+}
+
+.buttons{
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  button:last-child {
+    margin-left: 5px;
+  }
+
+  span{
+    display: inline-block;
+    margin: 0 10px;
+    color: #9e9e9e;
+    height: 20px;
+    background: #9e9e9e;
+    width: 1px;
+  }
+}
+
+.view, .preview{
+  ng-jk-edit-input-button{
+    display: none !important;
+  }
+  ng-jk-blank, ng-jk-textarea, ng-jk-select-multiple,
+  ng-jk-radio, ng-jk-checkbox, ng-jk-checkboxes, ng-jk-text-paragraph,
+  ng-jk-text-header, ng-jk-input, ng-jk-select {
+    border: none;
+
+    &:hover{
+      box-shadow: unset;
+      background: transparent;
+      border-color: none;
+    }
+  }
+  formly-group{
+    &:hover{
+      &:before{
+        display: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+.options{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-bottom: 1px dashed #eee;
+
+  &:first-child{
+    font-weight: 500;
+    background: #f7f7f7;
+
+    button{
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+  > div{
+    flex:1;
+  }
+}
+
+input{
+  width: 98%;
+}
+
+.remove-btn,.add-btn {
+  background: transparent;
+  border:none;
+  cursor: pointer;
+  font-size: 18px;
+}

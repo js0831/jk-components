@@ -54,6 +54,12 @@
       ],
       "form-builder/*": [
         "dist/form-builder/*"
+      ],
+      "jk-form-builder": [
+        "dist/jk-form-builder"
+      ],
+      "jk-form-builder/*": [
+        "dist/jk-form-builder/*"
       ]
     }
   },

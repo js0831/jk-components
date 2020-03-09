@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IloginButtonModule } from 'projects/ilogin-button/src/public-api';
 import { FormBuilderModule } from 'projects/form-builder/src/public-api';
+import { JkFormBuilderModule } from 'projects/jk-form-builder/src/public-api';
 
 const waitConfig: WaitConfig = {
   type: 'SPINNER',
@@ -28,11 +29,14 @@ const waitConfig: WaitConfig = {
     AppRoutingModule,
     JkWaitModule.forRoot(waitConfig),
     JkAlertModule,
-    FormlyBuilderModule,
+    // FormlyBuilderModule,
     IloginButtonModule.forRoot({
       appId: '5e15a157522bc3d4a4a0329b'
     }),
-    FormBuilderModule.forRoot({
+    // FormBuilderModule.forRoot({
+    //   apiURL: 'https://app-form-builder-poc-api.herokuapp.com/form/'
+    // }),
+    JkFormBuilderModule.forRoot({
       apiURL: 'https://app-form-builder-poc-api.herokuapp.com/form/'
     })
   ],

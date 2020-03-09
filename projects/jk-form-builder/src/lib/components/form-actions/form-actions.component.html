@@ -1,0 +1,33 @@
+<div
+  class="modal"
+  id="staticBackdrop"
+  data-backdrop="static"
+  role="dialog">
+
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Form Action</h5>
+
+        <button (click)="close()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="actions">
+          <div *ngFor="let action of formActions">
+            <button
+              (click)="selectAction(action)"
+              [ngClass]="{'selected': selectedAction && selectedAction.id === action.id}">{{action.label}}</button>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button (click)="close()" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" [disabled]="!selectedAction" (click)="apply()">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>

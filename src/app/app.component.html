@@ -14,10 +14,10 @@
     (onsave)="onSave($event)"
 ></jk-formly-builder> -->
 
-<jk-form-builder
+<ng-jk-form-builder
   (onsave)="save($event)"
   [config]="formBuilderConfig"
   [forms]="formsList"
-></jk-form-builder>
+></ng-jk-form-builder>
 
 <!-- {{formBuilderConfig.form.value | json}} -->

@@ -1,0 +1,22 @@
+<ng-jk-editor *ngIf="isEdit && editable"></ng-jk-editor>
+<ng-jk-form-actions *ngIf="isEditForm && editable"></ng-jk-form-actions>
+
+<formly-form
+  [ngClass]="{'view' : !editable, 'preview' : mode === 'preview'}"
+  *ngIf="config && show"
+  [model]="config.model"
+  [fields]="config.fields"
+  [form]="config.form"
+  [options]="config.options"
+></formly-form>
+
+<div class="div buttons" *ngIf="editable">
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-{{modeButtonClass('preview')}}" (click)="setMode('preview')">Preview</button>
+    <button type="button" class="btn btn-{{modeButtonClass('edit')}}" (click)="setMode('edit')">Edit</button>
+  </div>
+  <span></span>
+  <button type="button" class="btn btn-secondary" (click)="reset()">Reset</button>
+  <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+</div>
+

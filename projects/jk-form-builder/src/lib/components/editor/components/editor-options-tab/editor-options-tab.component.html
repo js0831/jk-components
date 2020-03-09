@@ -1,0 +1,40 @@
+<div class="options">
+  <div>
+    ID
+  </div>
+  <div>
+    Label
+  </div>
+  <button class="add-btn">
+    <i class="fa fa-minus-circle"></i>
+  </button>
+</div>
+<div class="options">
+  <div>
+    <input type="text" [(ngModel)]="id" class="form-control form-control-sm">
+  </div>
+  <div>
+    <input type="text" [(ngModel)]="label" class="form-control form-control-sm">
+  </div>
+  <button (click)="add()" class="add-btn">
+    <i class="fa fa-plus-square"></i>
+  </button>
+</div>
+<div class="options" *ngFor="let option of form.value;let i = index">
+  <div>
+    {{option.id}}
+  </div>
+  <div>
+    {{option.label}}
+  </div>
+
+  <button (click)="remove(i)" class="remove-btn">
+    <i class="fa fa-minus-circle"></i>
+  </button>
+
+    <!-- <input type="text" [readonly]="true" placeholder="value" formControlName="id" >
+    <input type="text" [readonly]="true" placeholder="label" formControlName="label" > -->
+    <!-- <button (click)="deleteOption(i)" *ngIf="form.value.length !== (i+1)">x</button>
+    <button (click)="addOption()" *ngIf="form.value.length === (i+1)">+</button> -->
+</div>
+
