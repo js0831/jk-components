@@ -28,7 +28,7 @@ styles: [
       display:block;
     }
 
-    jk-edit-input-button{
+    ng-jk-edit-input-button{
       display:none;
     }
   `

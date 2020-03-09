@@ -29,11 +29,11 @@ import { FieldType } from '@ngx-formly/core';
       background: rgba(99, 255, 60, 0.4);
     }
 
-    :host:hover jk-edit-input-button{
+    :host:hover ng-jk-edit-input-button{
       display:block;
     }
 
-    jk-edit-input-button{
+    ng-jk-edit-input-button{
       display:none;
     }
 
