@@ -26,15 +26,16 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       fieldGroupClassName: 'form-row',
       fieldGroup: [
         {
-          type: 'form',
-          className: 'form-group col-md-6',
-          templateOptions: {
-            id: '5e609dccc97b160017499b85'
-          }
+          type: 'blank',
+          className: 'form-group col-md-4'
         },
         {
           type: 'blank',
-          className: 'form-group col-md-6'
+          className: 'form-group col-md-4'
+        },
+        {
+          type: 'blank',
+          className: 'form-group col-md-4'
         },
       ]
     }
@@ -86,7 +87,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   private putInitialFields() {
     if (this.config && (!this.config.fields || this.config.fields.length === 0)) {
-      this.config.fields = this.initialFields;
+      this.config.fields = this.service.clone(this.initialFields);
     }
   }
 
@@ -149,9 +150,29 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   private deleteInput(field) {
     const parent = field.parent;
+    const className = field.className;
+
+
+    // Note: Delete row instead of column when one column remaining
+    if (parent.parent.fieldGroup.length > 1 && parent.fieldGroup.length === 1) {
+      this.deleteRow(field);
+      return;
+    }
+
     parent.fieldGroup = parent.fieldGroup.filter( x => {
       return x.id !== field.id;
     });
+
+
+    // Note: Append blank column to avoid empty form
+    if (parent.parent.fieldGroup.length === 1 && parent.fieldGroup.length === 0) {
+      parent.fieldGroup = [
+        {
+          type: 'blank',
+          className,
+        }
+      ];
+    }
   }
 
   private insertRow(field) {
@@ -166,6 +187,10 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     this.config.fields = this.config.fields.filter( x => {
       return x.id !== field.parent.id;
     });
+
+    if ( this.config.fields.length === 0) {
+      this.config.fields = this.service.clone(this.initialFields);
+    }
   }
 
   private duplicate(what: 'column' | 'row', field) {
