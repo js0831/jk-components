@@ -1,10 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, Inject } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CONSTANT } from 'projects/form-builder/src/lib/interface/constant';
 import { FormBuilderService } from 'projects/form-builder/src/lib/form-builder.service';
 import { FormBuilderAction } from 'projects/form-builder/src/lib/interface/form-builder.actions';
 import { FormTypeSelectionInterface } from 'projects/form-builder/src/lib/interface/form-type-selection.interface';
+import { FormBuilderConfigService } from 'projects/form-builder/src/lib/config/form-builder-config.service';
+import { FormBuilderConfig } from 'projects/form-builder/src/lib/config/form-builder.config';
 
 
 @Component({
@@ -19,13 +21,14 @@ export class EditorMainTabComponent implements OnInit, OnDestroy {
   private initialDefaultValueForm: any;
   private initialFieldType: string;
 
-  inputTypes = CONSTANT.inputTypes;
+  inputTypes = this.service.clone(CONSTANT.inputTypes);
   formLoaded = true;
   formSelectionOptions: FormTypeSelectionInterface[] = [];
 
   constructor(
     private service: FormBuilderService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    @Inject(FormBuilderConfigService) private config: FormBuilderConfig,
   ) {
     //
   }
@@ -38,6 +41,10 @@ export class EditorMainTabComponent implements OnInit, OnDestroy {
     this.initialFieldType = this.form.value.type;
 
     this.formSelectionOptions = this.service.formSelectionOptions;
+
+    if (!this.allowFormSelection()) {
+      this.inputTypes.others.fields = this.inputTypes.others.fields.filter( x => x.value !== 'form');
+    }
   }
 
   get inputTypeGroups() {
@@ -60,6 +67,13 @@ export class EditorMainTabComponent implements OnInit, OnDestroy {
 
   isWith(what) {
     return this.service.isWith(what, this.form.value.type);
+  }
+
+
+  allowFormSelection() {
+    const withOptions = ( this.formSelectionOptions && this.formSelectionOptions.length > 0 );
+    const withAPI = this.config.apiURL && this.config.apiURL.length > 0;
+    return withOptions && withAPI;
   }
 
   private updateFormControlDefaultValue() {

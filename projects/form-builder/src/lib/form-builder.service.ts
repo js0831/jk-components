@@ -1,10 +1,12 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { FormBuilderEvent } from './interface/form-builder-event.interface';
 import { FormBuilderAction } from './interface/form-builder.actions';
 import { CONSTANT } from './interface/constant';
 import { FormTypeSelectionInterface } from './interface/form-type-selection.interface';
+import { FormBuilderConfigService } from './config/form-builder-config.service';
+import { FormBuilderConfig } from './config/form-builder.config';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,8 @@ export class FormBuilderService {
   });
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    @Inject(FormBuilderConfigService) private config: FormBuilderConfig,
   ) { }
 
   dispatchAction(action: FormBuilderAction, data?: any) {
@@ -37,7 +40,8 @@ export class FormBuilderService {
   }
 
   getFormById(id): Observable<any> {
-    return this.http.get('https://app-form-builder-poc-api.herokuapp.com/form/' + id);
+    // https://app-form-builder-poc-api.herokuapp.com/form/
+    return this.http.get(this.config.apiURL + id);
   }
 
   isWith(what, type) {

@@ -32,7 +32,9 @@ const waitConfig: WaitConfig = {
     IloginButtonModule.forRoot({
       appId: '5e15a157522bc3d4a4a0329b'
     }),
-    FormBuilderModule
+    FormBuilderModule.forRoot({
+      apiURL: 'https://app-form-builder-poc-api.herokuapp.com/form/'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
