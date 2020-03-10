@@ -1,7 +1,7 @@
-import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
-import { JkFormBuilderService } from 'projects/jk-form-builder/src/lib/jk-form-builder.service';
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core'; 
 import { Subscription } from 'rxjs';
-import { JkFormBuilderAction } from 'projects/jk-form-builder/src/lib/interface/jk-form-builder.actions';
+import { JkFormBuilderService } from '../../../../jk-form-builder.service';
+import { JkFormBuilderAction } from '../../../../interface/jk-form-builder.actions';
 
 @Component({
   selector: 'ng-jk-editor-tabs',

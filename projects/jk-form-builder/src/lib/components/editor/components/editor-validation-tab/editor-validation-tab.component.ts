@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { JkFormBuilderService } from 'projects/jk-form-builder/src/lib/jk-form-builder.service';
+import { JkFormBuilderService } from '../../../../jk-form-builder.service';
 
 @Component({
   selector: 'ng-jk-editor-validation-tab',

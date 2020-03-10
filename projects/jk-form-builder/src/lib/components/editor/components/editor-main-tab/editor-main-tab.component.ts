@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, Inject } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { CONSTANT } from 'projects/jk-form-builder/src/lib/interface/jk-constant';
-import { JkFormBuilderService } from 'projects/jk-form-builder/src/lib/jk-form-builder.service';
-import { JkFormBuilderAction } from 'projects/jk-form-builder/src/lib/interface/jk-form-builder.actions';
-import { JkFormTypeSelectionInterface } from 'projects/jk-form-builder/src/lib/interface/jk-form-type-selection.interface';
-import { FormBuilderConfigService } from 'projects/jk-form-builder/src/lib/config/form-builder-config.service';
-import { FormBuilderConfig } from 'projects/jk-form-builder/src/lib/config/form-builder.config';
+import { CONSTANT } from '../../../../interface/jk-constant';
+import { JkFormBuilderService } from '../../../../jk-form-builder.service';
+import { FormBuilderConfig } from '../../../../config/form-builder.config';
+import { JkFormBuilderAction } from '../../../../interface/jk-form-builder.actions';
+import { JkFormTypeSelectionInterface } from '../../../../interface/jk-form-type-selection.interface';
+import { FormBuilderConfigService } from '../../../../config/form-builder-config.service';
 
 
 @Component({
