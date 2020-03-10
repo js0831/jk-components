@@ -23,15 +23,7 @@ export class AppComponent implements OnInit {
   customFormBuilderConfig: JkFormBuilderConfig = {
     model: {},
     form: new FormGroup({}),
-    fields: [{
-      type: 'input',
-      key: 'test',
-      id: 'test',
-      templateOptions: {
-        type: 'text',
-        label: 'test'
-      }
-    }],
+    fields: [],
     options: {}
   };
 
@@ -83,6 +75,10 @@ export class AppComponent implements OnInit {
     //     alert(xy.value);
     //   });
     // });
+
+    setTimeout( x => {
+      this.formBuilderConfig.fields = [{"fieldGroupClassName":"form-row","fieldGroup":[{"type":"formly-group","className":"form-group col-md-12","id":"formly_4_blank__0","hooks":{},"modelOptions":{},"templateOptions":{"label":"Details","placeholder":"","disabled":false},"wrappers":["form-group"],"key":"details","defaultValue":{},"fieldGroup":[{"fieldGroupClassName":"form-row","fieldGroup":[{"type":"input","className":"form-group col-md-4","id":"formly_17_blank__0","hooks":{},"modelOptions":{},"templateOptions":{"label":"Name","required":true,"minLength":null,"maxLength":null,"max":null,"min":null,"type":"text","placeholder":"","disabled":false},"wrappers":[],"key":"name","defaultValue":"",},{"type":"textarea","className":"form-group col-md-8","id":"formly_17_blank__1","hooks":{},"modelOptions":{},"templateOptions":{"label":"Description","required":null,"minLength":null,"maxLength":null,"max":null,"min":null,"placeholder":"","disabled":false},"wrappers":[],"key":"description","defaultValue":"",}],"id":"formly_14___0","hooks":{},"modelOptions":{},"templateOptions":{},"type":"formly-group","defaultValue":{},"wrappers":[]}],}],"id":"formly_1___0","hooks":{},"modelOptions":{},"templateOptions":{},"type":"formly-group","defaultValue":{},"wrappers":[]}];
+    }, 1000);
   }
 
   onsuccess(e) {

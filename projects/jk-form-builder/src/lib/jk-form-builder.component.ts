@@ -12,7 +12,8 @@ import { JkFormTypeSelectionInterface } from './interface/jk-form-type-selection
   selector: 'ng-jk-form-builder',
   encapsulation: ViewEncapsulation.None,
   templateUrl: 'jk-form-builder.component.html',
-  styleUrls: ['jk-form-builder.component.scss']
+  styleUrls: ['jk-form-builder.component.scss'],
+  providers: [ JkFormBuilderService ]
 })
 export class JkFormBuilderComponent implements OnInit, OnDestroy {
 

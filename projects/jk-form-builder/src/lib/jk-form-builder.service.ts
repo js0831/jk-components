@@ -8,9 +8,7 @@ import { JkFormTypeSelectionInterface } from './interface/jk-form-type-selection
 import { FormBuilderConfigService } from './config/form-builder-config.service';
 import { FormBuilderConfig } from './config/form-builder.config';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class JkFormBuilderService {
 
   private formsOptions: JkFormTypeSelectionInterface[];
