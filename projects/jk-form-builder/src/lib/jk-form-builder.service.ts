@@ -68,7 +68,9 @@ export class JkFormBuilderService {
     let fieldHolder = fields;
     path.forEach( (x, i) => {
       const field = this.getFieldById(x, fieldHolder);
-      fieldHolder = path.length === (i + 1) ? field : (field.fieldGroup || field);
+      if (field) {
+        fieldHolder = path.length === (i + 1) ? field : (field.fieldGroup || field);
+      }
     });
     return fieldHolder;
   }

@@ -20,6 +20,22 @@ export class AppComponent implements OnInit {
     options: {}
   };
 
+  customFormBuilderConfig: JkFormBuilderConfig = {
+    model: {},
+    form: new FormGroup({}),
+    fields: [{
+      type: 'input',
+      key: 'test',
+      id: 'test',
+      templateOptions: {
+        type: 'text',
+        label: 'test'
+      }
+    }],
+    options: {}
+  };
+
+
   formsList = [{name: 'Name A', id: '5e609dccc97b160017499b85'}, {name: 'Name B', id: 'B123'}];
 
   save(e) {
