@@ -165,6 +165,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         }
       };
     } else {
+      const fieldGroup = this.field.fieldGroup;
       this.field = {
         wrappers: ['form-group'],
         className: this.generateNewFieldClassName(layout),
@@ -174,6 +175,12 @@ export class EditorComponent implements OnInit, OnDestroy {
         },
         type: 'formly-group',
       };
+      if (fieldGroup) {
+        this.field = {
+          ...this.field,
+          fieldGroup
+        };
+      }
     }
 
     this.close();
