@@ -7,7 +7,7 @@ import { FieldType } from '@ngx-formly/core';
   <!-- add class form-check-inline for inline-->
   <label *ngIf="to.label" [ngClass]="{'required': to.required}">{{to.label}}</label>
   <div class="form-check" *ngFor="let o of to.options">
-    <input [id]="o.id" class="form-check-input" type="radio" [value]="o.id" [formControl]="formControl">
+    <input [id]="o.id" [name]="field.key" class="form-check-input" type="radio" [value]="o.id" [formControl]="formControl">
     <label [for]="o.id" class="form-check-label">
       {{o.label}}
     </label>
