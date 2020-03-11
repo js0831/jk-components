@@ -5,7 +5,7 @@ import { FieldType } from '@ngx-formly/core';
  selector: 'ng-jk-form',
  template: `
 
-  <p> FORM </p>
+  <p> {{to.label}} FORM </p>
 
   <ng-jk-edit-input-button
     [field]="field" [template]="to"

@@ -160,7 +160,8 @@ export class EditorComponent implements OnInit, OnDestroy {
         type: 'form',
         className: this.generateNewFieldClassName(layout),
         templateOptions: {
-          id: main.formId
+          id: main.formId,
+          label: this.service.formSelectionOptions.filter( x => x.id === main.formId)[0].name,
         }
       };
     } else {
