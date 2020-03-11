@@ -18,8 +18,9 @@ import { JkFormTypeSelectionInterface } from './interface/jk-form-type-selection
 export class JkFormBuilderComponent implements OnInit, OnDestroy {
 
   @Input() editable = true;
+  @Input() enableSaveReset = false;
   @Input() config: JkFormBuilderConfig;
-  @Output() onsave: EventEmitter<FormlyFieldConfig[]> = new EventEmitter<FormlyFieldConfig[]>();
+  @Output() event: EventEmitter<{name: string, data?: any}> = new EventEmitter<{name: string, data?: any}>();
   @Input() forms?: JkFormTypeSelectionInterface[];
 
   private initialFields = [
@@ -302,7 +303,10 @@ export class JkFormBuilderComponent implements OnInit, OnDestroy {
 
   save() {
     this.backup();
-    this.onsave.emit(this.config.fields);
+    this.event.emit({
+      name: 'SAVE',
+      data: this.service.clone(this.config.fields)
+    });
   }
 
   reset() {
@@ -316,6 +320,10 @@ export class JkFormBuilderComponent implements OnInit, OnDestroy {
     if (this.mode === mode) { return; }
     this.mode = mode;
     this.show = false;
+    this.event.emit({
+      name: 'MODE_CHANGE',
+      data: mode
+    });
 
     if (mode === 'preview') {
       this.beforePreviewFields = this.service.clone(this.config.fields);
