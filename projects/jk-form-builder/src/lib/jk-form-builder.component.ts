@@ -65,8 +65,9 @@ export class JkFormBuilderComponent implements OnInit, OnDestroy {
 
     if (!this.editable) {
       this.loadForms();
+    } else {
+      this.show = true;
     }
-    this.show = true;
   }
 
   // Note: selection options on form type
@@ -79,6 +80,7 @@ export class JkFormBuilderComponent implements OnInit, OnDestroy {
   private async loadForms() {
     const forms = await this.service.loadForms(this.config.fields);
     this.config.fields = forms as FormlyFieldConfig[];
+    this.show = true;
   }
 
   private backup() {
