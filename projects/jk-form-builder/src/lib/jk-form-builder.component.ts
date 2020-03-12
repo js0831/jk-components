@@ -80,6 +80,9 @@ export class JkFormBuilderComponent implements OnInit, OnDestroy {
   private async loadForms() {
     const forms = await this.service.loadForms(this.config.fields);
     this.config.fields = forms as FormlyFieldConfig[];
+    this.event.emit({
+      name: 'FORM_LOADED'
+    });
     this.show = true;
   }
 
